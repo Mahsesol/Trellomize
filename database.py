@@ -209,7 +209,9 @@ class Database:
         self.conn.execute(query, (user_id,))
         self.conn
 
-
+    def get_project(self, project_id):
+        query = "SELECT * FROM projects WHERE id =?"
+        return self.conn.execute(query, (project_id,)).fetchone()
 
 
 
