@@ -4,6 +4,7 @@ class Project:
         self.project_name = project_name
         self.leader_id = leader_id
         self.members = members if members is not None else []
+        self.tasks = []
 
 
    

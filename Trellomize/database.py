@@ -118,7 +118,7 @@ class Database:
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         self.conn.execute(query, (
             task.task_id, task.project_id, task.title, task.description, task.start_datetime.isoformat(),
-            task.end_datetime.isoformat(), task.priority.value, task.status.value))
+            task.end_datetime.isoformat(), task.priority, task.status))
 
         query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
         for assignee in task.assignees:

@@ -152,6 +152,24 @@ class Task:
 
 
 
+   
+
+    def to_dict(self):
+        assignees = ", ".join(map(str, self.assignees))
+        comments = [comment.to_dict() for comment in self.comments]
+        return {
+            "task_id": self.task_id,
+            "project_id": self.project_id,
+            "title": self.title,
+            "description": self.description,
+            "start_datetime": self.start_datetime.strftime("%Y-%m-%d %H:%M:%S"),
+            "end_datetime": self.end_datetime.strftime("%Y-%m-%d %H:%M:%S"),
+            "priority": self.priority.name,
+            "status": self.status.name,
+            "assignees": assignees,
+            "history": self.history,
+            "comments": comments
+        }
 
 
 

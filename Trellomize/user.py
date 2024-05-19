@@ -79,5 +79,13 @@ class User:
         """Return a string representation of the user."""
         return f"User(user_id={self.user_id}, username='{self.username}', is_admin={self.is_admin}, is_active={self.is_active})"
 
-
-    # Add more user-related methods here
+    def to_dict(self):
+        """Return a dictionary representation of the user."""
+        return {
+            "user_id": self.user_id,
+            "username": self.username,
+            "is_admin": self.is_admin,
+            "is_active": self.is_active,
+            "projects": [project.project_id for project in self.projects]
+        }
+  

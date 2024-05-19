@@ -32,3 +32,11 @@ class Comment:
     
     def set_timestamp(self, timestamp):
         self.timestamp = timestamp
+
+
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "content": self.content,
+            "timestamp": self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        }
