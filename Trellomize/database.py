@@ -5,6 +5,8 @@ from project import Project
 from user import User
 from datetime import datetime
 import uuid
+from flet import *
+from task import *
 
 
 
@@ -117,18 +119,16 @@ class Database:
         query = """INSERT INTO tasks (id, project_id, title, description, start_datetime, end_datetime, priority, status) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         self.conn.execute(query, (
-            task.task_id, task.project_id, task.title, task.description, task.start_datetime.isoformat(),
-            task.end_datetime.isoformat(), task.priority, task.status))
+            task.get_task_id(), task.get_project_id(), task.get_title(), task.get_description(), task.get_start_datetime().isoformat(),
+            task.get_end_datetime().isoformat(), task.get_priority(), task.get_status()))
 
         query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
-        for assignee in task.assignees:
-            self.conn.execute(query, (task.task_id, assignee))
+        for assignee in task.get_assignees():
+            self.conn.execute(query, (task.get_task_id(), assignee))
 
         self.conn.commit()
 
-    def get_project_tasks(self, project_id):
-        query = "SELECT * FROM tasks WHERE project_id = ?"
-        return self.conn.execute(query, (project_id,)).fetchall()
+
 
     def add_comment(self, task_id, username, content):
         timestamp = datetime.now().isoformat()
@@ -137,9 +137,10 @@ class Database:
         self.conn.commit()
 
     def get_task_comments(self, task_id):
-        query = "SELECT * FROM comments WHERE task_id = ?"
-        return self.conn.execute(query, (task_id,)).fetchall()
-
+        query = "SELECT username, content, timestamp FROM comments WHERE task_id = ?"
+        results = self.conn.execute(query, (task_id,)).fetchall()
+        return [Comment(username=row[0], content=row[1], timestamp=row[2]) for row in results]
+    
     def add_task_history(self, task_id, action, author):
         timestamp = datetime.now().isoformat()
         query = "INSERT INTO task_history (task_id, action, timestamp, author) VALUES (?, ?, ?, ?)"
@@ -195,8 +196,10 @@ class Database:
     def get_user_by_username(self, username):
         query = "SELECT * FROM users WHERE username=?"
         result = self.conn.execute(query, (username,)).fetchone()
+        projects = self.get_user_project_member(result[0])
+        projects.append(self.get_user_project_leader(result[0]))
         if result:
-            return User(result[0], result[1], result[2], result[3], result[4], result[5])
+            return User(result[0], result[1], result[2], result[3], result[5], result[4],projects)
         else:
             return None
 
@@ -234,13 +237,134 @@ class Database:
             return None
         
     def get_project_member_ids(self, project_id):
-        query = "SELECT user_id FROM project_members WHERE project_id=?"
-        return [member_id for member_id in self.conn.execute(query, (project_id,)).fetchall()]
+       query = "SELECT user_id FROM project_members WHERE project_id=?"
+       return [row[0] for row in self.conn.execute(query, (project_id,)).fetchall()]  # Extract user_id from each row
+
 
     def get_user_by_id(self, user_id):
-        query = "SELECT username FROM users WHERE id=?"
-        username = self.conn.execute(query, (user_id,)).fetchone()[0]
-        return User(user_id, username)
+        query = "SELECT * FROM users WHERE id=?"
+        result = self.conn.execute(query, (user_id,)).fetchone()
+        if result:
+            return User(result[0], result[1], result[2], result[3], result[5], result[4])
+        else:
+            return None
+    
+    def get_project_members(self, project_id):
+       query = "SELECT user_id FROM project_members WHERE project_id=?"
+       member_ids = [member_id for member_id, in self.conn.execute(query, (project_id,)).fetchall()]
+
+       members = []
+       for member_id in member_ids:
+          user = self.get_user_by_id(member_id)
+          members.append(user)
+
+       return members
+    
+    def get_current_user_id(self, page):
+        username = page.session.get("username")
+        user = self.get_user_by_username(username)
+        return user.get_id()
+    
+    def get_current_user_username(self, page):
+        username = page.session.get("username")
+        user = self.get_user_by_username(username)
+        return user.get_username()
+
+    def get_current_user(self, page):
+        username = page.session.get("username")
+        return self.get_user_by_username(username)
+        
+
+    
+    def remove_project_member(self, project_id, member_id):
+        query = "DELETE FROM project_members WHERE project_id=? AND user_id=?"
+        self.conn.execute(query, (project_id, member_id))
+        self.conn.commit()
+
+    def get_task_assignees(self, task_id):
+        query = "SELECT user_id FROM task_assignees WHERE task_id=?"
+        assignee_ids = [row[0] for row in self.conn.execute(query, (task_id,)).fetchall()]  # Extract user_id from each row
+
+        # assignees = []
+        # for assignee_id in assignee_ids:
+        #     user = self.get_user_by_id(assignee_id)
+        #     assignees.append(user)
+
+        return assignee_ids
+
+
+
+
+    def get_project_tasks(self, project_id):
+        query = "SELECT * FROM tasks WHERE project_id = ?"
+        result = self.conn.execute(query, (project_id,)).fetchall()
+
+        tasks = []
+        for row in result:
+            task_id = row[0]
+            project_id = row[1]
+            title = row[2]
+            description = row[3]
+            start_datetime = datetime.strptime(row[4], "%Y-%m-%dT%H:%M:%S")
+            end_datetime = datetime.strptime(row[5], "%Y-%m-%dT%H:%M:%S")
+            priority = Priority(row[6])
+            status = Status(row[7])
+            assignees = self.get_task_assignees(task_id)
+            task = Task(task_id=task_id, project_id=project_id, title=title, description=description, priority=priority, status=status, assignees=assignees, start_datetime=start_datetime, end_datetime=end_datetime)
+            tasks.append(task)
+
+        return tasks
+    
+    def get_task(self, task_id):
+        query = "SELECT * FROM tasks WHERE id=?"
+        result = self.conn.execute(query, (task_id,)).fetchone()
+
+        if result:
+            project_id = result[1]
+            title = result[2]
+            description = result[3]
+            start_datetime = datetime.strptime(result[4], "%Y-%m-%dT%H:%M:%S")
+            end_datetime = datetime.strptime(result[5], "%Y-%m-%dT%H:%M:%S")
+            priority = Priority(result[6])
+            status = Status(result[7])
+            assignees = self.get_task_assignees(task_id)
+
+            task = Task(task_id=task_id, project_id=project_id, title=title, description=description, priority=priority, status=status, assignees=assignees, start_datetime=start_datetime, end_datetime=end_datetime)
+            return task
+        else:
+            return None
+        
+    def get_current_user(self, page):
+        username = page.session.get("username")
+        return self.get_user_by_username(username)
+    
+    def get_user_project_member(self, user_id):
+        query = "SELECT project_id FROM project_members WHERE user_id = ?"
+        project_ids = [result[0] for result in self.conn.execute(query, (user_id,)).fetchall()]
+        projects = [self.get_project(project_id) for project_id in project_ids]
+        return projects
+    
+
+    def get_user_project_leader(self, user_id):
+        query = "SELECT * FROM projects WHERE leader_id = ?"
+        results = self.conn.execute(query, (user_id,)).fetchall()
+        projects = [Project(result[0], result[2], result[1]) for result in results]
+        return projects
+    
+    def add_assignee(self, task_id, user_id):
+        query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
+        self.conn.execute(query, (task_id, user_id))
+        self.conn.commit()
+
+    def remove_assignee(self, task_id, user_id):
+        query = "DELETE FROM task_assignees WHERE task_id=? AND user_id=?"
+        self.conn.execute(query, (task_id, user_id))
+        self.conn.commit()
+
+    def change_status(self, task_id, new_status):
+        query = "UPDATE tasks SET status=? WHERE id=?"
+        self.conn.execute(query, (new_status, task_id))
+        self.conn.commit()
 
 
 # DB_FILE = 'database.db'

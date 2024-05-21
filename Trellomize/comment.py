@@ -1,10 +1,10 @@
 from datetime import datetime
 
 class Comment:
-    def __init__(self, username, content):
+    def __init__(self, username, content, timestamp=None):
         self.username = username
         self.content = content
-        self.timestamp = datetime.now()
+        self.timestamp = timestamp if timestamp else datetime.now()
 
     def __str__(self):
         return f"{self.username} ({self.timestamp}): {self.content}"

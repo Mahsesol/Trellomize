@@ -1,8 +1,9 @@
 class User:
-    def __init__(self, user_id, username, password, is_admin=False, is_active=True, projects=None):
+    def __init__(self, user_id, username, password, email, is_admin=False, is_active=True, projects=None):
         self.user_id = user_id
         self.username = username
         self.password = password
+        self.email = email
         self.is_admin = is_admin
         self.is_active = is_active
         self.projects = projects if projects is not None else []
