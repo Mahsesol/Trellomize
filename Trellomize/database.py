@@ -276,7 +276,10 @@ class Database:
         username = page.session.get("username")
         return self.get_user_by_username(username)
         
-
+    def add_project_member(self, project_id, member_id):
+        query = "INSERT INTO project_members (project_id, user_id) VALUES (?, ?) "
+        self.conn.execute(query, (project_id, member_id))
+        self.conn.commit()
     
     def remove_project_member(self, project_id, member_id):
         query = "DELETE FROM project_members WHERE project_id=? AND user_id=?"
