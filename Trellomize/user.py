@@ -43,7 +43,7 @@ class User:
 
     
     def get_is_active(self):
-        return self._is_active
+        return self.is_active
 
     
     def set_is_active(self, is_active):

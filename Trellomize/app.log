@@ -1,0 +1,2227 @@
+2024-05-22 21:59:38,100 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 21:59:38,102 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/LjzGYPrTNu
+2024-05-22 21:59:38,102 - flet_runtime - INFO - Flet app has started...
+2024-05-22 21:59:38,102 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/LjzGYPrTNu
+2024-05-22 21:59:38,103 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 21:59:38,103 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 21:59:38,643 - flet_runtime - INFO - App session started
+2024-05-22 21:59:44,969 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:15:00,239 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:15:00,241 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/VWd5cYUNSn
+2024-05-22 23:15:00,241 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:15:00,241 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/VWd5cYUNSn
+2024-05-22 23:15:00,241 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:15:00,241 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:15:00,824 - flet_runtime - INFO - App session started
+2024-05-22 23:15:06,080 - __main__ - WARNING - Invalid login attempt for user: admin
+2024-05-22 23:15:08,957 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:15:22,600 - __main__ - INFO - User 'admin' created project 'log test' with ID 'fd59cda9-3c2b-4e96-9357-5969a27ec831'.
+2024-05-22 23:15:22,606 - __main__ - INFO - User 'admin' viewed project 'log test'.
+2024-05-22 23:15:55,028 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:15:56,749 - __main__ - INFO - User 'admin' viewed project 'projj'.
+2024-05-22 23:15:57,904 - __main__ - INFO - User 'admin' viewed tasks for project ID '6d2a34d2-206d-4ac6-aa9a-7da41a245039'.
+2024-05-22 23:15:59,313 - asyncio - ERROR - Future exception was never retrieved
+
+
+
+2024-05-22 23:24:00,054 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:24:00,056 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/70nDtIGyBj
+2024-05-22 23:24:00,057 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:24:00,057 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/70nDtIGyBj
+2024-05-22 23:24:00,057 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:24:00,057 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:24:00,349 - flet_runtime - INFO - App session started
+2024-05-22 23:24:06,205 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:24:15,410 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:24:17,396 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:24:18,433 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:24:19,777 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:24:23,392 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:24:28,003 - __main__ - INFO - User 'admin' added the comment 'hi hi'  to task ID '76085e81-21c8-4bd0-8e39-1db549d44a16'.
+2024-05-22 23:24:29,771 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 749, in <lambda>
+    ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:24:38,439 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:24:38,440 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/NWtXvk3Wq0
+2024-05-22 23:24:38,441 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:24:38,441 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/NWtXvk3Wq0
+2024-05-22 23:24:38,441 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:24:38,441 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:24:38,657 - flet_runtime - INFO - App session started
+2024-05-22 23:24:44,824 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:24:50,131 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:24:51,453 - __main__ - INFO - User 'admin' viewed project 'projj'.
+2024-05-22 23:24:53,104 - __main__ - INFO - User 'admin' viewed tasks for project ID '6d2a34d2-206d-4ac6-aa9a-7da41a245039'.
+2024-05-22 23:24:54,536 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:24:57,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:25:16,417 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:25:18,934 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:25:39,512 - __main__ - INFO - User 'admin' changed priority of task 'kjbkk' from 'Status.BACKLOG' to 'TODO'.
+2024-05-22 23:25:41,662 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:25:44,801 - __main__ - INFO - User 'admin' added the comment 'mbbkj'  to task ID 'b299e6ae-cbbb-493b-9bb3-a938b8d6db40'.
+2024-05-22 23:25:46,637 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 749, in <lambda>
+    ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:27:51,436 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:27:51,438 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/5j3VwbJjda
+2024-05-22 23:27:51,438 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:27:51,438 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/5j3VwbJjda
+2024-05-22 23:27:51,438 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:27:51,438 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:27:51,731 - flet_runtime - INFO - App session started
+2024-05-22 23:27:57,164 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:28:02,354 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:28:05,772 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:28:06,838 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:28:08,075 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:28:09,774 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:28:13,972 - __main__ - INFO - User 'admin' added the comment 'test'  to task ID '80d6c964-1e85-4bf1-ac44-5cddbbfa25dd'.
+2024-05-22 23:28:14,989 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 749, in <lambda>
+    ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:29:25,149 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:29:25,151 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/WAzae7o0fq
+2024-05-22 23:29:25,151 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:29:25,151 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/WAzae7o0fq
+2024-05-22 23:29:25,151 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:29:25,152 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:29:25,456 - flet_runtime - INFO - App session started
+2024-05-22 23:29:31,423 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:29:34,396 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'CreateProjectPage' object has no attribute 'logger'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 442, in cancel_dialog
+    self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+    ^^^^^^^^^^^
+AttributeError: 'CreateProjectPage' object has no attribute 'logger'
+2024-05-22 23:29:35,441 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:29:37,386 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:29:38,216 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:29:39,532 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:29:42,364 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:29:45,116 - __main__ - INFO - User 'admin' added the comment 'cjnks'  to task ID '0bfde981-189b-400b-b880-bf3b6687e0b7'.
+2024-05-22 23:29:52,043 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 754, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:31:11,752 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:31:11,754 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/CMjbbNNstS
+2024-05-22 23:31:11,754 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:31:11,754 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/CMjbbNNstS
+2024-05-22 23:31:11,755 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:31:11,755 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:31:12,059 - flet_runtime - INFO - App session started
+2024-05-22 23:31:17,252 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:31:19,125 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:31:20,129 - __main__ - INFO - User 'admin' viewed project 'projj'.
+2024-05-22 23:31:21,031 - __main__ - INFO - User 'admin' viewed tasks for project ID '6d2a34d2-206d-4ac6-aa9a-7da41a245039'.
+2024-05-22 23:31:22,142 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:31:23,489 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:31:27,185 - __main__ - INFO - User 'admin' added the comment 'test'  to task ID 'b299e6ae-cbbb-493b-9bb3-a938b8d6db40'.
+2024-05-22 23:31:28,207 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 754, in go_back
+    self.page.go(f"/show_comments/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:36:55,419 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:36:55,421 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/myaY8AK5bL
+2024-05-22 23:36:55,421 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:36:55,421 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/myaY8AK5bL
+2024-05-22 23:36:55,421 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:36:55,421 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:36:55,770 - flet_runtime - INFO - App session started
+2024-05-22 23:37:01,868 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:37:03,331 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:37:04,657 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:37:05,542 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:37:06,688 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:37:09,307 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:37:13,582 - __main__ - INFO - User 'admin' added the comment 'hi hi'  to task ID '33c03460-3114-4e2e-9c48-562d67f69280'.
+2024-05-22 23:37:14,625 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 754, in go_back
+    self.page.go(f"/show_comments/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:39:13,987 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:39:13,989 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ZMbL3zLPTp
+2024-05-22 23:39:13,989 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:39:13,989 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ZMbL3zLPTp
+2024-05-22 23:39:13,989 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:39:13,990 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:39:14,295 - flet_runtime - INFO - App session started
+2024-05-22 23:39:20,963 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:39:24,015 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:39:24,883 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:39:25,840 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:39:27,191 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:39:29,127 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:39:32,434 - __main__ - INFO - User 'admin' added the comment 'hi'  to task ID '80d6c964-1e85-4bf1-ac44-5cddbbfa25dd'.
+2024-05-22 23:39:33,888 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 755, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:41:02,657 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:41:02,659 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/TNnoyyWzhi
+2024-05-22 23:41:02,659 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:41:02,659 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/TNnoyyWzhi
+2024-05-22 23:41:02,659 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:41:02,660 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:41:03,064 - flet_runtime - INFO - App session started
+2024-05-22 23:41:13,712 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:41:13,714 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/7vhAHotED2
+2024-05-22 23:41:13,714 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:41:13,714 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/7vhAHotED2
+2024-05-22 23:41:13,714 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:41:13,714 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:41:14,010 - flet_runtime - INFO - App session started
+2024-05-22 23:41:19,079 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:41:20,836 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:41:22,202 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:41:23,004 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:41:24,287 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:41:25,520 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:41:36,044 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 752, in refresh_comments
+    self.page.update()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-22 23:41:40,114 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:42:05,462 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:42:05,464 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/BQ8ZnYunjV
+2024-05-22 23:42:05,464 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:42:05,464 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/BQ8ZnYunjV
+2024-05-22 23:42:05,464 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:42:05,464 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:42:05,793 - flet_runtime - INFO - App session started
+2024-05-22 23:42:47,480 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:42:47,481 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/b0X1dgUNse
+2024-05-22 23:42:47,481 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:42:47,481 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/b0X1dgUNse
+2024-05-22 23:42:47,482 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:42:47,482 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:42:47,753 - flet_runtime - INFO - App session started
+2024-05-22 23:42:53,046 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:42:55,271 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'CreateProjectPage' object has no attribute 'logger'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 442, in cancel_dialog
+    self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+    ^^^^^^^^^^^
+AttributeError: 'CreateProjectPage' object has no attribute 'logger'
+2024-05-22 23:42:56,654 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:42:57,546 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:42:59,010 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:43:03,815 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:43:05,569 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:43:09,154 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:43:12,774 - __main__ - INFO - User 'admin' added the comment 'hihi'  to task ID '09b07263-8cfa-4479-bdff-5156b3a92698'.
+2024-05-22 23:43:13,821 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 756, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:46:04,924 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:46:04,926 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/lAHFdEdvKF
+2024-05-22 23:46:04,926 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:46:04,926 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/lAHFdEdvKF
+2024-05-22 23:46:04,927 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:46:04,927 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:46:05,235 - flet_runtime - INFO - App session started
+2024-05-22 23:46:11,046 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:46:13,695 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:46:14,705 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:46:16,113 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:46:20,760 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:46:23,131 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:46:27,624 - __main__ - INFO - User 'admin' added the comment 'jj'  to task ID '09b07263-8cfa-4479-bdff-5156b3a92698'.
+2024-05-22 23:46:28,701 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 749, in <lambda>
+    ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:49:01,121 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:49:01,124 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/eiSxzujxK7
+2024-05-22 23:49:01,124 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:49:01,124 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/eiSxzujxK7
+2024-05-22 23:49:01,124 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:49:01,124 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:49:01,484 - flet_runtime - INFO - App session started
+2024-05-22 23:49:06,926 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:49:08,235 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:49:11,410 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:49:12,652 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:49:14,842 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:49:15,950 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:49:19,409 - __main__ - INFO - User 'admin' added the comment 'hihi'  to task ID '27c787d2-23bf-42d0-8b5a-6a5f0e196ba1'.
+2024-05-22 23:49:26,281 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 749, in <lambda>
+    ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:49:42,611 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:49:42,613 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/VnoHcvdZsD
+2024-05-22 23:49:42,613 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:49:42,613 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/VnoHcvdZsD
+2024-05-22 23:49:42,613 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:49:42,613 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:49:42,920 - flet_runtime - INFO - App session started
+2024-05-22 23:49:48,073 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:49:49,577 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:49:50,773 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:49:51,868 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:49:52,918 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:49:54,706 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:49:59,223 - __main__ - INFO - User 'admin' added the comment 'hihi'  to task ID '27c787d2-23bf-42d0-8b5a-6a5f0e196ba1'.
+2024-05-22 23:50:02,998 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'session'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 735, in add_comment
+    username = self.db.get_current_user_username(self.page)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 271, in get_current_user_username
+    username = page.session.get("username")
+               ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'session'
+2024-05-22 23:54:01,837 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:54:01,839 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/L5u3XLQT3T
+2024-05-22 23:54:01,839 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:54:01,839 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/L5u3XLQT3T
+2024-05-22 23:54:01,839 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:54:01,840 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:54:02,155 - flet_runtime - INFO - App session started
+2024-05-22 23:54:08,481 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:54:10,397 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:54:11,622 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:54:12,559 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:54:13,840 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:54:15,106 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:54:18,239 - __main__ - INFO - User 'admin' added the comment 'hi'  to task ID '27c787d2-23bf-42d0-8b5a-6a5f0e196ba1'.
+2024-05-22 23:54:24,978 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'session'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 735, in add_comment
+    username = self.db.get_current_user_username(self.page)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 271, in get_current_user_username
+    username = page.session.get("username")
+               ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'session'
+2024-05-22 23:54:32,264 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 770, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:57:45,559 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:57:45,560 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/8JtUJrXRRQ
+2024-05-22 23:57:45,561 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:57:45,561 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/8JtUJrXRRQ
+2024-05-22 23:57:45,561 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:57:45,561 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:57:45,872 - flet_runtime - INFO - App session started
+2024-05-22 23:57:51,830 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:57:53,058 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:57:54,685 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:57:56,507 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:57:58,477 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:58:00,127 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:58:03,749 - __main__ - INFO - User 'admin' added the comment 'hihi'  to task ID '33c03460-3114-4e2e-9c48-562d67f69280'.
+2024-05-22 23:58:07,009 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'session'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 735, in add_comment
+    username = self.db.get_current_user_username(self.page)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 271, in get_current_user_username
+    username = page.session.get("username")
+               ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'session'
+2024-05-22 23:58:12,008 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 770, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:58:22,292 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:58:22,293 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/WuEtEMiS1K
+2024-05-22 23:58:22,293 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:58:22,293 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/WuEtEMiS1K
+2024-05-22 23:58:22,293 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:58:22,293 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:58:22,524 - flet_runtime - INFO - App session started
+2024-05-22 23:58:27,563 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:58:28,690 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:58:29,791 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:58:33,036 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:58:35,545 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:58:37,240 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:58:40,667 - __main__ - INFO - User 'admin' added the comment 'hihi'  to task ID '33c03460-3114-4e2e-9c48-562d67f69280'.
+2024-05-22 23:58:43,660 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'session'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 735, in add_comment
+    username = self.db.get_current_user_username(self.page)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 271, in get_current_user_username
+    username = page.session.get("username")
+               ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'session'
+2024-05-22 23:58:44,530 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'go'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 770, in go_back
+    self.page.go(f"/show_task_details/{self.task_id}")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+2024-05-22 23:59:29,423 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-22 23:59:29,424 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/QxTUchKmMg
+2024-05-22 23:59:29,425 - flet_runtime - INFO - Flet app has started...
+2024-05-22 23:59:29,425 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/QxTUchKmMg
+2024-05-22 23:59:29,425 - flet_runtime - INFO - Starting Flet View app...
+2024-05-22 23:59:29,425 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-22 23:59:29,773 - flet_runtime - INFO - App session started
+2024-05-22 23:59:35,398 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-22 23:59:36,333 - __main__ - INFO - User admin requested to see their projects
+2024-05-22 23:59:37,469 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-22 23:59:39,710 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-22 23:59:41,683 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:59:43,698 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-22 23:59:55,659 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 752, in refresh_comments
+    self.page.update()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-22 23:59:57,626 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 00:00:35,303 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:00:35,305 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/8ilhDdOkij
+2024-05-23 00:00:35,305 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:00:35,305 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/8ilhDdOkij
+2024-05-23 00:00:35,305 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:00:35,306 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:00:35,630 - flet_runtime - INFO - App session started
+2024-05-23 00:00:42,864 - __main__ - INFO - User 'lilia' logged in successfully
+2024-05-23 00:00:44,529 - __main__ - INFO - User lilia requested to see their projects
+2024-05-23 00:00:47,512 - __main__ - INFO - User 'lilia' viewed project 'projj'.
+2024-05-23 00:00:51,687 - __main__ - INFO - User lilia requested to see their projects
+2024-05-23 00:01:05,279 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:01:05,280 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/frSQ2TUyOn
+2024-05-23 00:01:05,280 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:01:05,281 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/frSQ2TUyOn
+2024-05-23 00:01:05,281 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:01:05,281 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:01:06,333 - flet_runtime - INFO - App session started
+2024-05-23 00:01:12,436 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 00:01:17,384 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 00:01:21,618 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:01:21,619 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/gOFRzJC1m1
+2024-05-23 00:01:21,619 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:01:21,619 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/gOFRzJC1m1
+2024-05-23 00:01:21,619 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:01:21,619 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:01:21,827 - flet_runtime - INFO - App session started
+2024-05-23 00:01:33,830 - __main__ - INFO - User 'akbar' logged in successfully
+2024-05-23 00:01:34,755 - __main__ - INFO - User akbar requested to see their projects
+2024-05-23 00:01:43,542 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:01:43,543 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/vnUShsXLLH
+2024-05-23 00:01:43,544 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:01:43,544 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/vnUShsXLLH
+2024-05-23 00:01:43,544 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:01:43,544 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:01:43,778 - flet_runtime - INFO - App session started
+2024-05-23 00:01:54,237 - __main__ - INFO - User 'tahamtan' logged in successfully
+2024-05-23 00:01:55,586 - __main__ - INFO - User tahamtan requested to see their projects
+2024-05-23 00:04:29,295 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:04:29,297 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/5bGrBiH10k
+2024-05-23 00:04:29,297 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:04:29,297 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/5bGrBiH10k
+2024-05-23 00:04:29,297 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:04:29,298 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:04:29,586 - flet_runtime - INFO - App session started
+2024-05-23 00:04:35,279 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 00:04:36,346 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 00:04:37,272 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-23 00:04:38,416 - __main__ - INFO - User 'admin' viewed tasks for project ID '123'.
+2024-05-23 00:04:40,107 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 00:04:41,355 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 00:04:44,117 - __main__ - INFO - User 'admin' added the comment 'hi'  to task ID '27c787d2-23bf-42d0-8b5a-6a5f0e196ba1'.
+2024-05-23 00:04:47,431 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'session'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 735, in add_comment
+    username = self.db.get_current_user_username(self.page)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 271, in get_current_user_username
+    username = page.session.get("username")
+               ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'session'
+2024-05-23 00:09:10,362 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:09:10,364 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/oXMNtIlQ3A
+2024-05-23 00:09:10,364 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:09:10,364 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/oXMNtIlQ3A
+2024-05-23 00:09:10,364 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:09:10,364 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:09:10,849 - flet_runtime - INFO - App session started
+2024-05-23 00:09:17,905 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 00:09:19,011 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 00:09:19,971 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-23 00:12:51,048 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 00:12:53,825 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-23 00:12:56,952 - __main__ - INFO - User 'admin' viewed project members for project ID '123'.
+2024-05-23 00:12:58,650 - __main__ - INFO - User 'admin' viewed project 'second proj'.
+2024-05-23 00:59:08,221 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:59:08,223 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/lB88pZSn7O
+2024-05-23 00:59:08,223 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:59:08,223 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/lB88pZSn7O
+2024-05-23 00:59:08,223 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:59:08,224 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:59:08,730 - flet_runtime - INFO - App session started
+2024-05-23 00:59:15,414 - __main__ - WARNING - Invalid login attempt for user: admin
+2024-05-23 00:59:22,063 - __main__ - WARNING - Invalid login attempt for user: admin
+2024-05-23 00:59:27,787 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 00:59:27,788 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/FAeDhLfLxq
+2024-05-23 00:59:27,788 - flet_runtime - INFO - Flet app has started...
+2024-05-23 00:59:27,789 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/FAeDhLfLxq
+2024-05-23 00:59:27,789 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 00:59:27,789 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 00:59:28,008 - flet_runtime - INFO - App session started
+2024-05-23 00:59:33,553 - __main__ - WARNING - Invalid login attempt for user: admin
+2024-05-23 01:01:05,583 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 01:01:05,586 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/PaYqknJIwp
+2024-05-23 01:01:05,587 - flet_runtime - INFO - Flet app has started...
+2024-05-23 01:01:05,587 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/PaYqknJIwp
+2024-05-23 01:01:05,587 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 01:01:05,587 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 01:01:05,834 - flet_runtime - INFO - App session started
+2024-05-23 01:01:11,317 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 01:01:23,182 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'CreateProjectPage' object has no attribute 'logger'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 442, in cancel_dialog
+    self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+    ^^^^^^^^^^^
+AttributeError: 'CreateProjectPage' object has no attribute 'logger'
+2024-05-23 01:01:28,554 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 01:01:28,557 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/niHI14m7E2
+2024-05-23 01:01:28,557 - flet_runtime - INFO - Flet app has started...
+2024-05-23 01:01:28,557 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/niHI14m7E2
+2024-05-23 01:01:28,557 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 01:01:28,557 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 01:01:28,738 - flet_runtime - INFO - App session started
+2024-05-23 01:01:46,622 - __main__ - INFO - User 'lilia' created successfully
+2024-05-23 01:01:51,647 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 01:01:51,648 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/EPX9jbtQmp
+2024-05-23 01:01:51,648 - flet_runtime - INFO - Flet app has started...
+2024-05-23 01:01:51,648 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/EPX9jbtQmp
+2024-05-23 01:01:51,649 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 01:01:51,649 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 01:01:51,827 - flet_runtime - INFO - App session started
+2024-05-23 01:01:57,745 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 01:02:05,574 - __main__ - INFO - User 'admin' created project 'test' with ID '4fdc7709-7ef1-49f1-9dd8-2c42ea025d87'.
+2024-05-23 01:02:05,580 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 01:02:08,000 - __main__ - INFO - User 'admin' initiated adding a task for project ID '4fdc7709-7ef1-49f1-9dd8-2c42ea025d87'.
+2024-05-23 01:02:23,107 - __main__ - INFO - New task 'testing' added to project 4fdc7709-7ef1-49f1-9dd8-2c42ea025d87 by user 'admin'.
+2024-05-23 01:02:23,108 - __main__ - INFO - User lilia assigned to task 'testing'by user 'admin'. 
+2024-05-23 01:02:23,109 - __main__ - INFO - User admin assigned to task 'testing'by user 'admin'. 
+2024-05-23 01:02:23,115 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 01:02:24,895 - __main__ - INFO - User 'admin' viewed tasks for project ID '4fdc7709-7ef1-49f1-9dd8-2c42ea025d87'.
+2024-05-23 01:02:24,909 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ValueError("time data '2024-05-23 01:02:23' does not match format '%Y-%m-%dT%H:%M:%S'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1404, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 539, in build
+    tasks = self.db.get_project_tasks(self.project_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 316, in get_project_tasks
+    start_datetime = datetime.strptime(row[4], "%Y-%m-%dT%H:%M:%S")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: time data '2024-05-23 01:02:23' does not match format '%Y-%m-%dT%H:%M:%S'
+2024-05-23 01:03:51,716 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 01:03:51,717 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ykby7rnN6w
+2024-05-23 01:03:51,718 - flet_runtime - INFO - Flet app has started...
+2024-05-23 01:03:51,718 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ykby7rnN6w
+2024-05-23 01:03:51,718 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 01:03:51,718 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 01:03:51,911 - flet_runtime - INFO - App session started
+2024-05-23 01:03:57,292 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 01:04:03,975 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 01:04:05,593 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 01:04:07,614 - __main__ - INFO - User 'admin' viewed tasks for project ID '4fdc7709-7ef1-49f1-9dd8-2c42ea025d87'.
+2024-05-23 01:04:07,635 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ValueError("time data '2024-05-23 01:02:23' does not match format '%Y-%m-%dT%H:%M:%S'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1404, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 539, in build
+    tasks = self.db.get_project_tasks(self.project_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 316, in get_project_tasks
+    start_datetime = datetime.strptime(row[4], "%Y-%m-%dT%H:%M:%S")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: time data '2024-05-23 01:02:23' does not match format '%Y-%m-%dT%H:%M:%S'
+2024-05-23 01:05:33,709 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 01:05:33,711 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/10iGquf0Uv
+2024-05-23 01:05:33,711 - flet_runtime - INFO - Flet app has started...
+2024-05-23 01:05:33,711 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/10iGquf0Uv
+2024-05-23 01:05:33,711 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 01:05:33,711 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 01:05:33,903 - flet_runtime - INFO - App session started
+2024-05-23 01:05:40,148 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 01:05:42,281 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 01:05:42,951 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 01:05:43,901 - __main__ - INFO - User 'admin' viewed tasks for project ID '4fdc7709-7ef1-49f1-9dd8-2c42ea025d87'.
+2024-05-23 01:05:47,336 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6163558400 and this is thread id 6180384768.
+2024-05-23 14:53:18,853 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 14:53:18,854 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/NixCXq85T6
+2024-05-23 14:53:18,855 - flet_runtime - INFO - Flet app has started...
+2024-05-23 14:53:18,855 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/NixCXq85T6
+2024-05-23 14:53:18,855 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 14:53:18,855 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 14:53:19,178 - flet_runtime - INFO - App session started
+2024-05-23 14:53:36,208 - __main__ - WARNING - Signup attempt failed: Username 'lilia' already taken
+2024-05-23 14:58:29,592 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 14:58:29,593 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ybscVuQi8n
+2024-05-23 14:58:29,594 - flet_runtime - INFO - Flet app has started...
+2024-05-23 14:58:29,594 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ybscVuQi8n
+2024-05-23 14:58:29,594 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 14:58:29,594 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 14:58:29,888 - flet_runtime - INFO - App session started
+2024-05-23 14:58:39,442 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 14:58:41,723 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 14:58:42,968 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 14:58:44,401 - __main__ - INFO - User 'admin' viewed tasks for project ID 'b16755cd-0fee-4141-bbe4-743a16102437'.
+2024-05-23 14:58:46,020 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 14:58:49,466 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'b16755cd-0fee-4141-bbe4-743a16102437'.
+2024-05-23 14:59:00,168 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6189019136 and this is thread id 6205845504.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 127, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6189019136 and this is thread id 6205845504.
+2024-05-23 14:59:13,385 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 14:59:13,392 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/xz2eMrpwzE
+2024-05-23 14:59:13,392 - flet_runtime - INFO - Flet app has started...
+2024-05-23 14:59:13,392 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/xz2eMrpwzE
+2024-05-23 14:59:13,392 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 14:59:13,392 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 14:59:13,606 - flet_runtime - INFO - App session started
+2024-05-23 14:59:21,069 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 14:59:21,953 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 14:59:22,772 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 14:59:23,826 - __main__ - INFO - User 'admin' viewed tasks for project ID 'b16755cd-0fee-4141-bbe4-743a16102437'.
+2024-05-23 14:59:26,312 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 14:59:30,787 - __main__ - INFO - User 'admin' viewed project members for project ID 'b16755cd-0fee-4141-bbe4-743a16102437'.
+2024-05-23 14:59:33,573 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6226259968 and this is thread id 6243086336.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1064, in remove_members
+    self.db.remove_project_member(self.project_id, member_id)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 300, in remove_project_member
+    self.conn.execute(query, (project_id, member_id))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6226259968 and this is thread id 6243086336.
+2024-05-23 15:02:48,427 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:02:48,429 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ai7hV3Vt7X
+2024-05-23 15:02:48,429 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:02:48,429 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/ai7hV3Vt7X
+2024-05-23 15:02:48,429 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:02:48,429 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:02:48,717 - flet_runtime - INFO - App session started
+2024-05-23 15:02:56,309 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:02:57,839 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:02:58,637 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:02:59,655 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'b16755cd-0fee-4141-bbe4-743a16102437'.
+2024-05-23 15:03:06,842 - __main__ - INFO - New task 'ggg' added to project b16755cd-0fee-4141-bbe4-743a16102437 by user 'admin'.
+2024-05-23 15:03:06,843 - __main__ - INFO - User lilia assigned to task 'ggg'by user 'admin'. 
+2024-05-23 15:03:06,844 - __main__ - INFO - User admin assigned to task 'ggg'by user 'admin'. 
+2024-05-23 15:03:06,850 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6222852096 and this is thread id 6239678464.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1402, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 472, in build
+    project = self.db.get_project(self.project_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 248, in get_project
+    result = self.conn.execute(query, (project_id,)).fetchone()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6222852096 and this is thread id 6239678464.
+2024-05-23 15:06:53,187 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:06:53,188 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/V0p2aSPt3S
+2024-05-23 15:06:53,188 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:06:53,188 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/V0p2aSPt3S
+2024-05-23 15:06:53,188 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:06:53,188 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:06:53,464 - flet_runtime - INFO - App session started
+2024-05-23 15:07:02,429 - __main__ - WARNING - Invalid login attempt for user: lilia
+2024-05-23 15:07:17,384 - __main__ - INFO - User 'lilia' created successfully
+2024-05-23 15:07:25,328 - __main__ - INFO - User 'lilia' created project 'test' with ID 'd61521a1-ca29-4f42-b1a5-d1095ce89c65'.
+2024-05-23 15:07:25,330 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6135017472 and this is thread id 6151843840.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1402, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 472, in build
+    project = self.db.get_project(self.project_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 248, in get_project
+    result = self.conn.execute(query, (project_id,)).fetchone()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6135017472 and this is thread id 6151843840.
+2024-05-23 15:08:47,274 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:08:47,275 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/GAZsP2f1gQ
+2024-05-23 15:08:47,276 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:08:47,276 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/GAZsP2f1gQ
+2024-05-23 15:08:47,276 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:08:47,276 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:08:47,570 - flet_runtime - INFO - App session started
+2024-05-23 15:08:53,389 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:08:59,901 - __main__ - INFO - User 'admin' created project 'hi' with ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:08:59,905 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:09:03,596 - __main__ - INFO - User 'admin' viewed tasks for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:09:05,670 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:09:06,562 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:09:19,573 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6272462848 and this is thread id 6289289216.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 127, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6272462848 and this is thread id 6289289216.
+2024-05-23 15:10:34,021 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:10:34,023 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/xLvvJOckqq
+2024-05-23 15:10:34,023 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:10:34,023 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/xLvvJOckqq
+2024-05-23 15:10:34,023 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:10:34,024 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:10:34,316 - flet_runtime - INFO - App session started
+2024-05-23 15:10:39,854 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:10:40,599 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:10:42,021 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:10:43,020 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:10:49,085 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6235484160 and this is thread id 6252310528.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 127, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6235484160 and this is thread id 6252310528.
+2024-05-23 15:11:55,534 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:11:55,535 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/DkUwZiagNu
+2024-05-23 15:11:55,535 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:11:55,536 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/DkUwZiagNu
+2024-05-23 15:11:55,536 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:11:55,536 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:11:55,817 - flet_runtime - INFO - App session started
+2024-05-23 15:12:01,178 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:12:03,307 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:12:03,965 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:12:04,956 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:12:11,122 - __main__ - INFO - New task 'hi' added to project f5ab4d17-1a68-4537-bdd0-4c538d79d42e by user 'admin'.
+2024-05-23 15:12:11,124 - __main__ - INFO - User lilia assigned to task 'hi'by user 'admin'. 
+2024-05-23 15:12:11,125 - __main__ - INFO - User admin assigned to task 'hi'by user 'admin'. 
+2024-05-23 15:12:11,131 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:12:19,306 - __main__ - INFO - User 'admin' viewed tasks for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:12:19,311 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ValueError('unconverted data remains: .000000')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1402, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 539, in build
+    tasks = self.db.get_project_tasks(self.project_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 319, in get_project_tasks
+    start_datetime = datetime.strptime(row[4], "%Y-%m-%d %H:%M:%S")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: unconverted data remains: .000000
+2024-05-23 15:14:10,746 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:14:10,748 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/QtnC9Ccxr0
+2024-05-23 15:14:10,748 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:14:10,748 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/QtnC9Ccxr0
+2024-05-23 15:14:10,748 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:14:10,748 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:14:11,026 - flet_runtime - INFO - App session started
+2024-05-23 15:14:17,055 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:14:18,417 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:14:19,511 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:14:21,065 - __main__ - INFO - User 'admin' viewed tasks for project ID 'f5ab4d17-1a68-4537-bdd0-4c538d79d42e'.
+2024-05-23 15:14:23,211 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:14:26,638 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:14:29,119 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 752, in refresh_comments
+    self.page.update()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-23 15:14:30,294 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:14:32,669 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:14:45,729 - __main__ - INFO - User 'lilia' unassigned from task 'hi' by user 'admin'.
+2024-05-23 15:14:48,617 - __main__ - INFO - User 'lilia' assigned to task 'hi' by user 'admin'.
+2024-05-23 15:14:51,200 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:28:55,694 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:28:55,695 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/aBdKrDYfc1
+2024-05-23 15:28:55,696 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:28:55,696 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/aBdKrDYfc1
+2024-05-23 15:28:55,696 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:28:55,696 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:28:56,022 - flet_runtime - INFO - App session started
+2024-05-23 15:29:02,310 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:29:11,596 - __main__ - INFO - User 'admin' created project 'test again' with ID 'fed8636a-1048-4e5c-a5bd-c8363813d4ba'.
+2024-05-23 15:29:11,602 - __main__ - INFO - User 'admin' viewed project 'test again'.
+2024-05-23 15:29:12,984 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'fed8636a-1048-4e5c-a5bd-c8363813d4ba'.
+2024-05-23 15:29:22,942 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6227521536 and this is thread id 6244347904.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 131, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6227521536 and this is thread id 6244347904.
+2024-05-23 15:31:49,437 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:31:49,438 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/OdDmaInOmh
+2024-05-23 15:31:49,439 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:31:49,439 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/OdDmaInOmh
+2024-05-23 15:31:49,439 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:31:49,439 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:31:49,718 - flet_runtime - INFO - App session started
+2024-05-23 15:31:56,094 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:31:58,432 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:32:00,104 - __main__ - INFO - User 'admin' viewed project 'test again'.
+2024-05-23 15:32:01,013 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'fed8636a-1048-4e5c-a5bd-c8363813d4ba'.
+2024-05-23 15:32:07,088 - __main__ - INFO - New task 'hi' added to project fed8636a-1048-4e5c-a5bd-c8363813d4ba by user 'admin'.
+2024-05-23 15:32:07,089 - __main__ - INFO - User lilia assigned to task 'hi'by user 'admin'. 
+2024-05-23 15:32:07,090 - __main__ - INFO - User admin assigned to task 'hi'by user 'admin'. 
+2024-05-23 15:32:07,092 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6268809216 and this is thread id 6285635584.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1402, in route_change
+    page.update()
+    ^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 324, in update
+    r = self.__update(self)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 426, in __update
+    commands, added_controls, removed_controls = self.__prepare_update(*controls)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 439, in __prepare_update
+    control.build_update_commands(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 424, in build_update_commands
+    innerCmds = ctrl._build_add_commands(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 523, in _build_add_commands
+    childCmd = control._build_add_commands(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/control.py", line 492, in _build_add_commands
+    content = self.build()
+              ^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 472, in build
+    project = self.db.get_project(self.project_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 252, in get_project
+    result = self.conn.execute(query, (project_id,)).fetchone()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6268809216 and this is thread id 6285635584.
+2024-05-23 15:33:36,403 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:33:36,405 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/wJKAUi4kVb
+2024-05-23 15:33:36,405 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:33:36,405 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/wJKAUi4kVb
+2024-05-23 15:33:36,405 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:33:36,405 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:33:36,692 - flet_runtime - INFO - App session started
+2024-05-23 15:33:58,044 - __main__ - INFO - User 'lilia' created successfully
+2024-05-23 15:34:03,904 - __main__ - INFO - User 'lilia' created project 'hi' with ID 'b8d5e7ab-f75f-4305-b9b8-373935549d5a'.
+2024-05-23 15:34:03,908 - __main__ - INFO - User 'lilia' viewed project 'hi'.
+2024-05-23 15:34:07,048 - __main__ - INFO - User 'lilia' viewed tasks for project ID 'b8d5e7ab-f75f-4305-b9b8-373935549d5a'.
+2024-05-23 15:34:07,952 - __main__ - INFO - User 'lilia' viewed project 'hi'.
+2024-05-23 15:34:08,708 - __main__ - INFO - User 'lilia' initiated adding a task for project ID 'b8d5e7ab-f75f-4305-b9b8-373935549d5a'.
+2024-05-23 15:34:14,289 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6189658112 and this is thread id 6206484480.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 131, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6189658112 and this is thread id 6206484480.
+2024-05-23 15:35:02,116 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:35:02,118 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/iPz4VfObPp
+2024-05-23 15:35:02,118 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:35:02,118 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/iPz4VfObPp
+2024-05-23 15:35:02,118 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:35:02,119 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:35:02,390 - flet_runtime - INFO - App session started
+2024-05-23 15:35:07,820 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:35:09,721 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:35:12,583 - __main__ - INFO - User 'admin' viewed project 'hi'.
+2024-05-23 15:35:24,862 - __main__ - INFO - User 'admin' created project 'test' with ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:35:24,868 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:35:25,942 - __main__ - INFO - User 'admin' initiated adding a task for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:35:33,506 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6263566336 and this is thread id 6280392704.')>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 1196, in save_task
+    self.db.add_task(new_task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/database.py", line 131, in add_task
+    self.conn.execute(query, (
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6263566336 and this is thread id 6280392704.
+2024-05-23 15:38:14,598 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:38:14,600 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/IsuIoWrsRF
+2024-05-23 15:38:14,600 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:38:14,600 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/IsuIoWrsRF
+2024-05-23 15:38:14,600 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:38:14,600 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:38:14,909 - flet_runtime - INFO - App session started
+2024-05-23 15:38:21,652 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:38:22,870 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:38:23,853 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:38:25,039 - __main__ - INFO - User 'admin' initiated adding a task for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:38:35,825 - __main__ - INFO - New task 'please' added to project 1d56622c-de61-4461-a869-c7d377f1704d by user 'admin'.
+2024-05-23 15:38:35,827 - __main__ - INFO - User lilia assigned to task 'please'by user 'admin'. 
+2024-05-23 15:38:35,828 - __main__ - INFO - User admin assigned to task 'please'by user 'admin'. 
+2024-05-23 15:38:35,834 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:38:45,938 - __main__ - INFO - User 'admin' viewed project members for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:38:49,436 - __main__ - INFO - User 'lilia' removed from project '1d56622c-de61-4461-a869-c7d377f1704d' by user 'admin'.
+2024-05-23 15:38:52,051 - __main__ - INFO - User 'lilia' added to project '1d56622c-de61-4461-a869-c7d377f1704d' by user 'admin'.
+2024-05-23 15:38:54,229 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:38:59,798 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:39:01,803 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:39:03,148 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:39:11,039 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:39:14,872 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 752, in refresh_comments
+    self.page.update()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-23 15:42:23,952 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:42:23,954 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/rIwHQ6yY3I
+2024-05-23 15:42:23,954 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:42:23,954 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/rIwHQ6yY3I
+2024-05-23 15:42:23,954 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:42:23,954 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:42:24,286 - flet_runtime - INFO - App session started
+2024-05-23 15:42:29,655 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:42:33,928 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 15:42:37,855 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:42:54,331 - __main__ - INFO - User 'admin' initiated adding a task for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:00,715 - __main__ - INFO - New task 'hihi' added to project 1d56622c-de61-4461-a869-c7d377f1704d by user 'admin'.
+2024-05-23 15:43:00,717 - __main__ - INFO - User lilia assigned to task 'hihi'by user 'admin'. 
+2024-05-23 15:43:00,718 - __main__ - INFO - User admin assigned to task 'hihi'by user 'admin'. 
+2024-05-23 15:43:00,725 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:02,378 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:03,437 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:04,386 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:05,770 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:43:06,914 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:43:09,792 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 752, in refresh_comments
+    self.page.update()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-23 15:43:11,853 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:43:20,739 - __main__ - INFO - User 'admin' changed priority of task 'hihi' from 'Status.BACKLOG' to 'TODO'.
+2024-05-23 15:43:25,825 - __main__ - INFO - User 'admin' changed priority of task 'hihi' from 'LOW' to 'MEDIUM'.
+2024-05-23 15:43:30,686 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:33,356 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:36,582 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:39,237 - __main__ - INFO - User 'admin' initiated adding a task for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:47,819 - __main__ - INFO - New task 'test again' added to project 1d56622c-de61-4461-a869-c7d377f1704d by user 'admin'.
+2024-05-23 15:43:47,822 - __main__ - INFO - User lilia assigned to task 'test again'by user 'admin'. 
+2024-05-23 15:43:47,824 - __main__ - INFO - User admin assigned to task 'test again'by user 'admin'. 
+2024-05-23 15:43:47,833 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:49,790 - __main__ - INFO - User 'admin' viewed project members for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:51,163 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:52,067 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:55,506 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:43:56,736 - __main__ - INFO - User 'admin' viewed project members for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:43:58,508 - __main__ - INFO - User 'lilia' removed from project '1d56622c-de61-4461-a869-c7d377f1704d' by user 'admin'.
+2024-05-23 15:44:01,664 - __main__ - INFO - User 'lilia' added to project '1d56622c-de61-4461-a869-c7d377f1704d' by user 'admin'.
+2024-05-23 15:44:04,917 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:44:08,599 - __main__ - INFO - User 'admin' viewed tasks for project ID '1d56622c-de61-4461-a869-c7d377f1704d'.
+2024-05-23 15:44:13,202 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:44:14,758 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+                         ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 15:44:21,757 - __main__ - INFO - User 'admin' viewed project 'test'.
+2024-05-23 15:44:43,908 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Database' object has no attribute 'inactivate_user_by_id'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 311, in <lambda>
+    ElevatedButton("Inactivate", on_click=lambda e, user=user: self.inactivate_user(user.user_id))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 316, in inactivate_user
+    self.db.inactivate_user_by_id(user_id)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'inactivate_user_by_id'
+2024-05-23 15:46:19,478 - flet_runtime - INFO - Assets path configured: /Users/liliarouhi/Desktop/Trellomize/assets
+2024-05-23 15:46:19,480 - flet_runtime - INFO - Starting up UDS server on /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/pcylIMqp8q
+2024-05-23 15:46:19,480 - flet_runtime - INFO - Flet app has started...
+2024-05-23 15:46:19,481 - flet_runtime - INFO - App URL: /var/folders/v4/25kfkz6n01g3k87pyqxgf4bm0000gn/T/pcylIMqp8q
+2024-05-23 15:46:19,481 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 15:46:19,481 - flet_runtime - INFO - Flet View found in: /Users/liliarouhi/.flet/bin/flet-0.22.1
+2024-05-23 15:46:19,787 - flet_runtime - INFO - App session started
+2024-05-23 15:46:24,908 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 15:46:29,727 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=TypeError("Database.get_user() missing 1 required positional argument: 'password'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 311, in <lambda>
+    ElevatedButton("Inactivate", on_click=lambda e, user=user: self.inactivate_user(user.user_id))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 318, in inactivate_user
+    username = self.db.get_user(user_id).get_username()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Database.get_user() missing 1 required positional argument: 'password'
+2024-05-23 15:46:33,019 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=TypeError("Database.get_user() missing 1 required positional argument: 'password'")>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+    ^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 347, in <lambda>
+    ElevatedButton("Activate", on_click=lambda e, user=user: self.activate_user(user.user_id))
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/liliarouhi/Desktop/Trellomize/gui1.py", line 354, in activate_user
+    username = self.db.get_user(user_id).get_username()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Database.get_user() missing 1 required positional argument: 'password'
+2024-05-23 15:46:52,547 - __main__ - INFO - User 'admin' created project 'final test' with ID '9d9cdade-522c-40b0-acf3-13b65a7c1d2d'.
+2024-05-23 15:46:52,555 - __main__ - INFO - User 'admin' viewed project 'final test'.

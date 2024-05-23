@@ -8,6 +8,10 @@ from history import History
 import uuid
 from flet import *
 from task import *
+import tempfile
+import os
+
+
 
 
 
@@ -16,9 +20,14 @@ from task import *
 DB_FILE = 'database.db'
 
 class Database:
-    def __init__(self):
+
+    def __init__(self, DB_FILE = 'database.db' ):
+        self.db_file = DB_FILE
         self.conn = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.create_tables()
+
+    # def connect(self):
+    #     return sqlite3.connect(self.db_file)
 
     def create_tables(self):
         # Users table
@@ -120,8 +129,8 @@ class Database:
         query = """INSERT INTO tasks (id, project_id, title, description, start_datetime, end_datetime, priority, status) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         self.conn.execute(query, (
-            task.get_task_id(), task.get_project_id(), task.get_title(), task.get_description(), task.get_start_datetime().isoformat(),
-            task.get_end_datetime().isoformat(), task.get_priority(), task.get_status()))
+            task.get_task_id(), task.get_project_id(), task.get_title(), task.get_description(), task.get_start_datetime().strftime('%Y-%m-%d %H:%M:%S.%f')  ,
+            task.get_end_datetime().strftime('%Y-%m-%d %H:%M:%S.%f'), task.get_priority(), task.get_status()))
 
         query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
         for assignee in task.get_assignees():
@@ -157,11 +166,19 @@ class Database:
     def _hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
 
-    def add_user(self, username, password, email):
+    # def add_user(self, username, password, email):
+    #     hashed_password = self._hash_password(password)
+    #     query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
+    #     self.conn.execute(query, (username, hashed_password, email))
+    #     self.conn.commit()
+
+    def add_user(self, username, password, email, active=1):
         hashed_password = self._hash_password(password)
-        query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
-        self.conn.execute(query, (username, hashed_password, email))
+        query = "INSERT INTO users (username, password, email, active) VALUES (?, ?, ?, ?)"
+        self.conn.execute(query, (username, hashed_password, email, active))
         self.conn.commit()
+    
+
 
     def add_admin(self, username, password):
         hashed_password = self._hash_password(password)
@@ -170,8 +187,8 @@ class Database:
         self.conn.commit()
 
     @staticmethod
-    def create_admin(username, password):
-        db = Database()
+    def create_admin(username, password, DB_FILE = 'database.db'  ):
+        db = Database(DB_FILE)
         try:
             db.add_admin(username, password)
             print("Admin created successfully!")
@@ -207,15 +224,16 @@ class Database:
 
     def get_all_users(self):
         query = "SELECT * FROM users WHERE username != ?"
-        return self.conn.execute(query, ("admin",)).fetchall()
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query,("",)).fetchall()]
+
 
     def get_all_active_users(self):
         query = "SELECT * FROM users WHERE active = 1"
-        return [User(result[0], result[1], result[2], result[3], result[4], result[5]) for result in self.conn.execute(query).fetchall()]
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query).fetchall()]
 
     def get_all_inactive_users(self):
         query = "SELECT * FROM users WHERE active = 0"
-        return [User(result[0], result[1], result[2], result[3], result[4], result[5]) for result in self.conn.execute(query).fetchall()]
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query).fetchall()]
 
 
 
@@ -240,7 +258,7 @@ class Database:
         
     def get_project_member_ids(self, project_id):
        query = "SELECT user_id FROM project_members WHERE project_id=?"
-       return [row[0] for row in self.conn.execute(query, (project_id,)).fetchall()]  # Extract user_id from each row
+       return [row[0] for row in self.conn.execute(query, (project_id,)).fetchall()]  
 
 
     def get_user_by_id(self, user_id):
@@ -289,15 +307,7 @@ class Database:
     def get_task_assignees(self, task_id):
         query = "SELECT user_id FROM task_assignees WHERE task_id=?"
         assignee_ids = [row[0] for row in self.conn.execute(query, (task_id,)).fetchall()]  # Extract user_id from each row
-
-        # assignees = []
-        # for assignee_id in assignee_ids:
-        #     user = self.get_user_by_id(assignee_id)
-        #     assignees.append(user)
-
         return assignee_ids
-
-
 
 
     def get_project_tasks(self, project_id):
@@ -310,8 +320,8 @@ class Database:
             project_id = row[1]
             title = row[2]
             description = row[3]
-            start_datetime = datetime.strptime(row[4], "%Y-%m-%dT%H:%M:%S")
-            end_datetime = datetime.strptime(row[5], "%Y-%m-%dT%H:%M:%S")
+            start_datetime = datetime.strptime(row[4], '%Y-%m-%d %H:%M:%S.%f')
+            end_datetime = datetime.strptime(row[5], '%Y-%m-%d %H:%M:%S.%f')
             priority = Priority(row[6])
             status = Status(row[7])
             assignees = self.get_task_assignees(task_id)
@@ -328,8 +338,8 @@ class Database:
             project_id = result[1]
             title = result[2]
             description = result[3]
-            start_datetime = datetime.strptime(result[4], "%Y-%m-%dT%H:%M:%S")
-            end_datetime = datetime.strptime(result[5], "%Y-%m-%dT%H:%M:%S")
+            start_datetime = datetime.strptime(result[4],'%Y-%m-%d %H:%M:%S.%f')
+            end_datetime = datetime.strptime(result[5], '%Y-%m-%d %H:%M:%S.%f')
             priority = Priority(result[6])
             status = Status(result[7])
             assignees = self.get_task_assignees(task_id)
