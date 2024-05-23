@@ -4,9 +4,14 @@ import re
 from project import Project
 from user import User
 from datetime import datetime
+from history import History
 import uuid
 from flet import *
 from task import *
+import tempfile
+import os
+
+
 
 
 
@@ -15,9 +20,14 @@ from task import *
 DB_FILE = 'database.db'
 
 class Database:
-    def __init__(self):
+
+    def __init__(self, DB_FILE = 'database.db' ):
+        self.db_file = DB_FILE
         self.conn = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.create_tables()
+
+    # def connect(self):
+    #     return sqlite3.connect(self.db_file)
 
     def create_tables(self):
         # Users table
@@ -119,8 +129,8 @@ class Database:
         query = """INSERT INTO tasks (id, project_id, title, description, start_datetime, end_datetime, priority, status) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         self.conn.execute(query, (
-            task.get_task_id(), task.get_project_id(), task.get_title(), task.get_description(), task.get_start_datetime().isoformat(),
-            task.get_end_datetime().isoformat(), task.get_priority(), task.get_status()))
+            task.get_task_id(), task.get_project_id(), task.get_title(), task.get_description(), task.get_start_datetime().strftime('%Y-%m-%d %H:%M:%S.%f')  ,
+            task.get_end_datetime().strftime('%Y-%m-%d %H:%M:%S.%f'), task.get_priority(), task.get_status()))
 
         query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
         for assignee in task.get_assignees():
@@ -148,18 +158,27 @@ class Database:
         self.conn.commit()
 
     def get_task_history(self, task_id):
-        query = "SELECT * FROM task_history WHERE task_id = ?"
-        return self.conn.execute(query, (task_id,)).fetchall()
+        query = "SELECT action, author, timestamp FROM task_history WHERE task_id = ? ORDER BY timestamp ASC"
+        results = self.conn.execute(query, (task_id,)).fetchall()
+        return [History(author=row[1], action=row[0], timestamp=row[2]) for row in results]
 
 
     def _hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
 
-    def add_user(self, username, password, email):
+    # def add_user(self, username, password, email):
+    #     hashed_password = self._hash_password(password)
+    #     query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
+    #     self.conn.execute(query, (username, hashed_password, email))
+    #     self.conn.commit()
+
+    def add_user(self, username, password, email, active=1):
         hashed_password = self._hash_password(password)
-        query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
-        self.conn.execute(query, (username, hashed_password, email))
+        query = "INSERT INTO users (username, password, email, active) VALUES (?, ?, ?, ?)"
+        self.conn.execute(query, (username, hashed_password, email, active))
         self.conn.commit()
+    
+
 
     def add_admin(self, username, password):
         hashed_password = self._hash_password(password)
@@ -168,8 +187,8 @@ class Database:
         self.conn.commit()
 
     @staticmethod
-    def create_admin(username, password):
-        db = Database()
+    def create_admin(username, password, DB_FILE = 'database.db'  ):
+        db = Database(DB_FILE)
         try:
             db.add_admin(username, password)
             print("Admin created successfully!")
@@ -205,15 +224,16 @@ class Database:
 
     def get_all_users(self):
         query = "SELECT * FROM users WHERE username != ?"
-        return self.conn.execute(query, ("admin",)).fetchall()
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query,("",)).fetchall()]
+
 
     def get_all_active_users(self):
         query = "SELECT * FROM users WHERE active = 1"
-        return [User(result[0], result[1], result[2], result[3], result[4], result[5]) for result in self.conn.execute(query).fetchall()]
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query).fetchall()]
 
     def get_all_inactive_users(self):
         query = "SELECT * FROM users WHERE active = 0"
-        return [User(result[0], result[1], result[2], result[3], result[4], result[5]) for result in self.conn.execute(query).fetchall()]
+        return [User(result[0], result[1], result[2], result[3], result[5], result[4]) for result in self.conn.execute(query).fetchall()]
 
 
 
@@ -238,7 +258,7 @@ class Database:
         
     def get_project_member_ids(self, project_id):
        query = "SELECT user_id FROM project_members WHERE project_id=?"
-       return [row[0] for row in self.conn.execute(query, (project_id,)).fetchall()]  # Extract user_id from each row
+       return [row[0] for row in self.conn.execute(query, (project_id,)).fetchall()]  
 
 
     def get_user_by_id(self, user_id):
@@ -274,7 +294,10 @@ class Database:
         username = page.session.get("username")
         return self.get_user_by_username(username)
         
-
+    def add_project_member(self, project_id, member_id):
+        query = "INSERT INTO project_members (project_id, user_id) VALUES (?, ?) "
+        self.conn.execute(query, (project_id, member_id))
+        self.conn.commit()
     
     def remove_project_member(self, project_id, member_id):
         query = "DELETE FROM project_members WHERE project_id=? AND user_id=?"
@@ -284,15 +307,7 @@ class Database:
     def get_task_assignees(self, task_id):
         query = "SELECT user_id FROM task_assignees WHERE task_id=?"
         assignee_ids = [row[0] for row in self.conn.execute(query, (task_id,)).fetchall()]  # Extract user_id from each row
-
-        # assignees = []
-        # for assignee_id in assignee_ids:
-        #     user = self.get_user_by_id(assignee_id)
-        #     assignees.append(user)
-
         return assignee_ids
-
-
 
 
     def get_project_tasks(self, project_id):
@@ -305,8 +320,8 @@ class Database:
             project_id = row[1]
             title = row[2]
             description = row[3]
-            start_datetime = datetime.strptime(row[4], "%Y-%m-%dT%H:%M:%S")
-            end_datetime = datetime.strptime(row[5], "%Y-%m-%dT%H:%M:%S")
+            start_datetime = datetime.strptime(row[4], '%Y-%m-%d %H:%M:%S.%f')
+            end_datetime = datetime.strptime(row[5], '%Y-%m-%d %H:%M:%S.%f')
             priority = Priority(row[6])
             status = Status(row[7])
             assignees = self.get_task_assignees(task_id)
@@ -323,8 +338,8 @@ class Database:
             project_id = result[1]
             title = result[2]
             description = result[3]
-            start_datetime = datetime.strptime(result[4], "%Y-%m-%dT%H:%M:%S")
-            end_datetime = datetime.strptime(result[5], "%Y-%m-%dT%H:%M:%S")
+            start_datetime = datetime.strptime(result[4],'%Y-%m-%d %H:%M:%S.%f')
+            end_datetime = datetime.strptime(result[5], '%Y-%m-%d %H:%M:%S.%f')
             priority = Priority(result[6])
             status = Status(result[7])
             assignees = self.get_task_assignees(task_id)
@@ -366,182 +381,10 @@ class Database:
         self.conn.execute(query, (new_status, task_id))
         self.conn.commit()
 
-
-# DB_FILE = 'database.db'
-
-# class Database:
-#     def __init__(self):
-#         self.conn = sqlite3.connect(DB_FILE, check_same_thread=False)
-#         self.create_tables()
-
-#     def create_tables(self):
-#         # Users table
-#         self.conn.execute("""
-#             CREATE TABLE IF NOT EXISTS users (
-#                 id INTEGER PRIMARY KEY,
-#                 username TEXT UNIQUE NOT NULL,
-#                 password TEXT NOT NULL,
-#                 email TEXT UNIQUE NOT NULL,
-#                 active BOOLEAN DEFAULT TRUE,
-#                 isadmin BOOLEAN DEFAULT FALSE
-#             )
-#         """)
-        
-#         # Projects table
-#         self.conn.execute("""
-#             CREATE TABLE IF NOT EXISTS projects (
-#                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                 user_id INTEGER NOT NULL,
-#                 project_name TEXT NOT NULL,
-#                 FOREIGN KEY (user_id) REFERENCES users(id)
-#             )
-#         """)
-        
-#         # Tasks table
-#         self.conn.execute("""
-#             CREATE TABLE IF NOT EXISTS tasks (
-#                 id TEXT PRIMARY KEY,
-#                 project_id INTEGER NOT NULL,
-#                 title TEXT NOT NULL,
-#                 description TEXT,
-#                 start_datetime TEXT NOT NULL,
-#                 end_datetime TEXT NOT NULL,
-#                 priority TEXT NOT NULL,
-#                 status TEXT NOT NULL,
-#                 FOREIGN KEY (project_id) REFERENCES projects(id)
-#             )
-#         """)
-
-#         # Task Assignees table
-#         self.conn.execute("""
-#             CREATE TABLE IF NOT EXISTS task_assignees (
-#                 task_id TEXT NOT NULL,
-#                 user_id INTEGER NOT NULL,
-#                 PRIMARY KEY (task_id, user_id),
-#                 FOREIGN KEY (task_id) REFERENCES tasks(id),
-#                 FOREIGN KEY (user_id) REFERENCES users(id)
-#             )
-#         """)
-
-#         # Comments table
-#         self.conn.execute("""
-#             CREATE TABLE IF NOT EXISTS comments (
-#                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                 task_id TEXT NOT NULL,
-#                 username TEXT NOT NULL,
-#                 content TEXT NOT NULL,
-#                 timestamp TEXT NOT NULL,
-#                 FOREIGN KEY (task_id) REFERENCES tasks(id)
-#             )
-#         """)
-        
-#         self.conn.commit()
-
-#     def _hash_password(self, password):
-#         return hashlib.sha256(password.encode()).hexdigest()
-
-#     def add_user(self, username, password, email):
-#         hashed_password = self._hash_password(password)
-#         query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
-#         self.conn.execute(query, (username, hashed_password, email))
-#         self.conn.commit()
-
-#     def add_admin(self, username, password):
-#         hashed_password = self._hash_password(password)
-#         query = "INSERT INTO users (username, password, email, isadmin) VALUES (?, ?, ?, ?)"
-#         self.conn.execute(query, (username, hashed_password, "admin@example.com", True))
-#         self.conn.commit()
-
-#     @staticmethod
-#     def create_admin(username, password):
-#         db = Database()
-#         try:
-#             db.add_admin(username, password)
-#             print("Admin created successfully!")
-#         except sqlite3.IntegrityError:
-#             print("Admin already exists!")
-
-#     def is_admin(self, username):
-#         query = "SELECT isadmin FROM users WHERE username=?"
-#         result = self.conn.execute(query, (username,)).fetchone()
-#         if result and result[0] == 1:
-#             return True
-#         return False
-    
-#     def admin_exists(self):
-#         query = "SELECT * FROM users WHERE isadmin = 1"
-#         result = self.conn.execute(query).fetchone()
-#         return result is not None
-
-#     def get_user(self, username, password):
-#         hashed_password = self._hash_password(password)
-#         query = "SELECT * FROM users WHERE username=? AND password=?"
-#         return self.conn.execute(query, (username, hashed_password)).fetchone()
-
-#     def get_all_users(self):
-#         query = "SELECT * FROM users WHERE username != ?"
-#         return self.conn.execute(query, ("admin",)).fetchall()
-
-#     def get_all_active_users(self):
-#         query = "SELECT * FROM users WHERE active = 1"
-#         return self.conn.execute(query).fetchall()
-
-#     def inactivate_user(self, user_id):
-#         query = "UPDATE users SET active = 0 WHERE id = ?"
-#         self.conn.execute(query, (user_id,))
-#         self.conn.commit()
-
-#     def get_all_inactive_users(self):
-#         query = "SELECT * FROM users WHERE active = 0"
-#         return self.conn.execute(query).fetchall()
-
-#     def activate_user(self, user_id):
-#         query = "UPDATE users SET active = 1 WHERE id = ?"
-#         self.conn.execute(query, (user_id,))
-#         self.conn.commit()
-
-#     def add_project(self, user_id, project_name):
-#         query = "INSERT INTO projects (user_id, project_name) VALUES (?, ?)"
-#         self.conn.execute(query, (user_id, project_name))
-#         self.conn.commit()
-
-#     def get_projects_by_user(self, user_id):
-#         query = "SELECT * FROM projects WHERE user_id = ?"
-#         return self.conn.execute(query, (user_id,)).fetchall()
-
-#     def add_task(self, project_id, title, description, start_datetime, end_datetime, priority, status):
-#         task_id = str(uuid.uuid4())
-#         query = """
-#             INSERT INTO tasks (id, project_id, title, description, start_datetime, end_datetime, priority, status)
-#             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-#         """
-#         self.conn.execute(query, (task_id, project_id, title, description, start_datetime, end_datetime, priority, status))
-#         self.conn.commit()
-
-#     def get_tasks_by_project(self, project_id):
-#         query = "SELECT * FROM tasks WHERE project_id = ?"
-#         return self.conn.execute(query, (project_id,)).fetchall()
-
-#     def assign_task(self, task_id, user_id):
-#         query = "INSERT INTO task_assignees (task_id, user_id) VALUES (?, ?)"
-#         self.conn.execute(query, (task_id, user_id))
-#         self.conn.commit()
-
-#     def unassign_task(self, task_id, user_id):
-#         query = "DELETE FROM task_assignees WHERE task_id = ? AND user_id = ?"
-#         self.conn.execute(query, (task_id, user_id))
-#         self.conn.commit()
-
-#     def add_comment(self, task_id, username, content):
-#         timestamp = datetime.now().isoformat()
-#         query = "INSERT INTO comments (task_id, username, content, timestamp) VALUES (?, ?, ?, ?)"
-#         self.conn.execute(query, (task_id, username, content, timestamp))
-#         self.conn.commit()
-
-#     def get_comments_by_task(self, task_id):
-#         query = "SELECT * FROM comments WHERE task_id = ?"
-#         return self.conn.execute(query, (task_id,)).fetchall()
-
+    def change_priority(self, task_id, new_priority):
+        query = "UPDATE tasks SET priority = ? WHERE id = ?"
+        self.conn.execute(query, (new_priority.value, task_id))
+        self.conn.commit()
 
 
 

@@ -5,16 +5,28 @@ import hashlib
 import re
 from project import Project
 from user import User
+from history import History
 from database import Database
 import uuid
 from task import *
 from datetime import datetime, timedelta
+import logging
 
 
 
 DB_FILE = 'database.db'
 
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
    
 
 class LoginPage(UserControl):
@@ -31,6 +43,8 @@ class LoginPage(UserControl):
             self.username,
             self.password,
             ElevatedButton("Login", on_click=self.login),
+            Text("Dont have an account?!", size=14),
+            ElevatedButton("Sign Up", on_click=self.show_signup),
             self.error_message
         ])
 
@@ -40,6 +54,7 @@ class LoginPage(UserControl):
 
         if self.check_credentials(username, password):
             if self.check_active(username):
+                logger.info(f"User '{username}' logged in successfully")
                 if self.on_login:
                     self.on_login(username)
                 else:
@@ -51,8 +66,11 @@ class LoginPage(UserControl):
                     self.page.go("/main")
             else:
                 self.error_message.value = "Your account is inactive. Please contact the administrator."
+                logger.warning(f"Inactive account login attempt for user: {username}")
+
         else:
             self.error_message.value = "Invalid username or password!"
+            logger.warning(f"Invalid login attempt for user: {username}")
         self.update()
 
     def check_credentials(self, username, password):
@@ -85,6 +103,8 @@ class SignupPage(UserControl):
             self.email,
             self.password,
             ElevatedButton("Sign Up", on_click=self.signup),
+            Text("Already have an account?!", size=14),
+            ElevatedButton("Login", on_click=self.show_login),
             self.error_message
         ])
 
@@ -95,12 +115,19 @@ class SignupPage(UserControl):
 
         if self.username_exists(username):
             self.error_message.value = "Username already taken!"
+            logger.warning(f"Signup attempt failed: Username '{username}' already taken")
         elif len(password) < 6:
             self.error_message.value = "Password must be at least 6 characters long!"
-        elif not username or not email or not self.check_email(email) or not password:
+            logger.warning(f"Signup attempt failed for user '{username}': Password too short")
+        elif not username or not email or not password :
             self.error_message.value = "Invalid input!"
+            logger.warning(f"Signup attempt failed for user '{username}': Invalid input")
+        elif not self.check_email(email) or not password:
+            self.error_message.value = "Invalid email address!"
+            logger.warning(f"Signup attempt failed for user '{username}': Invalid email")
         else:
             self.db.add_user(username, password, email)
+            logger.info(f"User '{username}' created successfully")
             if self.on_signup:
                 self.on_signup(username)
             else:
@@ -119,7 +146,9 @@ class SignupPage(UserControl):
 
     def check_email(self, email):
         return bool(re.match(r"[^@]+@[^@]+\.[^@]+", email))
-
+    
+    def show_login(self, e):
+        self.page.go("/login")
 
 class MainPage(UserControl):
     def __init__(self, db, username, page):
@@ -138,7 +167,7 @@ class MainPage(UserControl):
             buttons.append(ElevatedButton("Manage Users", on_click=self.manage_users))
 
         return Column([
-            Text(f"Welcome, {self.username}!"),
+            Text(f"Welcome, {self.username}!", size = 20),
             *buttons
         ])
 
@@ -153,6 +182,7 @@ class MainPage(UserControl):
         self.page.update()
 
     def show_projects(self, e):
+        logger.info(f"User {self.username} requested to see their projects")
         projects_list = ProjectListPage(self.db , self.page)
         self.page.go(f"/projects_list")
         self.page.update()
@@ -191,14 +221,17 @@ class ProjectListPage(UserControl):
                 Text(project.get_project_name()),
                 ElevatedButton("Manage", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
             ]))
-
-        # Create a list of controls for member projects
+        if not leader_projects:
+            leader_controls.append(Text("No projects found.", italic=True))
+       
         member_controls = []
         for project in member_projects:
             member_controls.append(Row([
                 Text(project.get_project_name()),
                 ElevatedButton("Manage", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
             ]))
+        if not member_projects:
+            member_controls.append(Text("No projects found.", italic=True))
 
         return Column([
             Text("Project List", size=20),
@@ -231,7 +264,7 @@ class ManageUsersPage(UserControl):
             Text("User Management", size=20),
             ElevatedButton("Active Users", on_click=self.show_active_users),
             ElevatedButton("Inactive Users", on_click=self.show_inactive_users),
-            ElevatedButton("Back", on_click=lambda e: self.page.go("/main"))  # Add a back button to return to the main page
+            ElevatedButton("Back", on_click=lambda e: self.page.go("/main")) 
         ])
 
     def show_active_users(self, e):
@@ -274,7 +307,7 @@ class ActiveUsersPage(UserControl):
         else:
             return Column([
                 Row([
-                    Text(user.username),  # Display username
+                    Text(user.username),  
                     ElevatedButton("Inactivate", on_click=lambda e, user=user: self.inactivate_user(user.user_id))
                 ]) for user in users
             ])
@@ -282,6 +315,8 @@ class ActiveUsersPage(UserControl):
     def inactivate_user(self, user_id):
         self.db.inactivate_user(user_id)
         self.update_active_users_list()
+        username = self.db.get_user(user_id).get_username()
+        logger.info(f"User '{username}' has been inactivated by admin")
 
     def update_active_users_list(self):
         self.user_list.controls.clear()
@@ -298,7 +333,7 @@ class InactiveUsersPage(UserControl):
         return Column([
             Text("Inactive Users", size=20),
             self.user_list,
-            ElevatedButton("Back", on_click=lambda e: self.page.go("/manage_users"))  # Back button to go back to manage users
+            ElevatedButton("Back", on_click=lambda e: self.page.go("/manage_users"))  
         ])
 
     def get_inactive_users_list(self):
@@ -308,7 +343,7 @@ class InactiveUsersPage(UserControl):
         else:
             return Column([
                 Row([
-                    Text(user.username),  # Display username
+                    Text(user.username),  
                     ElevatedButton("Activate", on_click=lambda e, user=user: self.activate_user(user.user_id))
                 ]) for user in users
             ])
@@ -316,6 +351,8 @@ class InactiveUsersPage(UserControl):
     def activate_user(self, user_id):
         self.db.activate_user(user_id)
         self.update_inactive_users_list()
+        username = self.db.get_user(user_id).get_username()
+        logger.info(f"User '{username}' has been activated by admin")
 
     def update_inactive_users_list(self):
         self.user_list.controls.clear()
@@ -344,7 +381,7 @@ class CreateProjectPage(UserControl):
                 self.project_name_field,
                 self.project_id_field,
                 ElevatedButton("Next", on_click=self.select_members),
-                ElevatedButton("Cancel", on_click=self.cancel_dialog),
+                ElevatedButton("Cancel",  on_click=self.cancel_dialog),
                 self.select_members_column
             ]
         )
@@ -366,7 +403,6 @@ class CreateProjectPage(UserControl):
         active_users = self.db.get_all_active_users()
         self.member_checkboxes.clear()
 
-        # Exclude the current user from the list of active users
         current_user_id = self.db.get_user_by_username(self.username).get_id()
         active_users = [user for user in active_users if user.get_id() != current_user_id]
 
@@ -378,7 +414,7 @@ class CreateProjectPage(UserControl):
             Text(f"Select members for project '{project_name}':", size=30),
             Column(self.member_checkboxes),
             ElevatedButton("Done", on_click=self.create_project_confirm),
-            ElevatedButton("Cancel", on_click=self.cancel_dialog)
+            ElevatedButton("Cancel",  on_click=lambda e: self.page.go("/create_project"))
         ]
         self.update()
 
@@ -389,18 +425,22 @@ class CreateProjectPage(UserControl):
             self.show_snackbar("Please select at least one member!")
             return
 
-        # Get the current user's ID as the leader ID
         leader_id = self.db.get_user_by_username(self.username).get_id()
         self.db.add_project(self.get_new_project_id(), self.get_new_project_name(), leader_id, selected_user_ids)
 
         self.show_snackbar(f"Project '{self.get_new_project_name()}' created successfully!")
 
-        # Navigate to the project management page
+   
         self.page.go(f"/project_management/{self.get_new_project_id()}")
         self.page.update()
+        logger.info(f"User '{self.username}' created project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'.")
 
     def cancel_dialog(self, e):
+        self.page.go("/create_project")
         self.page.go("/main")
+        self.page.update()
+        self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+ 
 
     def show_snackbar(self, message):
         snackbar = ft.SnackBar(content=ft.Text(message))
@@ -441,7 +481,7 @@ class ProjectManagementPage(UserControl):
                     ElevatedButton("See Project Members", on_click=self.show_members),
                     ElevatedButton("See Tasks", on_click=self.show_tasks),
                     ElevatedButton("Add Task", on_click=self.add_task),
-                    ElevatedButton("Back", on_click=lambda e: self.page.go("/main"))
+                    ElevatedButton("Back",on_click=lambda e: self.page.go("/main"))
                 ]
             else:
                 buttons = [
@@ -450,71 +490,40 @@ class ProjectManagementPage(UserControl):
                     ElevatedButton("Back", on_click=lambda e: self.page.go("/main"))
                 ]
 
+            logger.info(f"User '{self.username}' viewed project '{project.get_project_name()}'.")
+
             return Column([
                 Text(f"Project: {project.get_project_name()}", size=30),
                 *buttons
             ])
         else:
             return Text("Project not found", size=30)
+        
 
 
     def show_members(self, e):
          project_members = ProjectMembersWindow(self.db, self.project_id, self.page)
          self.page.go(f"/project_members/{self.project_id}")
          self.page.update()
-  
+         logger.info(f"User '{self.username}' viewed project members for project ID '{self.project_id}'.")
 
-    def select_assignees_done(self, e):
-        self.selected_assignees = [cb.key for cb in self.member_checkboxes if cb.value]
-        self.page.go("/project_management")
 
-    def remove_member(self, member_id):
-        self.db.remove_project_member(self.project_id, member_id)
-        self.show_snackbar("Member removed successfully")
-        self.show_members(None)
 
     def add_task(self, e):
-        #print("Add Task button clicked")
         add_task = AddTaskWindow(self.db, self.project_id, self.page)
-        # self.page.dialog = add_task
-        # self.page.dialog.open = True
         self.page.go(f"/add_task/{self.project_id}")
         self.page.update()
+        logger.info(f"User '{self.username}' initiated adding a task for project ID '{self.project_id}'.")
 
 
     def show_tasks(self, e):
         show_tasks = ShowTasksWindow(self.db, self.project_id, self.page)
         self.page.go(f"/show_tasks/{self.project_id}")
         self.page.update()
-        # show_tasks = ShowTasksWindow(self.db, self.project_id, self.page)
-        # self.page.update()
-        # self.page.show_dialog(show_tasks)
+        logger.info(f"User '{self.username}' viewed tasks for project ID '{self.project_id}'.")
+  
+
         
-   
-
-    def get_db(self):
-        return self.db
-
-    def set_db(self, db):
-        self.db = db
-
-    def get_username(self):
-        return self.username
-
-    def set_username(self, username):
-        self.username = username
-
-    def get_project_id(self):
-        return self.project_id
-
-    def set_project_id(self, project_id):
-        self.project_id = project_id
-
-    def get_page(self):
-        return self.page
-
-    def set_page(self, page):
-        self.page = page
 
 
 class ShowTasksWindow(UserControl):
@@ -534,7 +543,7 @@ class ShowTasksWindow(UserControl):
        for status in Status:
            task_list = tasks_by_status.get(status, [])
            if not task_list:
-               continue  # Skip this status if there are no tasks
+               continue  
    
            task_data_rows = []
 
@@ -585,6 +594,7 @@ class ShowTasksWindow(UserControl):
         show_task_details = ShowTaskDetailsWindow(self.db, task_id , self.page)
         self.page.go(f"/show_task_details/{task_id}")
         self.page.update()
+        logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
 
     def close_window(self):
         self.page.close_dialog()
@@ -623,10 +633,11 @@ class ShowTaskDetailsWindow(UserControl):
             task_details_controls.append(ElevatedButton("Change Status", on_click=lambda e: self.change_task_status(task_id)))
 
         if self.db.get_current_user_id(self.page) == project.get_leader_id():
+            task_details_controls.append(ElevatedButton("Change Priority", on_click=lambda e: self.change_task_priority(task_id)))
             task_details_controls.append(ElevatedButton("Add Assignees", on_click=lambda e: self.add_assignees(task_id)))
             task_details_controls.append(ElevatedButton("Remove Assignees", on_click=lambda e: self.remove_assignees(task_id)))
         
-        task_details_controls.append(ElevatedButton("Back", on_click=lambda e: self.close_window()))
+        task_details_controls.append(ElevatedButton("Back", on_click=lambda e: self.cancel_dialog()))
 
         return ft.Column([           
             ft.Text(f"Task: {task.get_title()} for Project: {project.get_project_name()}", size=30),  # Show project name
@@ -647,19 +658,29 @@ class ShowTaskDetailsWindow(UserControl):
         self.page.go(f"/change_task_status/{task_id}")
         self.page.update()
 
+    def change_task_priority(self,task_id):
+        change_task_priority = ChangePriorityWindow(self.db, task_id , self.page)
+        self.page.go(f"/change_task_priority/{task_id}")
+        self.page.update()
+
     def show_comments(self,task_id):
         show_comments = ShowCommentWindow(self.db, task_id , self.page)
         self.page.go(f"/show_comments/{task_id}")
         self.page.update()
+        logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
 
     def show_history(self,task_id):
         show_history = ShowHistoryWindow(self.db, task_id , self.page)
         self.page.go(f"/show_history/{task_id}")
         self.page.update()
+        logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
 
 
-    def close_window(self):
-        self.page.close_dialog()
+    def cancel_dialog(self):
+        project_id = self.db.get_task(self.task_id).get_project_id()
+        self.page.go(f"/show_tasks/{project_id}")
+        self.page.update()
+
 
 
 
@@ -668,7 +689,7 @@ class ShowCommentWindow(UserControl):
         super().__init__()
         self.db = db
         self.task_id = task_id
-        self.page = page
+        self.page = page 
         self.add_comment_field = ft.TextField(label="Add Comment:")
 
     def build(self):
@@ -700,10 +721,8 @@ class ShowCommentWindow(UserControl):
                   
                 ]),
                   padding=10,
-                 # style="solid",
-                 # border_width=1,
-                 # border_radius=5,
-                  margin=ft.Margin(0,0,10, 0)
+                  border=ft.border.all(1),
+                  margin=ft.margin.only(bottom=10)
                 )
 
             comment_boxes.append(comment_box)
@@ -718,6 +737,7 @@ class ShowCommentWindow(UserControl):
             self.db.add_task_history(self.task_id, f"Added comment: '{comment_content}'", username)
             self.add_comment_field.value = ""
             self.refresh_comments()
+            logger.info(f"User '{username}' added the comment '{comment_content}'  to task ID '{self.task_id}'.")
 
     def refresh_comments(self):
         comments = self.db.get_task_comments(self.task_id)
@@ -725,36 +745,62 @@ class ShowCommentWindow(UserControl):
         self.page.views[-1].controls = [
             *comment_boxes,
             self.add_comment_field,
-            ft.ElevatedButton("Add Comment", on_click=self.add_comment),
-            ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+            ElevatedButton("Add Comment", on_click=self.add_comment),
+            ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
         ]
+        self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
+ 
 
 
+class ChangePriorityWindow(UserControl):
+    def __init__(self, db, task_id, page):
+        super().__init__()
+        self.db = db
+        self.task_id = task_id
+        self.page = page
 
-# class ShowCommentsWindow(UserControl):
-#     def __init__(self, db, task_id, page):
-#         super().__init__()
-#         self.db = db
-#         self.task_id = task_id
-#         self.page = page
+    def build(self):
+        priority_options = [Priority.LOW, Priority.MEDIUM, Priority.HIGH, Priority.CRITICAL]
+        task = self.db.get_task(self.task_id)
+        current_priority = task.get_priority().name
 
-#     def build(self):
-#         task = self.db.get_task(self.task_id)
+        self.priority_dropdown = ft.Dropdown(
+            label="Priority",
+            options=[ft.dropdown.Option(text=priority.name) for priority in priority_options],
+            value=current_priority
+        )
 
-#         comment_controls = []
-#         for comment in task.get_comments():
-#             comment_controls.append(Text(f"{comment.get_username()}: {comment.get_content()}"))
+        return ft.Column([
+            ft.Text(f"Change Priority for Task '{task.get_title()}'", size=20),
+            self.priority_dropdown,
+            ft.ElevatedButton("Save", on_click=self.save_priority),
+            ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+        ])
 
-#         self.page.views[-1].controls = [
-#             Text(f"Comments for Task: {task.title}", size=30),
-#             Column(comment_controls),
-#             ElevatedButton("Back", on_click=lambda e: self.close_window())
-#         ]
-#         self.page.update()
+    def save_priority(self, e):
+        task = self.db.get_task(self.task_id)
+        current_priority = task.get_priority()
+        new_priority_value = self.priority_dropdown.value
+        new_priority = Priority[new_priority_value]
 
-#     def close_window(self):
-#         self.page.close_dialog()
+        if current_priority != new_priority:
+            self.db.change_priority(self.task_id, new_priority)
+            self.db.add_task_history(
+                self.task_id, 
+                f"Changed priority from {current_priority.name} to {new_priority.name}", 
+                self.db.get_current_user_username(self.page)
+            )
+        
+        username = self.db.get_current_user_username(self.page) 
+        logger.info(f"User '{username}' changed priority of task '{task.get_title()}' from '{current_priority.name}' to '{new_priority.name}'.")
+
+        self.page.dialog = None
+        self.page.snack_bar = SnackBar(content=Text("Priority changed successfully!"))
+        self.page.snack_bar.open = True
+        self.page.update()
+        self.page.go(f"/show_task_details/{self.task_id}")
+
 
 class ChangeStatusWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -780,10 +826,18 @@ class ChangeStatusWindow(UserControl):
         ])
 
     def save_status(self, e):
+        task = self.db.get_task(self.task_id)
+        current_status = task.get_status()
         new_status = self.status_dropdown.value
         self.db.change_status(self.task_id, new_status)
-        self.db.add_task_history(self.task_id, f"Status changed to {new_status}", self.db.get_current_user_username(self.page))
+        self.db.add_task_history(
+                self.task_id, 
+                f"Changed status from {current_status} to {new_status}", 
+                self.db.get_current_user_username(self.page)
+            )
         
+        username = self.db.get_current_user_username(self.page) 
+        logger.info(f"User '{username}' changed priority of task '{task.get_title()}' from '{current_status}' to '{new_status}'.")
         self.page.dialog = None
         self.page.snack_bar = ft.SnackBar(content=ft.Text("Status changed successfully!"))
         self.page.snack_bar.open = True
@@ -792,10 +846,8 @@ class ChangeStatusWindow(UserControl):
         self.page.update()
 
     def go_back(self, e):
-        # self.page.dialog = None
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
-
 
 class ShowHistoryWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -806,21 +858,32 @@ class ShowHistoryWindow(UserControl):
 
     def build(self):
         task = self.db.get_task(self.task_id)
-        history = self.db.get_task_history(self.task_id)
+        history_entries = self.db.get_task_history(self.task_id)
 
         history_controls = []
-        for record in history:
-            history_controls.append(Text(f"{record.get_timestamp()}: {record.get_action()} by {record.get_author()}"))
+        if not history_entries:
+            history_controls.append(ft.Text("No history yet.", size=20))
+        else:
+            for history in history_entries:
+                history_controls.append(
+                   
+                    ft.Container(
+                        ft.Column([
+                            ft.Text(f"{history.get_author()}", size=14),
+                            ft.Text(f"{history.get_action()}", size=16),
+                            ft.Text(f"at: {history.get_timestamp()}", size=12),
+                        ]),
+                        padding=10,
+                        border=ft.border.all(1),
+                        margin=ft.margin.only(bottom=10)
+                    )
+                )
 
-        self.page.views[-1].controls = [
-            Text(f"History for Task: {task.title}", size=30),
-            Column(history_controls),
-            ElevatedButton("Back", on_click=lambda e: self.close_window())
-        ]
-        self.page.update()
-
-    def close_window(self):
-        self.page.close_dialog()
+        return ft.Column([
+            ft.Text(f"History of Task '{task.get_title()}'", size=30),
+            *history_controls,
+            ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+        ])
 
 class AddAssigneesWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -833,13 +896,11 @@ class AddAssigneesWindow(UserControl):
         project_id = self.db.get_task(self.task_id).get_project_id()
         active_users = self.db.get_project_member_ids(self.db.get_task(self.task_id).get_project_id())
         active_users.append(self.db.get_project(project_id).get_leader_id())
-       # active_usernames = [user.get_username() for user in active_users]
+      
 
         current_assignees = self.db.get_task_assignees(self.task_id)
 
-       # current_usernames =[user.get_username() for user in current_assignees]
-      #  current_user_id = self.db.get_current_user_id(self.page)
-       # options = [username for username in active_usernames if username not in current_usernames ]
+    
 
         self.member_checkboxes = []
         for user_id in active_users : 
@@ -862,7 +923,7 @@ class AddAssigneesWindow(UserControl):
             task.assign_user(user_id,self.db.get_current_user_username(self.page))
             self.db.add_assignee(self.task_id , user_id)
             self.db.add_task_history(self.task_id, f"Assigned user {self.db.get_user_by_id(user_id).get_username()}", self.db.get_current_user_username(self.page))
-
+            logger.info(f"User '{self.db.get_user_by_id(user_id).get_username()}' assigned to task '{task.get_title()}' by user '{self.db.get_current_user_username(self.page)}'.")
         self.page.dialog = None
         self.page.snack_bar = SnackBar(content=Text("Assignees added successfully!"))
         self.page.snack_bar.open = True
@@ -906,7 +967,7 @@ class RemoveAssigneesWindow(UserControl):
             task.unassign_user(user_id ,self.db.get_current_user_username(self.page) )
             self.db.remove_assignee(self.task_id,user_id)
             self.db.add_task_history(self.task_id, f"Unassigned user {self.db.get_user_by_id(user_id).get_username()}", self.db.get_current_user_username(self.page))
-
+            logger.info(f"User '{self.db.get_user_by_id(user_id).get_username()}' unassigned from task '{task.get_title()}' by user '{self.db.get_current_user_username(self.page)}'.")
         self.page.dialog = None
         self.page.snack_bar = SnackBar(content=Text("Assignees removed successfully!"))
         self.page.snack_bar.open = True
@@ -919,12 +980,6 @@ class RemoveAssigneesWindow(UserControl):
         self.page.update()
 
 
-
-
-    
-
-
-
 class ProjectMembersWindow(UserControl):
     def __init__(self, db, project_id, page):
         super().__init__()
@@ -932,6 +987,7 @@ class ProjectMembersWindow(UserControl):
         self.project_id = project_id
         self.page = page
         self.member_checkboxes = []
+        self.non_member_checkboxes = []
 
     def build(self):
         project_members = self.db.get_project_members(self.project_id)
@@ -951,6 +1007,7 @@ class ProjectMembersWindow(UserControl):
                 Text("Project Members", size=30),
                 Column(self.member_checkboxes),
                 ElevatedButton("Remove Selected Members", on_click=self.remove_members),
+                ElevatedButton("Add Members", on_click=self.show_non_members),
                 ElevatedButton("Back", on_click=self.cancel_dialog)
             ])
         else:
@@ -960,15 +1017,62 @@ class ProjectMembersWindow(UserControl):
                 ElevatedButton("Back", on_click=self.cancel_dialog)
             ])
 
+    def show_non_members(self, e):
+      #  project_members = self.db.get_project_members(self.project_id)
+        member_ids = self.db.get_project_member_ids(self.project_id)
+
+        active_users = self.db.get_all_active_users()
+        self.non_member_checkboxes.clear()
+
+        for user in active_users:
+            if user.get_id() not in member_ids and user.get_id() != self.db.get_project(self.project_id).get_leader_id():
+                cb = Checkbox(label=user.get_username(), key=user.get_id())
+                self.non_member_checkboxes.append(cb)
+
+        self.page.views.append(
+            ft.View(
+                "/add_members",
+                [
+                    Column([
+                        Text("Add Members", size=30),
+                        Column(self.non_member_checkboxes),
+                        ElevatedButton("Add Selected Members", on_click=self.add_members),
+                        ElevatedButton("Cancel", on_click=self.cancel_add_members)
+                    ])
+                ]
+            )
+        )
+        self.page.update()
+
+    def add_members(self, e):
+        selected_user_ids = [cb.key for cb in self.non_member_checkboxes if cb.value]
+
+        for user_id in selected_user_ids:
+            self.db.add_project_member(self.project_id, user_id)
+            logger.info(f"User '{self.db.get_user_by_id(user_id).get_username()}' added to project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
+       
+        self.page.snack_bar = ft.SnackBar(content=ft.Text("Members added successfully!"))
+        self.page.snack_bar.open = True
+        self.update_member_checkboxes()
+        self.page.go(f"/project_members/{self.project_id}")
+        self.page.update()
+
     def remove_members(self, e):
         selected_member_ids = [cb.key for cb in self.member_checkboxes if cb.value]
 
         for member_id in selected_member_ids:
             self.db.remove_project_member(self.project_id, member_id)
-
+            # Unassign from all tasks in the project
+            project_tasks = self.db.get_project_tasks(self.project_id)
+            for task in project_tasks:
+                #task.unassign_user(member_id, self.db.get_current_user_username(self.page))
+                self.db.remove_assignee(task.get_task_id(), member_id)
+                self.db.add_task_history(task.get_task_id(), f"Unassigned user {self.db.get_user_by_id(member_id).get_username()} due to removal from project", self.db.get_current_user_username(self.page))
+        logger.info(f"User '{self.db.get_user_by_id(member_id).get_username()}' removed from project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
         self.update_member_checkboxes()
-        self.page.snack_bar = ft.SnackBar(content=ft.Text("Members removed successfully!"))
+        self.page.snack_bar = ft.SnackBar(content=ft.Text("Members removed and unassigned from tasks successfully!"))
         self.page.snack_bar.open = True
+        self.page.go(f"/project_members/{self.project_id}")
         self.page.update()
 
     def update_member_checkboxes(self):
@@ -976,13 +1080,21 @@ class ProjectMembersWindow(UserControl):
         self.member_checkboxes.clear()
 
         for member in project_members:
-            cb = Checkbox(label=member.get_username(), key=member.get_id(), value=True)
+            cb = Checkbox(label=member.get_username(), key=member.get_id(), value=False)
             self.member_checkboxes.append(cb)
 
         self.update()
 
     def cancel_dialog(self, e):
-        self.page.close_dialog()
+        self.page.go(f"/project_management/{self.project_id}")
+        self.page.update()
+
+    def cancel_add_members(self, e):
+        self.page.views.pop()
+        self.page.update()
+    
+
+
 
 class AddTaskWindow(UserControl):
     def __init__(self, db, project_id, page):
@@ -994,6 +1106,7 @@ class AddTaskWindow(UserControl):
         self.end_date_error = None
 
     def build(self):
+        self.error_message = Text(value="", color=colors.RED)
         self.title_field = TextField(label="Title")
         self.description_field = TextField(label="Description")
         self.priority_dropdown = Dropdown(
@@ -1027,7 +1140,8 @@ class AddTaskWindow(UserControl):
             self.choose_assignees_label,
             Column(self.member_checkboxes),
             ElevatedButton("Save", on_click=self.save_task),
-            ElevatedButton("Cancel", on_click=self.cancel_dialog)
+            ElevatedButton("Cancel", on_click=self.cancel_dialog),
+            self.error_message
         ])
 
     def validate_fields(self):
@@ -1042,14 +1156,12 @@ class AddTaskWindow(UserControl):
         if not description:
             self.show_snackbar("Description field cannot be empty.")
             return False
-        if not start_date:
-            self.start_date_error = "Start date cannot be empty."
-        elif not self.is_valid_date(start_date):
-            self.start_date_error = "Invalid start date format. Please use YYYY-MM-DD HH:MM:SS."
-        if not end_date:
-            self.end_date_error = "End date cannot be empty."
-        elif not self.is_valid_date(end_date):
-            self.end_date_error = "Invalid end date format. Please use YYYY-MM-DD HH:MM:SS."
+        if start_date and not self.is_valid_date(start_date):
+            self.show_snackbar("Invalid start date format. Please use YYYY-MM-DD HH:MM:SS.")
+            return False
+        if end_date and not self.is_valid_date(end_date):
+            self.show_snackbar("Invalid end date format. Please use YYYY-MM-DD HH:MM:SS.")
+            return False
 
         return True
 
@@ -1067,7 +1179,7 @@ class AddTaskWindow(UserControl):
 
         selected_assignees = [cb.key for cb in self.member_checkboxes if cb.value]
 
-        # Create a new Task object
+       
         new_task = Task(
             project_id=self.project_id,
             title=self.title_field.value,
@@ -1080,10 +1192,15 @@ class AddTaskWindow(UserControl):
            
         )
 
-        # Add the task to the database
+        
         self.db.add_task(new_task)
-
-        # Close the dialog and show a success message
+        task_id = new_task.get_task_id()
+        self.db.add_task_history(task_id, f"Created '{new_task.get_title()}' task", self.db.get_current_user_username(self.page))
+        logger.info(f"New task '{new_task.get_title()}' added to project {self.project_id} by user '{self.db.get_current_user_username(self.page)}'.")
+        for assignee_id in selected_assignees:
+            username = self.db.get_user_by_id(assignee_id).get_username()
+            self.db.add_task_history(task_id, f"Assigned user {username} to task", self.db.get_current_user_username(self.page))
+            logger.info(f"User {username} assigned to task '{new_task.get_title()}'by user '{self.db.get_current_user_username(self.page)}'. ")
         self.page.dialog = None
         self.page.snack_bar = SnackBar(content=Text("Task added successfully!"))
         self.page.snack_bar.open = True
@@ -1092,7 +1209,7 @@ class AddTaskWindow(UserControl):
         self.page.update()
 
     def cancel_dialog(self, e):
-        self.page.dialog = None
+        self.page.go(f"/project_management/{self.project_id}")
         self.page.update()
 
     def is_valid_date(self, date_string):
@@ -1113,11 +1230,7 @@ class AddTaskWindow(UserControl):
 
     
 
-class ScrollablePage(ft.Page):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.vertical_scroll = "auto"
-        self.horizontal_scroll = "auto"
+
 
 def main(page : ft.Page):
     db = Database()
@@ -1125,8 +1238,6 @@ def main(page : ft.Page):
     
 
     def route_change(route):
-        ft.ScrollMode.AUTO
-       # page.add(scroll_view)
         page.views.clear()
         if page.route == "/":
             page.views.append(
@@ -1162,8 +1273,6 @@ def main(page : ft.Page):
                 )
             )
         elif page.route == "/projects_list":
-            page.vertical_scroll = "auto"
-            page.horizontal_scroll = "auto"
             page.views.append(
                 ft.View(
                     "/projects_list",
@@ -1280,6 +1389,14 @@ def main(page : ft.Page):
                     [ChangeStatusWindow(db, task_id, page)],
                 )
             )   
+        elif page.route.startswith("/change_task_priority"):
+             task_id = page.route.split("/")[-1]
+             page.views.append(
+                ft.View(
+                    f"/change_task_priority/{task_id}",
+                    [ChangePriorityWindow(db, task_id, page)],
+                )
+            )   
  
             
         page.update()
@@ -1296,88 +1413,4 @@ def main(page : ft.Page):
     page.go(page.route)
 
 ft.app(target=main, view=ft.AppView.FLET_APP)
-
-
-
-# class TaskDetailsPage(UserControl):
-#     def __init__(self, db, task_id, page):
-#         super().__init__()
-#         self.db = db
-#         self.task_id = task_id
-#         self.page = page
-
-#     def build(self):
-#         task = self.db.get_task(self.task_id)
-#         comments = self.db.get_task_comments(self.task_id)
-#         history = self.db.get_task_history(self.task_id)
-        
-#         comment_controls = []
-#         for comment in comments:
-#             comment_controls.append(ft.Text(f"{comment.username} ({comment.timestamp}): {comment.content}"))
-
-#         history_controls = []
-#         for record in history:
-#             history_controls.append(ft.Text(f"{record['timestamp']}: {record['action']} by {record['author']}"))
-
-#         self.priority_dropdown = ft.Dropdown(
-#             label="Priority",
-#             options=[
-#                 ft.DropdownOption("CRITICAL"),
-#                 ft.DropdownOption("HIGH"),
-#                 ft.DropdownOption("MEDIUM"),
-#                 ft.DropdownOption("LOW")
-#             ],
-#             value=task.priority.name
-#         )
-
-#         self.end_date_picker = ft.DatePicker(
-#             label="End Date",
-#             value=task.end_datetime.strftime("%Y-%m-%d")
-#         )
-
-#         self.comment_field = ft.TextField(
-#             label="Add Comment"
-#         )
-
-#         return ft.Column([
-#             ft.Text(f"Task: {task.title}", size=30),
-#             ft.Text(f"Description: {task.description}"),
-#             ft.Text(f"Priority: {task.priority.name}"),
-#             ft.Text(f"Status: {task.status.name}"),
-#             ft.Text(f"Start Date: {task.start_datetime}"),f
-#             ft.Text(f"End Date: {task.end_datetime}"),
-#             ft.Text("Comments:"),
-#             ft.Column(comment_controls),
-#             ft.Text("History:"),
-#             ft.Column(history_controls),
-#             self.priority_dropdown,
-#             ft.ElevatedButton("Change Priority", on_click=self.change_task_priority),
-#             self.end_date_picker,
-#             ft.ElevatedButton("Change End Date", on_click=self.change_task_end_date),
-#             self.comment_field,
-#             ft.ElevatedButton("Add Comment", on_click=self.add_task_comment),
-#             ft.ElevatedButton("Back", on_click=lambda e: self.page.go(f"/project_management/{task.project_id}"))
-#         ])
-
-#     def change_task_priority(self, e):
-#         new_priority = self.priority_dropdown.value
-#         self.db.update_task_priority(self.task_id, new_priority)
-#         self.db.add_task_history(self.task_id, f"Priority changed to {new_priority}", self.page.session.get("username"))
-#         self.page.go(f"/task_details/{self.task_id}")
-
-#     def change_task_end_date(self, e):
-#         new_end_date = self.end_date_picker.value
-#         self.db.update_task_end_date(self.task_id, new_end_date)
-#         self.db.add_task_history(self.task_id, f"End date changed to {new_end_date}", self.page.session.get("username"))
-#         self.page.go(f"/task_details/{self.task_id}")
-
-#     def add_task_comment(self, e):
-#         comment_content = self.comment_field.value
-#         if comment_content:
-#             username = self.page.session.get("username")
-#             self.db.add_task_comment(self.task_id, username, comment_content)
-#             self.db.add_task_history(self.task_id, f"Comment added by {username}", username)
-#             self.page.go(f"/task_details/{self.task_id}")
-#         else:
-#             self.page.show_snackbar("Comment cannot be empty.")
 

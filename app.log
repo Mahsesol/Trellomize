@@ -2225,3 +2225,97 @@ Traceback (most recent call last):
 TypeError: Database.get_user() missing 1 required positional argument: 'password'
 2024-05-23 15:46:52,547 - __main__ - INFO - User 'admin' created project 'final test' with ID '9d9cdade-522c-40b0-acf3-13b65a7c1d2d'.
 2024-05-23 15:46:52,555 - __main__ - INFO - User 'admin' viewed project 'final test'.
+2024-05-23 17:21:18,515 - flet_runtime - INFO - Assets path configured: /Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/assets
+2024-05-23 17:21:18,516 - flet_runtime - INFO - Starting up UDS server on /var/folders/r7/78p0xhg10fnfbsk_5lbgxwpc0000gn/T/F6LV9TBG4D
+2024-05-23 17:21:18,516 - flet_runtime - INFO - Flet app has started...
+2024-05-23 17:21:18,516 - flet_runtime - INFO - App URL: /var/folders/r7/78p0xhg10fnfbsk_5lbgxwpc0000gn/T/F6LV9TBG4D
+2024-05-23 17:21:18,516 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 17:21:18,516 - flet_runtime - INFO - Flet View found in: /Users/soleymani/.flet/bin/flet-0.22.1
+2024-05-23 17:21:18,824 - flet_runtime - INFO - App session started
+2024-05-23 17:21:24,780 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 17:21:31,652 - __main__ - INFO - User 'admin' created project 'dsd' with ID 'b383e767-fe9e-4154-812c-992296c2d491'.
+2024-05-23 17:21:31,655 - __main__ - INFO - User 'admin' viewed project 'dsd'.
+2024-05-23 17:21:33,816 - __main__ - INFO - User 'admin' viewed project members for project ID 'b383e767-fe9e-4154-812c-992296c2d491'.
+2024-05-23 17:21:37,499 - __main__ - INFO - User 'lilia' removed from project 'b383e767-fe9e-4154-812c-992296c2d491' by user 'admin'.
+2024-05-23 17:21:40,634 - __main__ - INFO - User 'lilia' added to project 'b383e767-fe9e-4154-812c-992296c2d491' by user 'admin'.
+2024-05-23 17:21:46,900 - __main__ - INFO - User 'admin' viewed project 'dsd'.
+2024-05-23 17:21:48,847 - __main__ - INFO - User 'admin' initiated adding a task for project ID 'b383e767-fe9e-4154-812c-992296c2d491'.
+2024-05-23 17:21:54,889 - __main__ - INFO - New task 'fvs' added to project b383e767-fe9e-4154-812c-992296c2d491 by user 'admin'.
+2024-05-23 17:21:54,892 - __main__ - INFO - User lilia assigned to task 'fvs'by user 'admin'. 
+2024-05-23 17:21:54,896 - __main__ - INFO - User 'admin' viewed project 'dsd'.
+2024-05-23 17:21:57,148 - __main__ - INFO - User 'admin' viewed tasks for project ID 'b383e767-fe9e-4154-812c-992296c2d491'.
+2024-05-23 17:22:00,582 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/soleymani/Library/Python/3.9/lib/python/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 17:22:03,081 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/soleymani/Library/Python/3.9/lib/python/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 624, in <lambda>
+    ElevatedButton("Show Comments", on_click=lambda e: self.show_comments(task_id)),
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 670, in show_comments
+    logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 17:22:07,770 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'update'")>
+Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/soleymani/Library/Python/3.9/lib/python/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 739, in add_comment
+    self.refresh_comments()
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 752, in refresh_comments
+    self.page.update()
+AttributeError: 'NoneType' object has no attribute 'update'
+2024-05-23 17:22:11,215 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/soleymani/Library/Python/3.9/lib/python/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 625, in <lambda>
+    ElevatedButton("Show History", on_click=lambda e: self.show_history(task_id)),
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 676, in show_history
+    logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 17:22:37,063 - __main__ - INFO - User 'admin' changed priority of task 'fvs' from 'MEDIUM' to 'MEDIUM'.
+2024-05-23 17:22:41,952 - __main__ - INFO - User 'admin' assigned to task 'fvs' by user 'admin'.
+2024-05-23 17:22:47,068 - __main__ - INFO - User 'admin' viewed project 'dsd'.
+2024-05-23 17:23:32,829 - flet_runtime - INFO - Assets path configured: /Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/assets
+2024-05-23 17:23:32,829 - flet_runtime - INFO - Starting up UDS server on /var/folders/r7/78p0xhg10fnfbsk_5lbgxwpc0000gn/T/SeM8xWYmw5
+2024-05-23 17:23:32,830 - flet_runtime - INFO - Flet app has started...
+2024-05-23 17:23:32,830 - flet_runtime - INFO - App URL: /var/folders/r7/78p0xhg10fnfbsk_5lbgxwpc0000gn/T/SeM8xWYmw5
+2024-05-23 17:23:32,830 - flet_runtime - INFO - Starting Flet View app...
+2024-05-23 17:23:32,830 - flet_runtime - INFO - Flet View found in: /Users/soleymani/.flet/bin/flet-0.22.1
+2024-05-23 17:23:33,155 - flet_runtime - INFO - App session started
+2024-05-23 17:23:40,012 - __main__ - INFO - User 'admin' logged in successfully
+2024-05-23 17:23:58,211 - __main__ - INFO - User admin requested to see their projects
+2024-05-23 17:24:07,497 - __main__ - INFO - User 'admin' viewed project 'dsd'.
+2024-05-23 17:24:12,813 - __main__ - INFO - User 'admin' viewed tasks for project ID 'b383e767-fe9e-4154-812c-992296c2d491'.
+2024-05-23 17:24:15,113 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'username'")>
+Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/soleymani/Library/Python/3.9/lib/python/site-packages/flet_core/page.py", line 528, in wrapper
+    handler(*args)
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 558, in <lambda>
+    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+  File "/Users/soleymani/Desktop/IUST/ap/newTrello/Trellomize-15/gui1.py", line 597, in show_task_details
+    logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+AttributeError: 'Page' object has no attribute 'username'
+2024-05-23 17:24:22,729 - __main__ - INFO - User 'admin' changed priority of task 'fvs' from 'MEDIUM' to 'MEDIUM'.
