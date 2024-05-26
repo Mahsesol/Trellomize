@@ -594,7 +594,7 @@ class ShowTasksWindow(UserControl):
         show_task_details = ShowTaskDetailsWindow(self.db, task_id , self.page)
         self.page.go(f"/show_task_details/{task_id}")
         self.page.update()
-        logger.info(f"User '{self.page.username}' viewed details of task ID '{task_id}'.")
+        logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed details of task ID '{task_id}'.")
 
     def close_window(self):
         self.page.close_dialog()
@@ -640,7 +640,7 @@ class ShowTaskDetailsWindow(UserControl):
         task_details_controls.append(ElevatedButton("Back", on_click=lambda e: self.cancel_dialog()))
 
         return ft.Column([           
-            ft.Text(f"Task: {task.get_title()} for Project: {project.get_project_name()}", size=30),  # Show project name
+            ft.Text(f"Task: {task.get_title()} for Project: {project.get_project_name()}", size=30), 
             *task_details_controls])
 
     def add_assignees(self,task_id):
@@ -667,13 +667,13 @@ class ShowTaskDetailsWindow(UserControl):
         show_comments = ShowCommentWindow(self.db, task_id , self.page)
         self.page.go(f"/show_comments/{task_id}")
         self.page.update()
-        logger.info(f"User '{self.page.username}' viewed comments for task ID '{task_id}'.")
+        logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed comments for task ID '{task_id}'.")
 
     def show_history(self,task_id):
         show_history = ShowHistoryWindow(self.db, task_id , self.page)
         self.page.go(f"/show_history/{task_id}")
         self.page.update()
-        logger.info(f"User '{self.page.username}' viewed history for task ID '{task_id}'.")
+        logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed history for task ID '{task_id}'.")
 
 
     def cancel_dialog(self):
@@ -746,12 +746,19 @@ class ShowCommentWindow(UserControl):
             *comment_boxes,
             self.add_comment_field,
             ElevatedButton("Add Comment", on_click=self.add_comment),
-            ElevatedButton("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
+            ElevatedButton("Back", on_click=self.go_back())
         ]
+        # self.page.go(f"/show_task_details/{self.task_id}")
+        # self.page.update()
+        # self.build
+        show_commentss= ShowCommentWindow(self.db, self.task_id , self.page)
+        # show_comments.build
+        self.page.go(f"/show_commentss/{self.task_id}")
+        # self.page.update()
+    def go_back(self):
+        show_task_details = ShowTaskDetailsWindow(self.db, self.task_id , self.page)
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
- 
-
 
 class ChangePriorityWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -1230,90 +1237,38 @@ class AddTaskWindow(UserControl):
 
     
 
-def main(page: ft.Page):
+
+
+def main(page : ft.Page):
     db = Database()
-
-    #light theme
-    light_theme = ft.Theme(
-        color_scheme=ft.ColorScheme(
-            primary=ft.colors.BLUE,  
-            background=ft.colors.GREY_200  
-        )
-    )
-
-    #dark theme
-    dark_theme = ft.Theme(
-        color_scheme=ft.ColorScheme(
-            primary=ft.colors.DEEP_PURPLE,  
-            background=ft.colors.GREY_900  
-        )
-    )
-
-    # Apply the light theme 
-    page.theme = light_theme
-    page.update()
-
-    def switch_theme(e):
-        if page.theme == light_theme:
-            page.theme = dark_theme
-        else:
-            page.theme = light_theme
-        page.update()
+   
+    
 
     def route_change(route):
         page.views.clear()
-
         if page.route == "/":
             page.views.append(
                 ft.View(
                     "/",
                     [
-                        ft.Container(
-                            content=ft.Column(
-                                [
-                                    ft.Text("Do you want to login or sign up?", size=30),
-                                    ft.ElevatedButton("Login", on_click=lambda e: page.go("/login")),
-                                    ft.ElevatedButton("Sign Up", on_click=lambda e: page.go("/signup")),
-                                    ft.ElevatedButton("Switch Theme", on_click=switch_theme),  
-                                ],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
+                        ft.Text("Do you want to login or sign up?", size=30),
+                        ft.ElevatedButton("Login", on_click=lambda e: page.go("/login")),
+                        ft.ElevatedButton("Sign Up", on_click=lambda e: page.go("/signup")),
                     ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
                 )
             )
         elif page.route == "/login":
             page.views.append(
                 ft.View(
                     "/login",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [LoginPage(db, on_login=lambda username: on_login(page, username))],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [LoginPage(db, on_login=lambda username: on_login(page, username))],
                 )
             )
         elif page.route == "/signup":
             page.views.append(
                 ft.View(
                     "/signup",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [SignupPage(db, on_signup=lambda username: on_signup(page, username))],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [SignupPage(db, on_signup=lambda username: on_signup(page, username))],
                 )
             )
         elif page.route == "/main":
@@ -1321,80 +1276,35 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     "/main",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [MainPage(db, username, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [MainPage(db, username, page)],
                 )
             )
         elif page.route == "/projects_list":
             page.views.append(
                 ft.View(
                     "/projects_list",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ProjectListPage(db, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ProjectListPage(db,page)],
                 )
-            )
+            )   
         elif page.route == "/manage_users":
             page.views.append(
                 ft.View(
                     "/manage_users",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ManageUsersPage(db)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ManageUsersPage(db)],
                 )
             )
         elif page.route == "/active_users":
             page.views.append(
                 ft.View(
                     "/active_users",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ActiveUsersPage(db)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ActiveUsersPage(db)],
                 )
             )
         elif page.route == "/inactive_users":
             page.views.append(
                 ft.View(
                     "/inactive_users",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [InactiveUsersPage(db)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [InactiveUsersPage(db)],
                 )
             )
         elif page.route == "/create_project":
@@ -1402,16 +1312,7 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     "/create_project",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [CreateProjectPage(db, username, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [CreateProjectPage(db, username, page)],
                 )
             )
         elif page.route.startswith("/project_management"):
@@ -1420,16 +1321,7 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     f"/project_management/{project_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ProjectManagementPage(db, username, project_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ProjectManagementPage(db, username, project_id, page)],
                 )
             )
         elif page.route.startswith("/add_task"):
@@ -1437,16 +1329,7 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     f"/add_task/{project_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [AddTaskWindow(db, project_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [AddTaskWindow(db, project_id, page)],
                 )
             )
         elif page.route.startswith("/project_members"):
@@ -1454,155 +1337,75 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     f"/project_members/{project_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ProjectMembersWindow(db, project_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ProjectMembersWindow(db, project_id, page)],
                 )
             )
         elif page.route.startswith("/show_tasks"):
-            project_id = page.route.split("/")[-1]
-            page.views.append(
+             project_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/show_tasks/{project_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ShowTasksWindow(db, project_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ShowTasksWindow(db, project_id, page)],
                 )
             )
         elif page.route.startswith("/show_task_details"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/show_task_details/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ShowTaskDetailsWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ShowTaskDetailsWindow(db, task_id, page)],
                 )
-            )
+            ) 
         elif page.route.startswith("/add_assignees"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/add_assignees/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [AddAssigneesWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [AddAssigneesWindow(db, task_id, page)],
                 )
-            )
+            )     
         elif page.route.startswith("/remove_assignees"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/remove_assignees/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [RemoveAssigneesWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [RemoveAssigneesWindow(db, task_id, page)],
                 )
-            )
+            )     
         elif page.route.startswith("/show_history"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/show_history/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ShowHistoryWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ShowHistoryWindow(db, task_id, page)],
                 )
-            )
+            )     
         elif page.route.startswith("/show_comments"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/show_comments/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ShowCommentWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background   
+                    [ShowCommentWindow(db, task_id, page)],
                 )
-            )
+            )     
         elif page.route.startswith("/change_task_status"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/change_task_status/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ChangeStatusWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background   
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background  
+                    [ChangeStatusWindow(db, task_id, page)],
                 )
-            )
+            )   
         elif page.route.startswith("/change_task_priority"):
-            task_id = page.route.split("/")[-1]
-            page.views.append(
+             task_id = page.route.split("/")[-1]
+             page.views.append(
                 ft.View(
                     f"/change_task_priority/{task_id}",
-                    [
-                        ft.Container(
-                            content=ft.Column(
-                                [ChangePriorityWindow(db, task_id, page)],
-                            ),
-                            bgcolor=page.theme.color_scheme.background  
-                        ),
-                    ],
-                    scroll=ft.ScrollMode.AUTO,
-                    bgcolor=page.theme.color_scheme.background  
+                    [ChangePriorityWindow(db, task_id, page)],
                 )
-            )
-
+            )   
+ 
+            
         page.update()
 
     def on_login(page, username):
