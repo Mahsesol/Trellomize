@@ -1,1 +1,1 @@
-YELLOW
+  # bgcolor=self.page.theme.color_scheme.background,

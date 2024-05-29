@@ -33,8 +33,8 @@ def create_button(text, on_click):
     return ft.ElevatedButton(
         text,
         on_click=on_click,
-        width=1500,
-        height=50
+        width= 1000,
+        height= 50,
     )
 
 class LoginPage(UserControl):
@@ -186,6 +186,10 @@ class MainPage(UserControl):
             ft.View(
                 "/create_project",
                 [create_project_page],
+                scroll= ScrollMode.AUTO,
+                bgcolor=self.page.theme.color_scheme.background,
+                # alignment=MainAxisAlignment.START,
+                horizontal_alignment=CrossAxisAlignment.CENTER
             )
         )
         self.page.update()
@@ -225,18 +229,18 @@ class ProjectListPage(UserControl):
         leader_controls = []
         for project in leader_projects:
             leader_controls.append(Row([
-                Text(project.get_project_name()),
-                create_button("Manage", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
-            ]))
+                # Text(project.get_project_name()),
+                create_button(f"Manage {project.get_project_name()}", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
+            ], width=1000))
         if not leader_projects:
             leader_controls.append(Text("No projects found.", italic=True))
 
         member_controls = []
         for project in member_projects:
             member_controls.append(Row([
-                Text(project.get_project_name()),
-                create_button("Manage", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
-            ]))
+                # Text(project.get_project_name()),
+                create_button(f"Manage {project.get_project_name()}", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
+            ], width=1000))
         if not member_projects:
             member_controls.append(Text("No projects found.", italic=True))
 
@@ -247,7 +251,7 @@ class ProjectListPage(UserControl):
             Text(f"Projects you are a member of, {self.username}:", size=15),
             *member_controls,
             create_button("Back", on_click=lambda e: self.page.go("/main"))
-        ])
+        ], width=1000)
 
     def manage_project(self, project_id):
         project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
@@ -255,6 +259,7 @@ class ProjectListPage(UserControl):
             ft.View(
                 "/project_management",
                 [project_management_page],
+                
             )
         )
         self.page.update()
@@ -371,22 +376,45 @@ class CreateProjectPage(UserControl):
         self.new_project_id = ""
         self.member_checkboxes = []
 
-
     def build(self):
-        self.project_name_field = TextField(label="Project Name", width=300)
-        self.project_id_field = TextField(label="Project ID (Recommended: Leave blank for auto-generated)", width=300)
+        self.project_name_field = TextField(
+            label="Project Name",
+            width=300,
+            bgcolor=self.page.theme.color_scheme.background,
+            color=self.page.theme.color_scheme.on_background
+        )
+        self.project_id_field = TextField(
+            label="Project ID (Recommended: Leave blank for auto-generated)",
+            width=300,
+            bgcolor=self.page.theme.color_scheme.background,
+            color=self.page.theme.color_scheme.on_background
+        )
 
         self.select_members_column = Column()
 
         return Column(
             [
-                Text("Create a New Project", size=30),
+                Text(
+                    "Create a New Project",
+                    size=30,
+                    color=self.page.theme.color_scheme.primary
+                ),
                 self.project_name_field,
                 self.project_id_field,
-                ElevatedButton("Next", on_click=self.select_members),
-                ElevatedButton("Cancel",  on_click=self.cancel_dialog),
+                ElevatedButton(
+                    "Next",
+                    on_click=self.select_members
+                ),
+                ElevatedButton(
+                    "Cancel",
+                    on_click=self.cancel_dialog
+                ),
                 self.select_members_column
-            ]
+            ],
+            scroll=ScrollMode.ALWAYS,
+            expand=True,
+            alignment=MainAxisAlignment.START,
+            horizontal_alignment=CrossAxisAlignment.CENTER
         )
 
     def select_members(self, e):
@@ -414,13 +442,68 @@ class CreateProjectPage(UserControl):
             self.member_checkboxes.append(cb)
 
         self.select_members_column.controls = [
-            Text(f"Select members for project '{project_name}':", size=30),
+            Text(
+                f"Select members for project '{project_name}':",
+                size=30,
+                color=self.page.theme.color_scheme.primary
+            ),
             Column(self.member_checkboxes),
-            ElevatedButton("Done", on_click=self.create_project_confirm),
-            ElevatedButton("Cancel",  on_click=lambda e: self.page.go("/create_project"))
+            ElevatedButton(
+                "Done",
+                on_click=self.create_project_confirm,
+                bgcolor=self.page.theme.color_scheme.secondary,
+                color=self.page.theme.color_scheme.on_secondary
+            ),
+            ElevatedButton(
+                "Cancel",
+                on_click=lambda e: self.page.go("/create_project"),
+                bgcolor=self.page.theme.color_scheme.secondary,
+                color=self.page.theme.color_scheme.on_secondary
+            )
         ]
         self.update()
 
+    def create_project_confirm(self, e):
+        selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
+
+        if not selected_user_ids:
+            self.show_snackbar("Please select at least one member!")
+            return
+
+        leader_id = self.db.get_user_by_username(self.username).get_id()
+        self.db.add_project(self.get_new_project_id(), self.get_new_project_name(), leader_id, selected_user_ids)
+
+        self.show_snackbar(f"Project '{self.get_new_project_name()}' created successfully!")
+
+        self.page.go(f"/project_management/{self.get_new_project_id()}")
+        self.page.update()
+        logger.info(f"User '{self.username}' created project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'.")
+
+    def cancel_dialog(self, e):
+        self.page.go("/main")
+        self.page.update()
+        logger.info(f"User '{self.username}' canceled the creation of a new project.")
+
+    def show_snackbar(self, message):
+        snackbar = SnackBar(
+            content=Text(message, color=self.page.theme.color_scheme.on_primary),
+            bgcolor=self.page.theme.color_scheme.primary
+        )
+        self.page.snack_bar = snackbar
+        self.page.snack_bar.open = True
+        self.page.update()
+
+    def get_new_project_name(self):
+        return self.new_project_name
+
+    def set_new_project_name(self, new_project_name):
+        self.new_project_name = new_project_name
+
+    def get_new_project_id(self):
+        return self.new_project_id
+
+    def set_new_project_id(self, new_project_id):
+        self.new_project_id = new_project_id
     def create_project_confirm(self, e):
         selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
 
@@ -557,7 +640,7 @@ class ShowTasksWindow(UserControl):
                     ft.DataCell(ft.Text(str(task.get_end_datetime()))),
                     ft.DataCell(ft.Text(task.get_priority().name)),
                     ft.DataCell(ft.Text(assignees)),
-                    ft.DataCell(create_button("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
                 ]))
 
             task_data_table = ft.DataTable(
@@ -1208,8 +1291,6 @@ class AddTaskWindow(UserControl):
         self.page.snack_bar.open = True
         self.page.update()
 
-
-
 def main(page: ft.Page):
     db = Database()
 
@@ -1218,7 +1299,7 @@ def main(page: ft.Page):
         font_family="Custom fonts",
         color_scheme=ft.ColorScheme(
             primary=ft.colors.TEAL_ACCENT_700,
-            background=ft.colors.SECONDARY_CONTAINER,
+            background=ft.colors.TEAL_50,
             on_primary=ft.colors.BLACK,
             primary_container=ft.colors.PINK,
             on_primary_container=ft.colors.YELLOW,
@@ -1248,14 +1329,15 @@ def main(page: ft.Page):
     # Dark theme
     dark_theme = ft.Theme(
         font_family="Custom fonts",
+        # bottom_appbar_theme=BottomAppBarTheme(color=ft.colors.PINK),
         color_scheme=ft.ColorScheme(
-            primary=ft.colors.DEEP_PURPLE,
+            primary=ft.colors.PURPLE,
             background=ft.colors.BLACK,
             on_primary=ft.colors.WHITE,
-            primary_container=ft.colors.PURPLE,
+            primary_container=ft.colors.WHITE,
             on_primary_container=ft.colors.WHITE,
-            secondary=ft.colors.TEAL,
-            on_background=ft.colors.WHITE,
+            secondary=ft.colors.PURPLE_ACCENT,
+            on_background=ft.colors.PURPLE_ACCENT,
             on_secondary=ft.colors.WHITE,
         ),
         text_theme=ft.TextTheme(
@@ -1308,7 +1390,9 @@ def main(page: ft.Page):
         def create_common_container(content):
             return ft.Container(
                 content=content,
-                bgcolor=page.theme.color_scheme.background
+                bgcolor=page.theme.color_scheme.background,
+                # width=1000,
+                theme_mode=ThemeMode.DARK
             )
 
         if page.route == "/":
@@ -1319,7 +1403,7 @@ def main(page: ft.Page):
                         create_common_container(
                             ft.Column(
                                 [
-                                    ft.Text("Do you want to login or sign up?", size=50),
+                                    ft.Text("Do you want to login or sign up?", size=40),
                                     create_button("Login", lambda e: page.go("/login")),
                                     create_button("Sign Up", lambda e: page.go("/signup")),
                                     create_button("Switch Theme", switch_theme),
