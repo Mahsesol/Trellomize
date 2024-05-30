@@ -1,6 +1,6 @@
 # Trellomize
-# Project Management App
-![image](https://github.com/Mahsesol/Trellomize/assets/154425249/453ed5c6-e7bd-4996-839a-e3e335dc2090)
+## Project Management App
+![image](https://github.com/Mahsesol/Trellomize/assets/154425249/97bf4f71-b371-4576-bc77-fa10bd8bf013)
 
 This is a project management application built with Python and Flet. It allows users to
 
@@ -25,7 +25,7 @@ This is a project management application built with Python and Flet. It allows u
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/yourusername/project-management-app.git
+    git clone https://github.com/Mahsesol/Trellomize.git
     cd project-management-app
     ```
 
