@@ -1,18 +1,20 @@
+import datetime
+import hashlib
+import logging
+import re
+import sqlite3
+import sys
+import uuid
+from datetime import date, datetime, timedelta
+
 import flet as ft
 from flet import *
-import sqlite3
-import hashlib
-import re
-from project import Project
-from user import User
 from history import History
-from database import Database
-import uuid
+from project import Project
 from task import *
-from datetime import datetime, timedelta
-import logging
-import sys
+from user import User
 
+from database import Database
 
 DB_FILE = 'database.db'
 
@@ -29,12 +31,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
    
 
-def create_button(text, on_click):
+def create_button(text, on_click, width=1000, height=50):
     return ft.ElevatedButton(
         text,
         on_click=on_click,
-        width= 1000,
-        height= 50,
+        width=width,
+        height=height,
     )
 
 class LoginPage(UserControl):
@@ -44,17 +46,70 @@ class LoginPage(UserControl):
         self.on_login = on_login
 
     def build(self):
-        self.username = TextField(label="Username")
-        self.password = TextField(label="Password", password=True, can_reveal_password=True)
-        self.error_message = Text(value="", color=colors.RED)
-        return Column([
-            self.username,
-            self.password,
-            create_button("Login", on_click=self.login),
-            Text("Don't have an account?!", size=14),
-            create_button("Sign Up", on_click=self.show_signup),
-            self.error_message
-        ])
+        self.username = TextField(
+            label="Username",
+            width=300,
+            border_color=self.page.theme.color_scheme.on_secondary,
+            border_width=2,
+            border_radius=10,
+            bgcolor=colors.WHITE,
+        )
+        self.password = TextField(
+            label="Password",
+            password=True,
+            can_reveal_password=True,
+            width=300,
+            border_color=self.page.theme.color_scheme.on_secondary,
+            border_width=2,
+            border_radius=10,
+            bgcolor=colors.WHITE,
+        )
+        self.error_message = Text(value="", color=self.page.theme.color_scheme.error, size=14)
+        
+        login_button = ElevatedButton(
+            text="Login",
+            on_click=self.login,
+            width=150,
+            style=ButtonStyle(
+                bgcolor=self.page.theme.color_scheme.primary,
+                # {"": colors.TEAL_ACCENT_700},
+                color={"": colors.WHITE},
+                shape=RoundedRectangleBorder(radius=10),
+                padding=Padding(15, 10, 15, 10)
+            )
+        )
+        
+        signup_button = ElevatedButton(
+            text="Sign Up",
+            on_click=self.show_signup,
+            width=150,
+            style=ButtonStyle(
+                bgcolor=self.page.theme.color_scheme.primary,
+                #{"": colors.BLUE_ACCENT_700},
+                color={"": colors.WHITE},
+                shape=RoundedRectangleBorder(radius=10),
+                padding=Padding(15, 10, 15, 10)
+            )
+        )
+        
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Login", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    self.username,
+                    self.password,
+                    login_button,
+                    Text("Don't have an account?", size=14,  color=self.page.theme.color_scheme.on_secondary),
+                    signup_button,
+                    self.error_message
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20
+        )
 
     def login(self, e):
         username = self.username.value
@@ -102,24 +157,94 @@ class SignupPage(UserControl):
         self.on_signup = on_signup
 
     def build(self):
-        self.username = TextField(label="Username")
-        self.email = TextField(label="Email")
-        self.password = TextField(label="Password", password=True, can_reveal_password=True)
-        self.error_message = Text(value="", color=colors.RED)
-        return Column([
-            self.username,
-            self.email,
-            self.password,
-            create_button("Sign Up", on_click=self.signup),
-            Text("Already have an account?!", size=14),
-            create_button("Login", on_click=self.show_login),
-            self.error_message
-        ])
+        self.username = TextField(
+            label="Username",
+            width=300,
+            border_color=colors.TEAL_ACCENT_700,
+            border_width=2,
+            border_radius=10,
+            bgcolor=self.page.theme.color_scheme.on_secondary,
+        )
+        self.email = TextField(
+            label="Email",
+            width=300,
+            border_color=colors.TEAL_ACCENT_700,
+            border_width=2,
+            border_radius=10,
+            bgcolor= self.page.theme.color_scheme.on_secondary,
+        )
+        self.password = TextField(
+            label="Password",
+            password=True,
+            can_reveal_password=True,
+            width=300,
+            border_color=self.page.theme.color_scheme.on_secondary,
+            border_width=2,
+            border_radius=10,
+            bgcolor=colors.WHITE,
+        )
+        self.confirm_password = TextField(
+            label="Confirm Password",
+            password=True,
+            can_reveal_password=True,
+            width=300,
+            border_color= self.page.theme.color_scheme.on_secondary,
+            border_width=2,
+            border_radius=10,
+            bgcolor=colors.WHITE,
+        )
+        self.error_message = Text(value="", color=colors.RED, size=14)
+
+        signup_button = ElevatedButton(
+            text="Sign Up",
+            on_click=self.signup,
+            width=150,
+            style=ButtonStyle(
+                bgcolor={"": colors.TEAL_ACCENT_700},
+                color={"": colors.WHITE},
+                shape=RoundedRectangleBorder(radius=10),
+                padding=Padding(15, 10, 15, 10)
+            )
+        )
+
+        login_button = ElevatedButton(
+            text="Login",
+            on_click=self.show_login,
+            width=150,
+            style=ButtonStyle(
+                bgcolor={"": colors.BLUE_ACCENT_700},
+                color={"": colors.WHITE},
+                shape=RoundedRectangleBorder(radius=10),
+                padding=Padding(15, 10, 15, 10)
+            )
+        )
+
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Sign Up", size=30, weight=FontWeight.BOLD),
+                    self.username,
+                    self.email,
+                    self.password,
+                    self.confirm_password,
+                    signup_button,
+                    Text("Already have an account?", size=14,  color=self.page.theme.color_scheme.on_secondary),
+                    login_button,
+                    self.error_message
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20
+        )
 
     def signup(self, e):
         username = self.username.value
         email = self.email.value
         password = self.password.value
+        confirm_password = self.confirm_password.value
 
         if self.username_exists(username):
             self.error_message.value = "Username already taken!"
@@ -133,6 +258,11 @@ class SignupPage(UserControl):
         elif not self.check_email(email) or not password:
             self.error_message.value = "Invalid email address!"
             logger.warning(f"Signup attempt failed for user '{username}': Invalid email")
+        elif password != confirm_password:
+            print("password", password)
+            print("confirm_password", confirm_password)
+            self.error_message.value = "Passwords doesn't match"
+            logger.warning(f"Signup attempt failed for user '{username}': Passwords doesn't match")
         else:
             self.db.add_user(username, password, email)
             logger.info(f"User '{username}' created successfully")
@@ -153,7 +283,8 @@ class SignupPage(UserControl):
         return result is not None
 
     def check_email(self, email):
-        return bool(re.match(r"[^@]+@[^@]+\.[^@]+", email))
+        pat = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+        return bool(re.match(pat, email))
 
     def show_login(self, e):
         self.page.go("/login")
@@ -167,18 +298,71 @@ class MainPage(UserControl):
 
     def build(self):
         buttons = [
-            create_button("Create Project", on_click=self.create_project),
-            create_button("Show Projects", on_click=self.show_projects),
-            create_button("Log out of this account", on_click=lambda e: self.page.go("/"))
+            ElevatedButton(
+                text="Create Project",
+                on_click=self.create_project,
+                width=300,
+                style=ButtonStyle(
+                    bgcolor=self.page.theme.color_scheme.on_primary_container,
+                    #{"": colors.TEAL_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            ),
+            ElevatedButton(
+                text="Show Projects",
+                on_click=self.show_projects,
+                width=300,
+                style=ButtonStyle(
+                    bgcolor=self.page.theme.color_scheme.secondary,
+                    #{"": colors.BLUE_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            ),
+            ElevatedButton(
+                text="Log out",
+                on_click=lambda e: self.page.go("/"),
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.RED_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            )
         ]
 
         if self.db.is_admin(self.username):
-            buttons.append(create_button("Manage Users", on_click=self.manage_users))
+            buttons.append(
+                ElevatedButton(
+                    text="Manage Users",
+                    on_click=self.manage_users,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.PURPLE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
 
-        return Column([
-            Text(f"Welcome, {self.username}!", size=20),
-            *buttons
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text(f"Welcome, {self.username}!", size=30, weight=FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
+                    *buttons
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20
+        )
 
     def create_project(self, e):
         create_project_page = CreateProjectPage(self.db, self.username, self.page)
@@ -186,9 +370,8 @@ class MainPage(UserControl):
             ft.View(
                 "/create_project",
                 [create_project_page],
-                scroll= ScrollMode.AUTO,
+                scroll=ScrollMode.AUTO,
                 bgcolor=self.page.theme.color_scheme.background,
-                # alignment=MainAxisAlignment.START,
                 horizontal_alignment=CrossAxisAlignment.CENTER
             )
         )
@@ -222,36 +405,76 @@ class ProjectListPage(UserControl):
         self.user_id = self.db.get_current_user_id(self.page)
 
     def build(self):
+        button_width = 300  # Set a fixed width for all buttons
         leader_projects = self.db.get_user_project_leader(self.user_id)
         member_projects = self.db.get_user_project_member(self.user_id)
-        print(leader_projects)
-        print(member_projects)
-        leader_controls = []
+
+        leader_controls = [
+            Text(f"Projects you are the leader of, {self.username}:", size=20, weight=FontWeight.BOLD)
+        ]
         for project in leader_projects:
-            leader_controls.append(Row([
-                # Text(project.get_project_name()),
-                create_button(f"Manage {project.get_project_name()}", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
-            ], width=1000))
+            leader_controls.append(
+                ElevatedButton(
+                    text=f"Manage {project.get_project_name()}",
+                    on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id),
+                    width=button_width,
+                    style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.primary,
+                        #{"": colors.TEAL_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
         if not leader_projects:
             leader_controls.append(Text("No projects found.", italic=True))
 
-        member_controls = []
+        member_controls = [
+            Text(f"Projects you are a member of, {self.username}:", size=20, weight=FontWeight.BOLD)
+        ]
         for project in member_projects:
-            member_controls.append(Row([
-                # Text(project.get_project_name()),
-                create_button(f"Manage {project.get_project_name()}", on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id))
-            ], width=1000))
+            member_controls.append(
+                ElevatedButton(
+                    text=f"Manage {project.get_project_name()}",
+                    on_click=lambda e, project_id=project.get_project_id(): self.manage_project(project_id),
+                    width=button_width,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.BLUE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
         if not member_projects:
             member_controls.append(Text("No projects found.", italic=True))
 
-        return Column([
-            Text("Project List", size=20),
-            Text(f"Projects you are the leader of, {self.username}:", size=15),
-            *leader_controls,
-            Text(f"Projects you are a member of, {self.username}:", size=15),
-            *member_controls,
-            create_button("Back", on_click=lambda e: self.page.go("/main"))
-        ], width=1000)
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Project List", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    *leader_controls,
+                    *member_controls,
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go("/main"),
+                        width=button_width,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.RED_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20
+        )
 
     def manage_project(self, project_id):
         project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
@@ -259,7 +482,6 @@ class ProjectListPage(UserControl):
             ft.View(
                 "/project_management",
                 [project_management_page],
-                
             )
         )
         self.page.update()
@@ -270,12 +492,45 @@ class ManageUsersPage(UserControl):
         self.db = db
 
     def build(self):
-        return Column([
-            Text("User Management", size=20),
-            create_button("Active Users", on_click=self.show_active_users),
-            create_button("Inactive Users", on_click=self.show_inactive_users),
-            create_button("Back", on_click=lambda e: self.page.go("/main"))
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text("User Management", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    self.create_user_button("Manage Active Users", colors.GREEN_ACCENT_700, self.show_active_users),
+                    self.create_user_button("Manage Inactive Users", colors.RED_ACCENT_700, self.show_inactive_users),
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go("/main"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
+
+    def create_user_button(self, title, color, on_click):
+        return ElevatedButton(
+            text=title,
+            on_click=on_click,
+            width=300,
+            style=ButtonStyle(
+                bgcolor={"": color},
+                color={"": colors.WHITE},
+                shape=RoundedRectangleBorder(radius=10),
+                padding=Padding(15, 10, 15, 10)
+            )
+        )
 
     def show_active_users(self, e):
         self.page.go("/active_users")
@@ -283,17 +538,6 @@ class ManageUsersPage(UserControl):
     def show_inactive_users(self, e):
         self.page.go("/inactive_users")
 
-    def get_active_users_list(self):
-        users = self.db.get_all_active_users()
-        if not users:
-            return Column([Text("No active users found")])
-        else:
-            return Column([
-                Row([
-                    Text(user.username),
-                    create_button("Inactivate", on_click=lambda e, user=user: self.inactivate_user(user.user_id))
-                ]) for user in users
-            ])
 class ActiveUsersPage(UserControl):
     def __init__(self, db):
         super().__init__()
@@ -301,11 +545,31 @@ class ActiveUsersPage(UserControl):
 
     def build(self):
         self.user_list = self.get_active_users_list()
-        return Column([
-            Text("Active Users", size=20),
-            self.user_list,
-            ElevatedButton("Back", on_click=lambda e: self.page.go("/manage_users"))  # Back button to go back to manage users
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Active Users", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    self.user_list,
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go("/manage_users"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
     
     def get_active_users_list(self):
         users = self.db.get_all_active_users()
@@ -314,10 +578,20 @@ class ActiveUsersPage(UserControl):
         else:
             return Column([
                 Row([
-                    Text(user.username),  
-                    ElevatedButton("Inactivate", on_click=lambda e, user=user: self.inactivate_user(user.user_id))
-                ]) for user in users
-            ])
+                    Text(user.username),
+                    ElevatedButton(
+                        text="Inactivate",
+                        on_click=lambda e, user=user: self.inactivate_user(user.user_id),
+                        width=150,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.RED_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(10, 5, 10, 5)
+                        )
+                    )
+                ], alignment=MainAxisAlignment.CENTER, spacing=10) for user in users
+            ], alignment=MainAxisAlignment.CENTER, horizontal_alignment=CrossAxisAlignment.CENTER, spacing=10)
 
     def inactivate_user(self, user_id):
         self.db.inactivate_user(user_id)
@@ -330,6 +604,7 @@ class ActiveUsersPage(UserControl):
         self.user_list.controls.extend(self.get_active_users_list().controls)
         self.update()
 
+
 class InactiveUsersPage(UserControl):
     def __init__(self, db):
         super().__init__()
@@ -337,11 +612,31 @@ class InactiveUsersPage(UserControl):
 
     def build(self):
         self.user_list = self.get_inactive_users_list()
-        return Column([
-            Text("Inactive Users", size=20),
-            self.user_list,
-            ElevatedButton("Back", on_click=lambda e: self.page.go("/manage_users"))  
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Inactive Users", size=30, weight=FontWeight.BOLD, color=colors.TEAL_ACCENT_700),
+                    self.user_list,
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go("/manage_users"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def get_inactive_users_list(self):
         users = self.db.get_all_inactive_users()
@@ -351,9 +646,19 @@ class InactiveUsersPage(UserControl):
             return Column([
                 Row([
                     Text(user.username),
-                    create_button("Activate", on_click=lambda e, user=user: self.activate_user(user.user_id))
-                ]) for user in users
-            ])
+                    ElevatedButton(
+                        text="Activate",
+                        on_click=lambda e, user=user: self.activate_user(user.user_id),
+                        width=150,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.GREEN_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(10, 5, 10, 5)
+                        )
+                    )
+                ], alignment=MainAxisAlignment.CENTER, spacing=10) for user in users
+            ], alignment=MainAxisAlignment.CENTER, horizontal_alignment=CrossAxisAlignment.CENTER, spacing=10)
 
     def activate_user(self, user_id):
         self.db.activate_user(user_id)
@@ -365,6 +670,7 @@ class InactiveUsersPage(UserControl):
         self.user_list.controls.clear()
         self.user_list.controls.extend(self.get_inactive_users_list().controls)
         self.update()
+
 
 class CreateProjectPage(UserControl):
     def __init__(self, db, username, page):
@@ -379,15 +685,21 @@ class CreateProjectPage(UserControl):
     def build(self):
         self.project_name_field = TextField(
             label="Project Name",
-            width=300,
+            width=400,
             bgcolor=self.page.theme.color_scheme.background,
-            color=self.page.theme.color_scheme.on_background
+            color=self.page.theme.color_scheme.on_background,
+            border_color=self.page.theme.color_scheme.primary,
+            border_width=2,
+            border_radius=10
         )
         self.project_id_field = TextField(
-            label="Project ID (Recommended: Leave blank for auto-generated)",
-            width=300,
+            label="Project ID (Optional)",
+            width=400,
             bgcolor=self.page.theme.color_scheme.background,
-            color=self.page.theme.color_scheme.on_background
+            color=self.page.theme.color_scheme.on_background,
+            border_color=self.page.theme.color_scheme.primary,
+            border_width=2,
+            border_radius=10
         )
 
         self.select_members_column = Column()
@@ -397,24 +709,41 @@ class CreateProjectPage(UserControl):
                 Text(
                     "Create a New Project",
                     size=30,
+                    weight=ft.FontWeight.BOLD,
                     color=self.page.theme.color_scheme.primary
                 ),
                 self.project_name_field,
                 self.project_id_field,
-                ElevatedButton(
-                    "Next",
-                    on_click=self.select_members
+                Row(
+                    [
+                        ElevatedButton(
+                            "Next",
+                            on_click=self.select_members,
+                            style=ButtonStyle(
+                                color=self.page.theme.color_scheme.on_primary,
+                                bgcolor=self.page.theme.color_scheme.primary,
+                                padding=Padding(15, 15, 15, 15),
+                            )
+                        ),
+                        ElevatedButton(
+                            "Cancel",
+                            on_click=self.cancel_dialog,
+                            style=ButtonStyle(
+                                color=self.page.theme.color_scheme.on_primary,
+                                bgcolor=self.page.theme.color_scheme.secondary,
+                                padding=Padding(15, 15, 15, 15),
+                            )
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    width=400
                 ),
-                ElevatedButton(
-                    "Cancel",
-                    on_click=self.cancel_dialog
-                ),
+                Divider(height=20, thickness=2, color=self.page.theme.color_scheme.primary),
                 self.select_members_column
             ],
-            scroll=ScrollMode.ALWAYS,
-            expand=True,
+            scroll=ScrollMode.AUTO,
             alignment=MainAxisAlignment.START,
-            horizontal_alignment=CrossAxisAlignment.CENTER
+            horizontal_alignment=CrossAxisAlignment.CENTER,
         )
 
     def select_members(self, e):
@@ -423,10 +752,15 @@ class CreateProjectPage(UserControl):
 
         if not project_name:
             self.show_snackbar("Please enter a project name!")
+            logger.warning(f"Attempt to create project failed : Project doesn't have a name")
             return
 
         if not project_id:
             project_id = str(uuid.uuid4())
+        elif self.db.project_id_exist(project_id):
+            self.show_snackbar("Project id already exist!")
+            logger.warning(f"Attempt to create project failed : Project id '{project_id}' already exist")
+            return
 
         self.set_new_project_name(project_name)
         self.set_new_project_id(project_id)
@@ -445,20 +779,33 @@ class CreateProjectPage(UserControl):
             Text(
                 f"Select members for project '{project_name}':",
                 size=30,
+                weight=ft.FontWeight.BOLD,
                 color=self.page.theme.color_scheme.primary
             ),
-            Column(self.member_checkboxes),
-            ElevatedButton(
-                "Done",
-                on_click=self.create_project_confirm,
-                bgcolor=self.page.theme.color_scheme.secondary,
-                color=self.page.theme.color_scheme.on_secondary
-            ),
-            ElevatedButton(
-                "Cancel",
-                on_click=lambda e: self.page.go("/create_project"),
-                bgcolor=self.page.theme.color_scheme.secondary,
-                color=self.page.theme.color_scheme.on_secondary
+            Column(self.member_checkboxes, alignment=CrossAxisAlignment.CENTER),  # Center checkboxes
+            Row(
+                [
+                    ElevatedButton(
+                        "Done",
+                        on_click=self.create_project_confirm,
+                        style=ButtonStyle(
+                            color=self.page.theme.color_scheme.on_primary,
+                            bgcolor=self.page.theme.color_scheme.primary,
+                            padding=Padding(15, 15, 15, 15),
+                        )
+                    ),
+                    ElevatedButton(
+                        "Cancel",
+                        on_click=self.cancel_select_members,
+                        style=ButtonStyle(
+                            color=self.page.theme.color_scheme.on_primary,
+                            bgcolor=self.page.theme.color_scheme.secondary,
+                            padding=Padding(15, 15, 15, 15),
+                        )
+                    )
+                ],
+                alignment=ft.MainAxisAlignment.CENTER,  # Center buttons
+                spacing=20,  # Add spacing between buttons
             )
         ]
         self.update()
@@ -478,11 +825,19 @@ class CreateProjectPage(UserControl):
         self.page.go(f"/project_management/{self.get_new_project_id()}")
         self.page.update()
         logger.info(f"User '{self.username}' created project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'.")
+        for username in selected_usernames:
+            logger.info(f"User '{username}' added to the project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'by user '{self.username}'.")
 
     def cancel_dialog(self, e):
+        logger.info("Cancel button clicked - navigating to main page")
         self.page.go("/main")
         self.page.update()
         logger.info(f"User '{self.username}' canceled the creation of a new project.")
+
+    def cancel_select_members(self, e):
+        logger.info("Cancel button clicked in select members - navigating to create project")
+        self.page.go("/create_project")
+        self.page.update()
 
     def show_snackbar(self, message):
         snackbar = SnackBar(
@@ -504,19 +859,34 @@ class CreateProjectPage(UserControl):
 
     def set_new_project_id(self, new_project_id):
         self.new_project_id = new_project_id
-    def create_project_confirm(self, e):
-        selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
+        self.page.go(f"/project_management/{self.get_new_project_id()}")
+        self.page.update()
+        logger.info(f"User '{self.username}' created project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'.")
 
-        if not selected_user_ids:
-            self.show_snackbar("Please select at least one member!")
-            return
+    def cancel_dialog(self, e):
+        self.page.go("/create_project")
+        self.page.go("/main")
+        self.page.update()
+        self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+ 
 
-        leader_id = self.db.get_user_by_username(self.username).get_id()
-        self.db.add_project(self.get_new_project_id(), self.get_new_project_name(), leader_id, selected_user_ids)
+    def show_snackbar(self, message):
+        snackbar = ft.SnackBar(content=ft.Text(message))
+        self.page.snack_bar = snackbar
+        self.page.snack_bar.open = True
+        self.page.update()
 
-        self.show_snackbar(f"Project '{self.get_new_project_name()}' created successfully!")
+    def get_new_project_name(self):
+        return self.new_project_name
 
-   
+    def set_new_project_name(self, new_project_name):
+        self.new_project_name = new_project_name
+
+    def get_new_project_id(self):
+        return self.new_project_id
+
+    def set_new_project_id(self, new_project_id):
+        self.new_project_id = new_project_id
         self.page.go(f"/project_management/{self.get_new_project_id()}")
         self.page.update()
         logger.info(f"User '{self.username}' created project '{self.get_new_project_name()}' with ID '{self.get_new_project_id()}'.")
@@ -556,44 +926,96 @@ class ProjectManagementPage(UserControl):
 
     def build(self):
         project = self.db.get_project(self.project_id)
-        
 
-        # Check if project exists
         if project:
-            # Check if the current user is the leader of the project
             is_leader = self.db.get_user_by_username(self.username).get_id() == project.get_leader_id()
+
+            buttons = [
+                ElevatedButton(
+                    text="See Project Members",
+                    on_click=self.show_members,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.primary,
+                        #{"": colors.TEAL_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                ),
+                ElevatedButton(
+                    text="See Tasks",
+                    on_click=self.show_tasks,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.primary_container,
+                        #{"": colors.BLUE_ACCENT_700},
+                         color={"": colors.WHITE},
+                         shape=RoundedRectangleBorder(radius=10),
+                         padding=Padding(15, 10, 15, 10)
+                    )
+                ),
+                ElevatedButton(
+                    text="Back",
+                    on_click=lambda e: self.page.go("/main"),
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.on_primary,
+                        #{"": colors.RED_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            ]
+
             if is_leader:
-                buttons = [
-                    ElevatedButton("See Project Members", on_click=self.show_members),
-                    ElevatedButton("See Tasks", on_click=self.show_tasks),
-                    ElevatedButton("Add Task", on_click=self.add_task),
-                    ElevatedButton("Back",on_click=lambda e: self.page.go("/main"))
-                ]
-            else:
-                buttons = [
-                    ElevatedButton("See Project Members", on_click=self.show_members),
-                    ElevatedButton("See Tasks", on_click=self.show_tasks),
-                    ElevatedButton("Back", on_click=lambda e: self.page.go("/main"))
-                ]
+                buttons.insert(1, ElevatedButton(
+                    text="Add Task",
+                    on_click=self.add_task,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.on_primary_container,
+                        #{"": colors.PURPLE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                ))
 
             logger.info(f"User '{self.username}' viewed project '{project.get_project_name()}'.")
 
-            return Column([
-                Text(f"Project: {project.get_project_name()}", size=30),
-                *buttons
-            ])
+            return Container(
+                content=Column(
+                    controls=[
+                        Text(f"Project: {project.get_project_name()}", size=30, weight=FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
+                        *buttons
+                    ],
+                    alignment=MainAxisAlignment.CENTER,
+                    horizontal_alignment=CrossAxisAlignment.CENTER,
+                    spacing=20,
+                    expand=True
+                ),
+                alignment=ft.alignment.center,
+                padding=20,
+                bgcolor=self.page.theme.color_scheme.background,
+                expand=True
+            )
         else:
-            return Text("Project not found", size=30)
-        
-
+            logger.warning(f"Project with id '{self.project_id}' not found")
+            return Container(
+                content=Text("Project not found", size=30, color=colors.RED),
+                alignment=ft.alignment.center,
+                padding=20,
+                bgcolor=self.page.theme.color_scheme.background,
+                expand=True
+            )
 
     def show_members(self, e):
-         project_members = ProjectMembersWindow(self.db, self.project_id, self.page)
-         self.page.go(f"/project_members/{self.project_id}")
-         self.page.update()
-         logger.info(f"User '{self.username}' viewed project members for project ID '{self.project_id}'.")
-
-
+        project_members = ProjectMembersWindow(self.db, self.project_id, self.page)
+        self.page.go(f"/project_members/{self.project_id}")
+        self.page.update()
+        logger.info(f"User '{self.username}' viewed project members for project ID '{self.project_id}'.")
 
     def add_task(self, e):
         add_task = AddTaskWindow(self.db, self.project_id, self.page)
@@ -601,16 +1023,11 @@ class ProjectManagementPage(UserControl):
         self.page.update()
         logger.info(f"User '{self.username}' initiated adding a task for project ID '{self.project_id}'.")
 
-
     def show_tasks(self, e):
         show_tasks = ShowTasksWindow(self.db, self.project_id, self.page)
         self.page.go(f"/show_tasks/{self.project_id}")
         self.page.update()
         logger.info(f"User '{self.username}' viewed tasks for project ID '{self.project_id}'.")
-  
-
-        
-
 
 class ShowTasksWindow(UserControl):
     def __init__(self, db, project_id, page):
@@ -640,7 +1057,19 @@ class ShowTasksWindow(UserControl):
                     ft.DataCell(ft.Text(str(task.get_end_datetime()))),
                     ft.DataCell(ft.Text(task.get_priority().name)),
                     ft.DataCell(ft.Text(assignees)),
-                    ft.DataCell(ft.ElevatedButton("Show Details", on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id)))
+                    ft.DataCell(
+                        ElevatedButton(
+                            text="Details",
+                            on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id),
+                            style=ButtonStyle(
+                                bgcolor=self.page.theme.color_scheme.primary,
+                                #{"": colors.GREEN_ACCENT_700},
+                                color={"": colors.WHITE},
+                                shape=RoundedRectangleBorder(radius=10),
+                                padding=Padding(15, 10, 15, 10)
+                            )
+                        )
+                    )
                 ]))
 
             task_data_table = ft.DataTable(
@@ -656,15 +1085,37 @@ class ShowTasksWindow(UserControl):
             )
 
             task_controls.append(ft.Column([
-                ft.Text(f"{status.value} Tasks", size=20),
+                ft.Text(f"{status.value} Tasks", size=20, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
                 task_data_table
             ]))
 
-        return ft.Column([
-            ft.Text(f"Tasks of Project '{project.get_project_name()}'", size=30),
-            *task_controls,
-            create_button("Back", on_click=lambda e: self.page.go(f"/project_management/{self.project_id}"))
-        ])
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text(f"Tasks of Project '{project.get_project_name()}'", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    *task_controls,
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go(f"/project_management/{self.project_id}"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor=self.page.theme.color_scheme.on_primary,
+                            #{"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def group_tasks_by_status(self, tasks):
         tasks_by_status = {status: [] for status in Status}
@@ -674,13 +1125,11 @@ class ShowTasksWindow(UserControl):
         return tasks_by_status
 
     def show_task_details(self, task_id):
-        show_task_details = ShowTaskDetailsWindow(self.db, task_id, self.page)
         self.page.go(f"/show_task_details/{task_id}")
         self.page.update()
         logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed details of task ID '{task_id}'.")
 
-    def close_window(self):
-        self.page.close_dialog()
+
 
 class ShowTaskDetailsWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -696,62 +1145,146 @@ class ShowTaskDetailsWindow(UserControl):
         project = self.db.get_project(project_id)
 
         task_details_controls = [
-            Text(f"Description: {task.description}"),
-            Text(f"Priority: {task.priority.name}"),
-            Text(f"Status: {task.status.name}"),
-            Text(f"Start Date: {task.start_datetime}"),
-            Text(f"End Date: {task.end_datetime}"),
-            Text(f"Assignees: {', '.join([self.db.get_user_by_id(assignee_id).get_username() for assignee_id in task.get_assignees()])}"),
-            create_button("Show Comments", on_click=lambda e: self.show_comments(task_id)),
-            create_button("Show History", on_click=lambda e: self.show_history(task_id)),
+            Text(f"Description: {task.get_description()}", size=20),
+            Text(f"Priority: {task.get_priority().name}", size=20),
+            Text(f"Status: {task.get_status().name}", size=20),
+            Text(f"Start Date: {task.get_start_datetime()}", size=20),
+            Text(f"End Date: {task.get_end_datetime()}", size=20),
+            Text(f"Assignees: {', '.join([self.db.get_user_by_id(assignee_id).get_username() for assignee_id in task.get_assignees()])}", size=20),
+            ElevatedButton(
+                text="Show Comments",
+                on_click=lambda e: self.show_comments(task_id),
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.GREEN_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            ),
+            ElevatedButton(
+                text="Show History",
+                on_click=lambda e: self.show_history(task_id),
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.BLUE_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            ),
         ]
 
-        assinee_names =[]
-        for task_assignee in task.get_assignees():
-              assinee_names.append( self.db.get_user_by_id(task_assignee).get_username())
-        if self.db.get_current_user(self.page).get_username() in assinee_names:
-            task_details_controls.append(create_button("Change Status", on_click=lambda e: self.change_task_status(task_id)))
+        assignee_names = [self.db.get_user_by_id(task_assignee).get_username() for task_assignee in task.get_assignees()]
+        if self.db.get_current_user(self.page).get_username() in assignee_names:
+            task_details_controls.append(
+                ElevatedButton(
+                    text="Change Status",
+                    on_click=lambda e: self.change_task_status(task_id),
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.PURPLE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
 
         if self.db.get_current_user_id(self.page) == project.get_leader_id():
-            task_details_controls.append(create_button("Change Priority", on_click=lambda e: self.change_task_priority(task_id)))
-            task_details_controls.append(create_button("Add Assignees", on_click=lambda e: self.add_assignees(task_id)))
-            task_details_controls.append(create_button("Remove Assignees", on_click=lambda e: self.remove_assignees(task_id)))
+            task_details_controls.append(
+                ElevatedButton(
+                    text="Change Priority",
+                    on_click=lambda e: self.change_task_priority(task_id),
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.ORANGE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
+            task_details_controls.append(
+                ElevatedButton(
+                    text="Add Assignees",
+                    on_click=lambda e: self.add_assignees(task_id),
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.GREEN_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
+            task_details_controls.append(
+                ElevatedButton(
+                    text="Remove Assignees",
+                    on_click=lambda e: self.remove_assignees(task_id),
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.RED_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
 
-        task_details_controls.append(create_button("Back", on_click=lambda e: self.cancel_dialog()))
+        task_details_controls.append(
+            ElevatedButton(
+                text="Back",
+                on_click=lambda e: self.cancel_dialog(),
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.BLUE_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            )
+        )
 
-        return ft.Column([
-            ft.Text(f"Task: {task.get_title()} for Project: {project.get_project_name()}", size=30),
-            *task_details_controls
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text(f"Task: {task.get_title()} for Project: {project.get_project_name()}", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    *task_details_controls
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20,
+                expand=True
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def add_assignees(self, task_id):
-        add_assignees = AddAssigneesWindow(self.db, task_id, self.page)
         self.page.go(f"/add_assignees/{task_id}")
         self.page.update()
 
     def remove_assignees(self, task_id):
-        remove_assignees = RemoveAssigneesWindow(self.db, task_id, self.page)
         self.page.go(f"/remove_assignees/{task_id}")
         self.page.update()
 
     def change_task_status(self, task_id):
-        change_task_status = ChangeStatusWindow(self.db, task_id, self.page)
         self.page.go(f"/change_task_status/{task_id}")
         self.page.update()
 
     def change_task_priority(self, task_id):
-        change_task_priority = ChangePriorityWindow(self.db, task_id, self.page)
         self.page.go(f"/change_task_priority/{task_id}")
         self.page.update()
 
     def show_comments(self, task_id):
-        show_comments = ShowCommentWindow(self.db, task_id, self.page)
         self.page.go(f"/show_comments/{task_id}")
         self.page.update()
         logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed comments for task ID '{task_id}'.")
 
     def show_history(self, task_id):
-        show_history = ShowHistoryWindow(self.db, task_id, self.page)
         self.page.go(f"/show_history/{task_id}")
         self.page.update()
         logger.info(f"User '{self.db.get_current_user_username(self.page)}' viewed history for task ID '{task_id}'.")
@@ -760,6 +1293,7 @@ class ShowTaskDetailsWindow(UserControl):
         project_id = self.db.get_task(self.task_id).get_project_id()
         self.page.go(f"/show_tasks/{project_id}")
         self.page.update()
+
 
 class ShowCommentWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -772,13 +1306,45 @@ class ShowCommentWindow(UserControl):
     def build(self):
         comments = self.db.get_task_comments(self.task_id)
         comment_boxes = self._build_comment_boxes(comments)
-        
-        return ft.Column([
-            *comment_boxes,
-            self.add_comment_field,
-            create_button("Add Comment", on_click=self.add_comment),
-            create_button("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
-        ])
+
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    *comment_boxes,
+                    self.add_comment_field,
+                    ElevatedButton(
+                        text="Add Comment",
+                        on_click=self.add_comment,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.GREEN_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    ),
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def _build_comment_boxes(self, comments):
         if not comments:
@@ -791,9 +1357,9 @@ class ShowCommentWindow(UserControl):
             content = comment.get_content()
             comment_box = ft.Container(
                 content=ft.Column([
-                    ft.Text(f"{author} commented :"),
-                    ft.Text(f"{content}"),
-                    ft.Text(f"at {timestamp}")
+                    ft.Text(f"{author} commented:", size=16, weight=ft.FontWeight.BOLD),
+                    ft.Text(content, size=16),
+                    ft.Text(f"at {timestamp}", size=14, italic=True)
                 ]),
                 padding=10,
                 border=ft.border.all(1),
@@ -812,22 +1378,41 @@ class ShowCommentWindow(UserControl):
             self.db.add_task_history(self.task_id, f"Added comment: '{comment_content}'", username)
             self.add_comment_field.value = ""
             self.refresh_comments()
-            logger.info(f"User '{username}' added the comment '{comment_content}'  to task ID '{self.task_id}'.")
+            logger.info(f"User '{username}' added the comment '{comment_content}' to task ID '{self.task_id}'.")
 
     def refresh_comments(self):
         comments = self.db.get_task_comments(self.task_id)
         comment_boxes = self._build_comment_boxes(comments)
         self.page.views[-1].controls = [
+            ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
             *comment_boxes,
             self.add_comment_field,
-            create_button("Add Comment", on_click=self.add_comment),
-            create_button("Back", on_click=self.go_back)
+            ElevatedButton(
+                text="Add Comment",
+                on_click=self.add_comment,
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.GREEN_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            ),
+            ElevatedButton(
+                text="Back",
+                on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
+                width=300,
+                style=ButtonStyle(
+                    bgcolor={"": colors.BLUE_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            )
         ]
-        show_comments = ShowCommentWindow(self.db, self.task_id, self.page)
-        self.page.go(f"/show_comments/{self.task_id}")
+        self.page.update()
 
     def go_back(self):
-        show_task_details = ShowTaskDetailsWindow(self.db, self.task_id, self.page)
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
 
@@ -844,17 +1429,49 @@ class ChangePriorityWindow(UserControl):
         current_priority = task.get_priority().name
 
         self.priority_dropdown = ft.Dropdown(
-            label="Priority",
-            options=[ft.dropdown.Option(text=priority.name) for priority in priority_options],
-            value=current_priority
+            options=[ft.dropdown.Option(priority.name) for priority in priority_options],
+            value=current_priority,
+            bgcolor=colors.WHITE,
+            color=colors.BLACK,
         )
 
-        return ft.Column([
-            ft.Text(f"Change Priority for Task '{task.get_title()}'", size=20),
-            self.priority_dropdown,
-            create_button("Save", on_click=self.save_priority),
-            create_button("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
-        ])
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text(f"Change Priority for Task '{task.get_title()}'", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    self.priority_dropdown,
+                    ElevatedButton(
+                        text="Save",
+                        on_click=self.save_priority,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.GREEN_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    ),
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def save_priority(self, e):
         task = self.db.get_task(self.task_id)
@@ -878,6 +1495,8 @@ class ChangePriorityWindow(UserControl):
         self.page.snack_bar.open = True
         self.page.update()
         self.page.go(f"/show_task_details/{self.task_id}")
+
+
 
 class ChangeStatusWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -914,7 +1533,7 @@ class ChangeStatusWindow(UserControl):
             )
         
         username = self.db.get_current_user_username(self.page) 
-        logger.info(f"User '{username}' changed priority of task '{task.get_title()}' from '{current_status}' to '{new_status}'.")
+        logger.info(f"User '{username}' changed status of task '{task.get_title()}' from '{current_status}' to '{new_status}'.")
         self.page.dialog = None
         self.page.snack_bar = ft.SnackBar(content=ft.Text("Status changed successfully!"))
         self.page.snack_bar.open = True
@@ -943,22 +1562,47 @@ class ShowHistoryWindow(UserControl):
             for history in history_entries:
                 history_controls.append(
                     ft.Container(
-                        ft.Column([
-                            ft.Text(f"{history.get_author()}", size=14),
+                        content=ft.Column([
+                            ft.Text(f"{history.get_author()}", size=14, weight=ft.FontWeight.BOLD),
                             ft.Text(f"{history.get_action()}", size=16),
-                            ft.Text(f"at: {history.get_timestamp()}", size=12),
+                            ft.Text(f"at: {history.get_timestamp()}", size=12, italic=True, color=colors.GREY),
                         ]),
                         padding=10,
-                        border=ft.border.all(1),
-                        margin=ft.margin.only(bottom=10)
+                        border=ft.border.all(1, color=colors.GREY),
+                        border_radius=10,
+                        margin=10,
+                        bgcolor=colors.WHITE,
+                        shadow=ft.BoxShadow(blur_radius=5, spread_radius=1, color=colors.GREY, offset=ft.Offset(2, 2))
                     )
                 )
 
-        return ft.Column([
-            ft.Text(f"History of Task '{task.get_title()}'", size=30),
-            *history_controls,
-            create_button("Back", on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"))
-        ])
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text(f"History of Task '{task.get_title()}'", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    *history_controls,
+                    ElevatedButton(
+                        text="Back",
+                        on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.BLUE_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
+
 
 class AddAssigneesWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -980,12 +1624,43 @@ class AddAssigneesWindow(UserControl):
                 cb = Checkbox(label=self.db.get_user_by_id(user_id).get_username(), key=user_id)
                 self.member_checkboxes.append(cb)
 
-        return Column([
-            Text("Add Assignees to Task", size=30),
-            Column(self.member_checkboxes),
-            create_button("Save", on_click=self.save_assignees),
-            create_button("Cancel", on_click=self.cancel_dialog)
-        ])
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text("Add Assignees to Task", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    ft.Column(self.member_checkboxes),
+                    ElevatedButton(
+                        text="Save",
+                        on_click=self.save_assignees,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.GREEN_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    ),
+                    ElevatedButton(
+                        text="Cancel",
+                        on_click=self.cancel_dialog,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.RED_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def save_assignees(self, e):
         selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
@@ -1007,6 +1682,7 @@ class AddAssigneesWindow(UserControl):
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
 
+
 class RemoveAssigneesWindow(UserControl):
     def __init__(self, db, task_id, page):
         super().__init__()
@@ -1024,12 +1700,43 @@ class RemoveAssigneesWindow(UserControl):
             cb = Checkbox(label=user.get_username(), key=user.get_id())
             self.member_checkboxes.append(cb)
 
-        return Column([
-            Text("Remove Assignees from Task", size=30),
-            Column(self.member_checkboxes),
-            create_button("Save", on_click=self.remove_assignees),
-            create_button("Cancel", on_click=self.cancel_dialog)
-        ])
+        return ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text("Remove Assignees from Task", size=30, weight=ft.FontWeight.BOLD, color=colors.TEAL_ACCENT_700),
+                    ft.Column(self.member_checkboxes),
+                    ElevatedButton(
+                        text="Save",
+                        on_click=self.remove_assignees,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.GREEN_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    ),
+                    ElevatedButton(
+                        text="Cancel",
+                        on_click=self.cancel_dialog,
+                        width=300,
+                        style=ButtonStyle(
+                            bgcolor={"": colors.RED_ACCENT_700},
+                            color={"": colors.WHITE},
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
+                    )
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def remove_assignees(self, e):
         selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
@@ -1052,6 +1759,7 @@ class RemoveAssigneesWindow(UserControl):
         self.page.update()
 
 class ProjectMembersWindow(UserControl):
+
     def __init__(self, db, project_id, page):
         super().__init__()
         self.db = db
@@ -1073,24 +1781,72 @@ class ProjectMembersWindow(UserControl):
 
         current_user_id = self.db.get_current_user_id(self.page)
 
+        member_section = Column(
+            controls=[
+                Text("Project Members", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                Column(self.member_checkboxes)
+            ]
+        )
+
         if current_user_id == leader_id:
-            return Column([
-                Text("Project Members", size=30),
-                Column(self.member_checkboxes),
-                create_button("Remove Selected Members", on_click=self.remove_members),
-                create_button("Add Members", on_click=self.show_non_members),
-                create_button("Back", on_click=self.cancel_dialog)
-            ])
-        else:
-            return Column([
-                Text("Project Members", size=30),
-                Column(self.member_checkboxes),
-                create_button("Back", on_click=self.cancel_dialog)
-            ])
+            member_section.controls.append(
+                ElevatedButton(
+                    text="Remove Selected Members",
+                    on_click=self.remove_members,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.RED_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
+            member_section.controls.append(
+                ElevatedButton(
+                    text="Add Members",
+                    on_click=self.show_non_members,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.PURPLE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            )
+
+        member_section.controls.append(
+            ElevatedButton(
+                text="Back",
+                on_click=self.cancel_dialog,
+                width=300,
+                style=ButtonStyle(
+                    bgcolor=self.page.theme.color_scheme.on_primary,
+                    #{"": colors.BLUE_ACCENT_700},
+                    color={"": colors.WHITE},
+                    shape=RoundedRectangleBorder(radius=10),
+                    padding=Padding(15, 10, 15, 10)
+                )
+            )
+        )
+
+        return Container(
+            content=Column(
+                controls=[
+                    member_section
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def show_non_members(self, e):
-      #  project_members = self.db.get_project_members(self.project_id)
-
         member_ids = self.db.get_project_member_ids(self.project_id)
         active_users = self.db.get_all_active_users()
         self.non_member_checkboxes.clear()
@@ -1104,45 +1860,86 @@ class ProjectMembersWindow(UserControl):
             ft.View(
                 "/add_members",
                 [
-                    Column([
-                        Text("Add Members", size=30),
-                        Column(self.non_member_checkboxes),
-                        create_button("Add Selected Members", on_click=self.add_members),
-                        create_button("Cancel", on_click=self.cancel_add_members)
-                    ])
-                ]
+                    Container(
+                        content=Column(
+                            controls=[
+                                Text("Add Members", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                                Column(self.non_member_checkboxes, alignment=MainAxisAlignment.START, spacing=10),
+                                ElevatedButton(
+                                    text="Add Selected Members",
+                                    on_click=self.add_members,
+                                    width=300,
+                                    style=ButtonStyle(
+                                        bgcolor={"": colors.GREEN_ACCENT_700},
+                                        color={"": colors.WHITE},
+                                        shape=RoundedRectangleBorder(radius=10),
+                                        padding=Padding(15, 10, 15, 10)
+                                    )
+                                ),
+                                ElevatedButton(
+                                    text="Cancel",
+                                    on_click=self.cancel_add_members,
+                                    width=300,
+                                    style=ButtonStyle(
+                                        bgcolor={"": colors.RED_ACCENT_700},
+                                        color={"": colors.WHITE},
+                                        shape=RoundedRectangleBorder(radius=10),
+                                        padding=Padding(15, 10, 15, 10)
+                                    )
+                                )
+                            ],
+                            alignment=MainAxisAlignment.CENTER,
+                            horizontal_alignment=CrossAxisAlignment.CENTER,
+                            spacing=20
+                        ),
+                        bgcolor=self.page.theme.color_scheme.background,
+                        padding=20,
+                        alignment=ft.alignment.center,
+                    )
+                ],
+                scroll=ft.ScrollMode.ALWAYS,
+                bgcolor=self.page.theme.color_scheme.background,
             )
         )
         self.page.update()
 
     def add_members(self, e):
         selected_user_ids = [cb.key for cb in self.non_member_checkboxes if cb.value]
+        if len(selected_user_ids) > 0:
+            for user_id in selected_user_ids:
+                self.db.add_project_member(self.project_id, user_id)
+                logger.info(f"User '{self.db.get_user_by_id(user_id).get_username()}' added to project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
 
-        for user_id in selected_user_ids:
-            self.db.add_project_member(self.project_id, user_id)
-            logger.info(f"User '{self.db.get_user_by_id(user_id).get_username()}' added to project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
-
-        self.page.snack_bar = ft.SnackBar(content=ft.Text("Members added successfully!"))
-        self.page.snack_bar.open = True
-        self.update_member_checkboxes()
-        self.page.go(f"/project_members/{self.project_id}")
-        self.page.update()
+            self.update_member_checkboxes()
+            self.page.snack_bar = ft.SnackBar(content=ft.Text("Members added successfully!"))
+            self.page.snack_bar.open = True
+            self.page.go(f"/project_members/{self.project_id}")
+            self.page.update()
+        else:
+            self.page.snack_bar = ft.SnackBar(content=ft.Text("Please select a member first!"))
+            self.page.snack_bar.open = True
+            self.page.update()
 
     def remove_members(self, e):
         selected_member_ids = [cb.key for cb in self.member_checkboxes if cb.value]
-
-        for member_id in selected_member_ids:
-            self.db.remove_project_member(self.project_id, member_id)
-            project_tasks = self.db.get_project_tasks(self.project_id)
-            for task in project_tasks:
-                self.db.remove_assignee(task.get_task_id(), member_id)
-                self.db.add_task_history(task.get_task_id(), f"Unassigned user {self.db.get_user_by_id(member_id).get_username()} due to removal from project", self.db.get_current_user_username(self.page))
-        logger.info(f"User '{self.db.get_user_by_id(member_id).get_username()}' removed from project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
-        self.update_member_checkboxes()
-        self.page.snack_bar = ft.SnackBar(content=ft.Text("Members removed and unassigned from tasks successfully!"))
-        self.page.snack_bar.open = True
-        self.page.go(f"/project_members/{self.project_id}")
-        self.page.update()
+        if len(selected_member_ids) > 0:
+            for member_id in selected_member_ids:
+                self.db.remove_project_member(self.project_id, member_id)
+                project_tasks = self.db.get_project_tasks(self.project_id)
+                for task in project_tasks:
+                    self.db.remove_assignee(task.get_task_id(), member_id)
+                    self.db.add_task_history(task.get_task_id(), f"Unassigned user {self.db.get_user_by_id(member_id).get_username()} due to removal from project", self.db.get_current_user_username(self.page))
+                logger.info(f"User '{self.db.get_user_by_id(member_id).get_username()}' removed from project '{self.project_id}' by user '{self.db.get_current_user_username(self.page)}'.")
+            self.update_member_checkboxes()
+            self.page.snack_bar = ft.SnackBar(content=ft.Text("Members removed and unassigned from tasks successfully!"))
+            self.page.snack_bar.open = True
+            self.page.go(f"/project_members/{self.project_id}")
+            self.page.update()
+        else:
+            self.page.snack_bar = ft.SnackBar(content=ft.Text("Please select a member first!"))
+            self.page.snack_bar.open = True
+            self.page.update()
+                
 
     def update_member_checkboxes(self):
         project_members = self.db.get_project_members(self.project_id)
@@ -1168,13 +1965,15 @@ class AddTaskWindow(UserControl):
         self.db = db
         self.project_id = project_id
         self.page = page
-        self.start_date_error = None
-        self.end_date_error = None
+        self.start_date_picker = None
+        self.end_date_picker = None
+        self.start_date_value = None
+        self.end_date_value = None
 
     def build(self):
         self.error_message = Text(value="", color=colors.RED)
-        self.title_field = TextField(label="Title")
-        self.description_field = TextField(label="Description")
+        self.title_field = TextField(label="Title", width=400)
+        self.description_field = TextField(label="Description", width=400)
         self.priority_dropdown = Dropdown(
             label="Priority",
             options=[
@@ -1183,12 +1982,49 @@ class AddTaskWindow(UserControl):
                 ft.dropdown.Option("MEDIUM"),
                 ft.dropdown.Option("LOW")
             ],
-            value="LOW"
+            value="LOW",
+            width=400
         )
-        self.start_date_field = TextField(label="Start Date (YYYY-MM-DD HH:MM:SS)")
-        self.end_date_field = TextField(label="End Date (YYYY-MM-DD HH:MM:SS)")
+
+        def start_date_change(e):
+            self.start_date_value = self.start_date_picker.value
+
+        def end_date_change(e):
+            self.end_date_value = self.end_date_picker.value
+
+        self.start_date_picker = DatePicker(
+            on_change=start_date_change,
+            first_date=date(2023, 1, 1),
+            last_date=date(2025, 12, 31)
+        )
+
+        self.end_date_picker = DatePicker(
+            on_change=end_date_change,
+            first_date=date(2023, 1, 1),
+            last_date=date(2025, 12, 31)
+        )
+
+        self.page.overlay.append(self.start_date_picker)
+        self.page.overlay.append(self.end_date_picker)
+
+        start_date_button = ElevatedButton(
+            "Pick Start Date",
+            icon=ft.icons.CALENDAR_MONTH,
+            on_click=lambda _: self.start_date_picker.pick_date(),
+            width=400,
+            bgcolor=self.page.theme.color_scheme.on_primary_container
+        )
+
+        end_date_button = ElevatedButton(
+            "Pick End Date",
+            icon=ft.icons.CALENDAR_MONTH,
+            on_click=lambda _: self.end_date_picker.pick_date(),
+            width=400,
+            bgcolor=self.page.theme.color_scheme.on_primary_container,
+        )
+
         self.member_checkboxes = []
-        self.choose_assignees_label = Text("Choose Assignees:")
+        self.choose_assignees_label = Text("Choose Assignees:", size=20, weight=FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary)
 
         active_users = self.db.get_project_members(self.project_id)
         active_users.append(self.db.get_user_by_id(self.db.get_project(self.project_id).get_leader_id()))
@@ -1196,25 +2032,56 @@ class AddTaskWindow(UserControl):
             cb = Checkbox(label=user.get_username(), key=user.get_id())
             self.member_checkboxes.append(cb)
 
-        return Column([
-            Text("Add a New Task", size=30),
-            self.title_field,
-            self.description_field,
-            self.priority_dropdown,
-            self.start_date_field,
-            self.end_date_field,
-            self.choose_assignees_label,
-            Column(self.member_checkboxes),
-            create_button("Save", on_click=self.save_task),
-            create_button("Cancel", on_click=self.cancel_dialog),
-            self.error_message
-        ])
+        return Container(
+            content=Column(
+                controls=[
+                    Text("Add a New Task", size=30, weight=FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+                    self.title_field,
+                    self.description_field,
+                    self.priority_dropdown,
+                    start_date_button,
+                    end_date_button,
+                    self.choose_assignees_label,
+                    Column(self.member_checkboxes, alignment=MainAxisAlignment.START, spacing=10),
+                    ElevatedButton(
+                        text="Save",
+                        on_click=self.save_task,
+                        width=300,
+                        # style=ButtonStyle(
+                        #     bgcolor={"": colors.GREEN_ACCENT_700},
+                        #     color={"": colors.WHITE},
+                        #     shape=RoundedRectangleBorder(radius=10),
+                        #     padding=Padding(15, 10, 15, 10)
+                        # )
+                    ),
+                    ElevatedButton(
+                        text="Cancel",
+                        on_click=self.cancel_dialog,
+                        width=300,
+                        # style=ButtonStyle(
+                        #     bgcolor={"": colors.RED_ACCENT_700},
+                        #     color={"": colors.WHITE},
+                        #     shape=RoundedRectangleBorder(radius=10),
+                        #     padding=Padding(15, 10, 15, 10)
+                        # )
+                    ),
+                    self.error_message
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=20
+            ),
+            alignment=ft.alignment.center,
+            padding=20,
+            bgcolor=self.page.theme.color_scheme.background,
+            expand=True
+        )
 
     def validate_fields(self):
         title = self.title_field.value
         description = self.description_field.value
-        start_date = self.start_date_field.value
-        end_date = self.end_date_field.value
+        start_date = self.start_date_value
+        end_date = self.end_date_value
 
         if not title:
             self.show_snackbar("Title field cannot be empty.")
@@ -1222,11 +2089,14 @@ class AddTaskWindow(UserControl):
         if not description:
             self.show_snackbar("Description field cannot be empty.")
             return False
-        if start_date and not self.is_valid_date(start_date):
-            self.show_snackbar("Invalid start date format. Please use YYYY-MM-DD HH:MM:SS.")
+        if not start_date:
+            self.show_snackbar("Start date cannot be empty.")
             return False
-        if end_date and not self.is_valid_date(end_date):
-            self.show_snackbar("Invalid end date format. Please use YYYY-MM-DD HH:MM:SS.")
+        if not end_date:
+            self.show_snackbar("End date cannot be empty.")
+            return False
+        if end_date < start_date:
+            self.show_snackbar("End date cannot be less than start date")
             return False
 
         return True
@@ -1235,13 +2105,8 @@ class AddTaskWindow(UserControl):
         if not self.validate_fields():
             return
 
-        start_date = self.start_date_field.value
-        end_date = self.end_date_field.value
-
-        if not start_date:
-            start_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        if not end_date:
-            end_date = (datetime.now() + timedelta(hours=24)).strftime("%Y-%m-%d %H:%M:%S")
+        start_date = self.start_date_value
+        end_date = self.end_date_value
 
         selected_assignees = [cb.key for cb in self.member_checkboxes if cb.value]
 
@@ -1252,8 +2117,8 @@ class AddTaskWindow(UserControl):
             priority=self.priority_dropdown.value,
             status="BACKLOG",
             assignees=selected_assignees,
-            start_datetime=self.parse_date(start_date),
-            end_datetime=self.parse_date(end_date)
+            start_datetime=start_date,
+            end_datetime=end_date
         )
 
         self.db.add_task(new_task)
@@ -1275,16 +2140,6 @@ class AddTaskWindow(UserControl):
         self.page.go(f"/project_management/{self.project_id}")
         self.page.update()
 
-    def is_valid_date(self, date_string):
-        try:
-            datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
-            return True
-        except ValueError:
-            return False
-
-    def parse_date(self, date_string):
-        return datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
-
     def show_snackbar(self, message):
         snackbar = ft.SnackBar(content=ft.Text(message))
         self.page.snack_bar = snackbar
@@ -1296,14 +2151,14 @@ def main(page: ft.Page):
 
     # Light theme
     light_theme = ft.Theme(
-        font_family="Custom fonts",
+        font_family="Roboto",
         color_scheme=ft.ColorScheme(
             primary=ft.colors.TEAL_ACCENT_700,
             background=ft.colors.TEAL_50,
-            on_primary=ft.colors.BLACK,
+            on_primary=ft.colors.TEAL_800,
             primary_container=ft.colors.PINK,
-            on_primary_container=ft.colors.YELLOW,
-            secondary=ft.colors.GREEN,
+            on_primary_container=ft.colors.PINK_300,
+            secondary=ft.colors.PINK,
             on_background=ft.colors.BLACK,
             on_secondary=ft.colors.BLACK,
         ),
@@ -1328,31 +2183,30 @@ def main(page: ft.Page):
 
     # Dark theme
     dark_theme = ft.Theme(
-        font_family="Custom fonts",
-        # bottom_appbar_theme=BottomAppBarTheme(color=ft.colors.PINK),
+        font_family="Roboto",
         color_scheme=ft.ColorScheme(
             primary=ft.colors.PURPLE,
             background=ft.colors.BLACK,
-            on_primary=ft.colors.WHITE,
-            primary_container=ft.colors.WHITE,
-            on_primary_container=ft.colors.WHITE,
-            secondary=ft.colors.PURPLE_ACCENT,
-            on_background=ft.colors.PURPLE_ACCENT,
+            on_primary=ft.colors.DEEP_PURPLE,
+            primary_container=ft.colors.INDIGO,
+            on_primary_container=ft.colors.DEEP_PURPLE_ACCENT_700,
+            secondary=ft.colors.PURPLE,
+            on_background=ft.colors.WHITE,
             on_secondary=ft.colors.WHITE,
         ),
         text_theme=ft.TextTheme(
             body_medium=ft.TextStyle(color=ft.colors.WHITE),
             headline_large=ft.TextStyle(color=ft.colors.WHITE),
             title_medium=ft.TextStyle(color=ft.colors.WHITE),
-            body_large=ft.TextStyle(color=ft.colors.WHITE),
-            body_small=ft.TextStyle(color=ft.colors.WHITE),
+            body_large=ft.TextStyle(color=ft.colors.BLACK),
+            body_small=ft.TextStyle(color=ft.colors.BLACK),
             display_large=ft.TextStyle(color=ft.colors.WHITE),
             display_medium=ft.TextStyle(color=ft.colors.WHITE),
             display_small=ft.TextStyle(color=ft.colors.WHITE),
             headline_medium=ft.TextStyle(color=ft.colors.WHITE),
             headline_small=ft.TextStyle(color=ft.colors.WHITE),
             label_large=ft.TextStyle(color=ft.colors.WHITE),
-            label_medium=ft.TextStyle(color=ft.colors.WHITE),
+            label_medium=ft.TextStyle(color=ft.colors.BLACK),
             label_small=ft.TextStyle(color=ft.colors.WHITE),
             title_large=ft.TextStyle(color=ft.colors.WHITE),
             title_small=ft.TextStyle(color=ft.colors.WHITE)
@@ -1383,7 +2237,6 @@ def main(page: ft.Page):
             view.update()
         page.update()
 
-
     def route_change(route):
         page.views.clear()
 
@@ -1391,8 +2244,8 @@ def main(page: ft.Page):
             return ft.Container(
                 content=content,
                 bgcolor=page.theme.color_scheme.background,
-                # width=1000,
-                theme_mode=ThemeMode.DARK
+                alignment=ft.alignment.center,
+                padding=20,
             )
 
         if page.route == "/":
@@ -1401,14 +2254,57 @@ def main(page: ft.Page):
                     "/",
                     [
                         create_common_container(
-                            ft.Column(
-                                [
-                                    ft.Text("Do you want to login or sign up?", size=40),
-                                    create_button("Login", lambda e: page.go("/login")),
-                                    create_button("Sign Up", lambda e: page.go("/signup")),
-                                    create_button("Switch Theme", switch_theme),
-                                    create_button("Exit", lambda e: page.window_destroy()),
+                            Column(
+                                controls=[
+                                    Text("Welcome!", size=40, weight=FontWeight.BOLD, color=page.theme.color_scheme.on_secondary),
+                                    ElevatedButton(
+                                        text="Login",
+                                        on_click=lambda e: page.go("/login"),
+                                        width=300,
+                                        # style=ButtonStyle(
+                                        #     bgcolor={"": colors.GREEN_ACCENT_700},
+                                        #     color={"": colors.WHITE},
+                                        #     shape=RoundedRectangleBorder(radius=10),
+                                        #     padding=Padding(15, 10, 15, 10)
+                                        # )
+                                    ),
+                                    ElevatedButton(
+                                        text="Sign Up",
+                                        on_click=lambda e: page.go("/signup"),
+                                        width=300,
+                                        # style=ButtonStyle(
+                                        #     bgcolor={"": colors.BLUE_ACCENT_700},
+                                        #     color={"": colors.WHITE},
+                                        #     shape=RoundedRectangleBorder(radius=10),
+                                        #     padding=Padding(15, 10, 15, 10)
+                                        # )
+                                    ),
+                                    ElevatedButton(
+                                        text="Switch Theme",
+                                        on_click=switch_theme,
+                                        width=300,
+                                        style=ButtonStyle(
+                                        #     bgcolor={"": colors.PURPLE_ACCENT_700},
+                                        #     color={"": colors.WHITE},
+                                        #     shape=RoundedRectangleBorder(radius=10),
+                                        #     padding=Padding(15, 10, 15, 10)
+                                        )
+                                    ),
+                                    ElevatedButton(
+                                        text="Exit",
+                                        on_click=lambda e: page.window_destroy(),
+                                        width=300,
+                                        # style=ButtonStyle(
+                                        #     bgcolor={"": colors.RED_ACCENT_700},
+                                        #     color={"": colors.WHITE},
+                                        #     shape=RoundedRectangleBorder(radius=10),
+                                        #     padding=Padding(15, 10, 15, 10)
+                                        # )
+                                    ),
                                 ],
+                                alignment=MainAxisAlignment.CENTER,
+                                horizontal_alignment=CrossAxisAlignment.CENTER,
+                                spacing=20
                             )
                         ),
                     ],
@@ -1605,14 +2501,18 @@ def main(page: ft.Page):
                         ft.Container(
                             content=ft.Column(
                                 [ShowTasksWindow(db, project_id, page)],
+                                 expand=True  # Ensure the column takes all available space
                             ),
-                            bgcolor=page.theme.color_scheme.background
+                            bgcolor=page.theme.color_scheme.background,
+                            expand=True  # Ensure the container takes all available space
                         ),
                     ],
                     scroll=ft.ScrollMode.ALWAYS,
-                    bgcolor=page.theme.color_scheme.background
+                    bgcolor=page.theme.color_scheme.background,
+                  expand=True  # Ensure the view takes all available space
                 )
-            )
+        )
+
         elif page.route.startswith("/show_task_details"):
             task_id = page.route.split("/")[-1]
             page.views.append(
@@ -1747,4 +2647,3 @@ def main(page: ft.Page):
     page.go(page.route)
 
 ft.app(target=main, view=ft.AppView.FLET_APP)
-

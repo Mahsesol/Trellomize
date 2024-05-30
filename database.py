@@ -26,11 +26,10 @@ class Database:
         self.conn = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.create_tables()
 
-    # def connect(self):
-    #     return sqlite3.connect(self.db_file)
+
 
     def create_tables(self):
-        # Users table
+      
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
@@ -42,7 +41,7 @@ class Database:
             )
         """)
         
-        # Projects table
+     
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS projects (
                 id TEXT PRIMARY KEY,
@@ -52,7 +51,7 @@ class Database:
             )
         """)
 
-        # Project members table
+       
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS project_members (
                 project_id TEXT NOT NULL,
@@ -63,7 +62,7 @@ class Database:
             )
         """)
 
-        # Tasks table
+      
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS tasks (
                 id TEXT PRIMARY KEY,
@@ -78,7 +77,7 @@ class Database:
             )
         """)
 
-        # Task assignees table
+      
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS task_assignees (
                 task_id TEXT NOT NULL,
@@ -89,7 +88,7 @@ class Database:
             )
         """)
 
-        # Comments table
+     
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS comments (
                 id INTEGER PRIMARY KEY,
@@ -101,7 +100,7 @@ class Database:
             )
         """)
 
-        # Task history table
+       
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS task_history (
                 id INTEGER PRIMARY KEY,
@@ -191,9 +190,10 @@ class Database:
         db = Database(DB_FILE)
         try:
             db.add_admin(username, password)
-            print("Admin created successfully!")
+            # print("Admin created successfully!")
         except sqlite3.IntegrityError:
-            print("Admin already exists!")
+            # print("Admin already exists!")
+            pass
 
     def is_admin(self, username):
         query = "SELECT isadmin FROM users WHERE username=?"
@@ -206,6 +206,11 @@ class Database:
         query = "SELECT * FROM users WHERE isadmin = 1"
         result = self.conn.execute(query).fetchone()
         return result is not None
+    
+    def project_id_exist(self,project_id):
+        query = "SELECT * FROM projects WHERE id=?"
+        result = self.conn.execute(query, (project_id,)).fetchone()
+        return result is not None 
 
     def get_user(self, username, password):
         hashed_password = self._hash_password(password)
@@ -287,8 +292,9 @@ class Database:
     
     def get_current_user_username(self, page):
         username = page.session.get("username")
-        user = self.get_user_by_username(username)
-        return user.get_username()
+        # user = self.get_user_by_username(username)
+        # return user.get_username()
+        return username
 
     def get_current_user(self, page):
         username = page.session.get("username")
@@ -386,7 +392,17 @@ class Database:
         self.conn.execute(query, (new_priority.value, task_id))
         self.conn.commit()
 
-
+    def purge_data(self):
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM users")
+        cursor.execute("DELETE FROM projects")
+        cursor.execute("DELETE FROM project_members")
+        cursor.execute("DELETE FROM tasks")
+        cursor.execute("DELETE FROM task_assignees")
+        cursor.execute("DELETE FROM comments")
+        cursor.execute("DELETE FROM task_history")
+        self.conn.commit()
+        cursor.close()
 
 
 

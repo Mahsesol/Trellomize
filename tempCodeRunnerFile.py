@@ -1,1 +1,1 @@
-  # bgcolor=self.page.theme.color_scheme.background,
+show_task_details
