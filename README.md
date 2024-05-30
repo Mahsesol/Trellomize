@@ -1,5 +1,6 @@
 # Trellomize
 # Project Management App
+![image](https://github.com/Mahsesol/Trellomize/assets/154425249/453ed5c6-e7bd-4996-839a-e3e335dc2090)
 
 This is a project management application built with Python and Flet. It allows users to
 
@@ -11,8 +12,7 @@ This is a project management application built with Python and Flet. It allows u
 - [File Structure](#file-structure)
 - [Logging](#logging)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
@@ -63,7 +63,7 @@ This is a project management application built with Python and Flet. It allows u
 ```plaintext
 TerlloMize-app/
 │
-├── app.py                   # Main application entry point
+├── gui1.py                   # Main application entry point
 ├── database.py              # Database initialization and handling
 ├── initialize_database.py   # Script to initialize the database
 ├── history.py               # History tracking for projects and tasks
