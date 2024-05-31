@@ -391,15 +391,15 @@ class MainPage(UserControl):
     def manage_users(self, e):
         self.page.go("/manage_users")
 
-    def project_management(self, project_id):
-        project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
-        self.page.views.append(
-            ft.View(
-                "/project_management",
-                [project_management_page],
-            )
-        )
-        self.page.update()
+    # def project_management(self, project_id):
+    #     project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
+    #     self.page.views.append(
+    #         ft.View(
+    #             "/project_management",
+    #             [project_management_page],
+    #         )
+    #     )
+    #     self.page.update()
 
 class ProjectListPage(UserControl):
     def __init__(self, db, page):
@@ -482,15 +482,36 @@ class ProjectListPage(UserControl):
             padding=20
         )
 
+    # def manage_project(self, project_id):
+    #     project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
+    #     self.page.views.append(
+    #         ft.View(
+    #             "/project_management",
+    #             [project_management_page],
+    #         )
+    #     )
+    #     self.page.update()
     def manage_project(self, project_id):
-        project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
-        self.page.views.append(
-            ft.View(
-                "/project_management",
-                [project_management_page],
+         project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
+    
+         # Create the view with the content of the ProjectManagementPage
+         self.page.views.append(
+             ft.View(
+                 "/project_management",
+                 [
+                     ft.Container(
+                         content=project_management_page.build(),  # Call build to get the content
+                         bgcolor=self.page.theme.color_scheme.background,  # Ensure container background color is set
+                         expand=True
+                     )
+                 ],
+                 bgcolor=self.page.theme.color_scheme.background,  # Ensure view background color is set
+                 scroll=ft.ScrollMode.ALWAYS,
             )
-        )
-        self.page.update()
+         )
+         self.page.update()  
+         self.page.go(f"/project_management/{project_id}")
+
 
 class ManageUsersPage(UserControl):
     def __init__(self, db):
@@ -995,7 +1016,8 @@ class ProjectManagementPage(UserControl):
                 ))
 
             logger.info(f"User '{self.username}' viewed project '{project.get_project_name()}'.")
-
+            self.page.bgcolor = self.page.theme.color_scheme.background
+            
             return Container(
                 content=Column(
                     controls=[
@@ -2077,7 +2099,7 @@ class AddTaskWindow(UserControl):
             icon=ft.icons.CALENDAR_MONTH,
             on_click=lambda _: self.start_date_picker.pick_date(),
             width=400,
-            bgcolor=self.page.theme.color_scheme.on_primary_container
+            bgcolor=self.page.theme.color_scheme.on_background,
         )
 
         end_date_button = ElevatedButton(
@@ -2085,7 +2107,7 @@ class AddTaskWindow(UserControl):
             icon=ft.icons.CALENDAR_MONTH,
             on_click=lambda _: self.end_date_picker.pick_date(),
             width=400,
-            bgcolor=self.page.theme.color_scheme.on_primary_container,
+            bgcolor=self.page.theme.color_scheme.on_background,
         )
 
         self.member_checkboxes = []
@@ -2112,24 +2134,26 @@ class AddTaskWindow(UserControl):
                         text="Save",
                         on_click=self.save_task,
                         width=300,
-                        # style=ButtonStyle(
+                        style=ButtonStyle(
+                        bgcolor=self.page.theme.color_scheme.on_background,
                         #    bgcolor=self.page.theme.color_scheme.,
                         #     {"": colors.GREEN_ACCENT_700},
                         #     color={"": colors.WHITE},
-                        #     shape=RoundedRectangleBorder(radius=10),
-                        #     padding=Padding(15, 10, 15, 10)
-                        # )
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                        )
                     ),
                     ElevatedButton(
                         text="Cancel",
                         on_click=self.cancel_dialog,
                         width=300,
-                        # style=ButtonStyle(
+                         style=ButtonStyle(
+                         bgcolor=self.page.theme.color_scheme.on_background,
                         #     bgcolor={"": colors.RED_ACCENT_700},
                         #     color={"": colors.WHITE},
-                        #     shape=RoundedRectangleBorder(radius=10),
-                        #     padding=Padding(15, 10, 15, 10)
-                        # )
+                            shape=RoundedRectangleBorder(radius=10),
+                            padding=Padding(15, 10, 15, 10)
+                         )
                     ),
                     self.error_message
                 ],
@@ -2213,7 +2237,7 @@ class AddTaskWindow(UserControl):
 def main(page: ft.Page):
     db = Database()
 
-    # Light theme
+    
     light_theme = ft.Theme(
         font_family="Roboto",
         color_scheme=ft.ColorScheme(
@@ -2281,7 +2305,7 @@ def main(page: ft.Page):
         )
     )
 
-    # Apply the light theme initially
+ 
     page.theme = light_theme
     page.update()
 
@@ -2291,10 +2315,10 @@ def main(page: ft.Page):
         else:
             page.theme = light_theme
         page.update()
-        update_views_theme()  # Ensure all views are updated
+        update_views_theme()  
 
     def update_views_theme():
-        # This function will update the views to match the current theme
+        
         for view in page.views:
             if isinstance(view, ft.View):
                 view.bgcolor = page.theme.color_scheme.background
@@ -2501,13 +2525,15 @@ def main(page: ft.Page):
                             content=ft.Column(
                                 [CreateProjectPage(db, username, page)],
                             ),
-                            bgcolor=page.theme.color_scheme.background
+                            bgcolor=page.theme.color_scheme.background,
+                            expand=True
                         ),
                     ],
                     scroll=ft.ScrollMode.ALWAYS,
                     bgcolor=page.theme.color_scheme.background
                 )
-            )
+             )
+            
         elif page.route.startswith("/project_management"):
             project_id = page.route.split("/")[-1]
             username = page.session.get("username")
@@ -2518,14 +2544,20 @@ def main(page: ft.Page):
                         ft.Container(
                             content=ft.Column(
                                 [ProjectManagementPage(db, username, project_id, page)],
+                                
                             ),
-                            bgcolor=page.theme.color_scheme.background
+                            bgcolor=page.theme.color_scheme.background,
+                            expand=True
                         ),
                     ],
                     scroll=ft.ScrollMode.ALWAYS,
                     bgcolor=page.theme.color_scheme.background
                 )
             )
+            
+ 
+
+
         elif page.route.startswith("/add_task"):
             project_id = page.route.split("/")[-1]
             page.views.append(
