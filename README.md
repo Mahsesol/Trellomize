@@ -179,3 +179,19 @@ Dependencies are listed in the `requirements.txt` file. Install them using `pip`
 ```bash
 pip install -r requirements.txt
 ```
+
+
+
+## 🔗 Links
+https://t.me/lilia_rh  
+https://t.me/mahsa_solimani
+
+
+## Feedback
+
+If you have any feedback, please reach out to us. <3 
+## 
+- [Liliarouhi](https://www.github.com/liliarouhi)
+- [Mahsesol](https://github.com/Mahsesol)
+
+
