@@ -129,11 +129,11 @@ class LoginPage(UserControl):
                     self.page.go("/main")
             else:
                 self.error_message.value = "Your account is inactive. Please contact the administrator."
-                logger.warning(f"Inactive account login attempt for user: {username}")
+                logger.warning(f"Inactive account login attempt for user: '{username}'")
 
         else:
             self.error_message.value = "Invalid username or password!"
-            logger.warning(f"Invalid login attempt for user: {username}")
+            logger.warning(f"Invalid login attempt for user: '{username}'")
         self.update()
 
     def check_credentials(self, username, password):
@@ -324,7 +324,7 @@ class MainPage(UserControl):
             ),
             ElevatedButton(
                 text="Log out",
-                on_click=lambda e: self.page.go("/"),
+                on_click=self.go_back,
                 width=300,
                 style=ButtonStyle(
                     bgcolor={"": colors.RED_ACCENT_700},
@@ -376,9 +376,12 @@ class MainPage(UserControl):
             )
         )
         self.page.update()
+    def go_back(self,e):
+        logger.info(f"User '{self.username}' logged out successfully!")
+        self.page.go("/")
 
     def show_projects(self, e):
-        logger.info(f"User {self.username} requested to see their projects")
+        logger.info(f"User '{self.username}' requested to see their projects")
         projects_list = ProjectListPage(self.db, self.page)
         self.page.go(f"/projects_list")
         self.page.update()
@@ -578,10 +581,10 @@ class ActiveUsersPage(UserControl):
         else:
             return Column([
                 Row([
-                    Text(user.username),
+                    Text(user.get_username()),
                     ElevatedButton(
                         text="Inactivate",
-                        on_click=lambda e, user=user: self.inactivate_user(user.user_id),
+                        on_click=lambda e, user=user: self.inactivate_user(user.get_id()),
                         width=150,
                         style=ButtonStyle(
                             bgcolor={"": colors.RED_ACCENT_700},
@@ -590,7 +593,7 @@ class ActiveUsersPage(UserControl):
                             padding=Padding(10, 5, 10, 5)
                         )
                     )
-                ], alignment=MainAxisAlignment.CENTER, spacing=10) for user in users
+                ], alignment=MainAxisAlignment.CENTER, spacing=10) for user in users if not user.get_is_admin()
             ], alignment=MainAxisAlignment.CENTER, horizontal_alignment=CrossAxisAlignment.CENTER, spacing=10)
 
     def inactivate_user(self, user_id):
@@ -645,10 +648,10 @@ class InactiveUsersPage(UserControl):
         else:
             return Column([
                 Row([
-                    Text(user.username),
+                    Text(user.get_username()),
                     ElevatedButton(
                         text="Activate",
-                        on_click=lambda e, user=user: self.activate_user(user.user_id),
+                        on_click=lambda e, user=user: self.activate_user(user.get_id()),
                         width=150,
                         style=ButtonStyle(
                             bgcolor={"": colors.GREEN_ACCENT_700},
@@ -812,10 +815,12 @@ class CreateProjectPage(UserControl):
 
     def create_project_confirm(self, e):
         selected_user_ids = [cb.key for cb in self.member_checkboxes if cb.value]
+        selected_usernames = [self.db.get_user_by_id(user_id).get_username() for user_id in selected_user_ids]
 
-        if not selected_user_ids:
-            self.show_snackbar("Please select at least one member!")
-            return
+
+        # if not selected_user_ids:
+        #     self.show_snackbar("Please select at least one member!")
+        #     return
 
         leader_id = self.db.get_user_by_username(self.username).get_id()
         self.db.add_project(self.get_new_project_id(), self.get_new_project_name(), leader_id, selected_user_ids)
@@ -867,7 +872,7 @@ class CreateProjectPage(UserControl):
         self.page.go("/create_project")
         self.page.go("/main")
         self.page.update()
-        self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+        logger.info(f"User '{self.username}' canceled the creation of a new project.")
  
 
     def show_snackbar(self, message):
@@ -895,7 +900,7 @@ class CreateProjectPage(UserControl):
         self.page.go("/create_project")
         self.page.go("/main")
         self.page.update()
-        self.logger.info(f"User '{self.username}' canceled the creation of a new project.")
+        logger.info(f"User '{self.username}' canceled the creation of a new project.")
  
 
     def show_snackbar(self, message):
@@ -1295,6 +1300,136 @@ class ShowTaskDetailsWindow(UserControl):
         self.page.update()
 
 
+
+
+# class ShowCommentWindow(UserControl):
+#     def __init__(self, db, task_id, page):
+#         super().__init__()
+#         self.db = db
+#         self.task_id = task_id
+#         self.page = page
+#         self.add_comment_field = ft.TextField(label="Add Comment:")
+#         self.username = db.get_current_user_username(page)
+
+#     def build(self):
+#         return self._build_comment_view()
+
+#     def _build_comment_view(self):
+#         comments = self.db.get_task_comments(self.task_id)
+#         comment_boxes = self._build_comment_boxes(comments)
+
+#         self.comment_column = ft.Column(
+#             controls=[
+#                 ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
+#                 *comment_boxes,
+#                 self.add_comment_field,
+#                 ElevatedButton(
+#                     text="Add Comment",
+#                     on_click=self.add_comment,
+#                     width=300,
+#                     style=ButtonStyle(
+#                         bgcolor={"": colors.GREEN_ACCENT_700},
+#                         color={"": colors.WHITE},
+#                         shape=RoundedRectangleBorder(radius=10),
+#                         padding=Padding(15, 10, 15, 10)
+#                     )
+#                 ),
+#                 ElevatedButton(
+#                     text="Back",
+#                     on_click=self.go_back,
+#                     width=300,
+#                     style=ButtonStyle(
+#                         bgcolor={"": colors.BLUE_ACCENT_700},
+#                         color={"": colors.WHITE},
+#                         shape=RoundedRectangleBorder(radius=10),
+#                         padding=Padding(15, 10, 15, 10)
+#                     )
+#                 )
+#             ],
+#             alignment=MainAxisAlignment.CENTER,
+#             horizontal_alignment=CrossAxisAlignment.CENTER,
+#             spacing=20
+#         )
+
+#         return ft.Container(
+#             content=self.comment_column,
+#             alignment=ft.alignment.center,
+#             padding=20,
+#             bgcolor=self.page.theme.color_scheme.background,
+#             expand=True
+#         )
+
+#     def _build_comment_boxes(self, comments):
+#         if not comments:
+#             return [ft.Text("No comments yet.", size=20)]
+
+#         comment_boxes = []
+#         for comment in comments:
+#             author = comment.get_username()
+#             timestamp = comment.get_timestamp()
+#             content = comment.get_content()
+#             comment_box = ft.Container(
+#                 content=ft.Column([
+#                     ft.Text(f"{author} commented:", size=16, weight=ft.FontWeight.BOLD),
+#                     ft.Text(content, size=16),
+#                     ft.Text(f"at {timestamp}", size=14, italic=True)
+#                 ]),
+#                 padding=10,
+#                 border=ft.border.all(1),
+#                 margin=ft.margin.only(bottom=10)
+#             )
+
+#             comment_boxes.append(comment_box)
+
+#         return comment_boxes
+
+#     def add_comment(self, e):
+#         comment_content = self.add_comment_field.value
+#         if comment_content:
+#             username = self.username
+#             self.db.add_comment(self.task_id, username, comment_content)
+#             self.db.add_task_history(self.task_id, f"Added comment: '{comment_content}'", username)
+#             self.add_comment_field.value = ""
+#             self.refresh_comments()
+#             logger.info(f"User '{username}' added the comment '{comment_content}' to task ID '{self.task_id}'.")
+
+#     def refresh_comments(self):
+#         comments = self.db.get_task_comments(self.task_id)
+#         comment_boxes = self._build_comment_boxes(comments)
+#         self.comment_column.controls = [
+#             ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
+#             *comment_boxes,
+#             self.add_comment_field,
+#             ElevatedButton(
+#                 text="Add Comment",
+#                 on_click=self.add_comment,
+#                 width=300,
+#                 style=ButtonStyle(
+#                     bgcolor={"": colors.GREEN_ACCENT_700},
+#                     color={"": colors.WHITE},
+#                     shape=RoundedRectangleBorder(radius=10),
+#                     padding=Padding(15, 10, 15, 10)
+#                 )
+#             ),
+#             ElevatedButton(
+#                 text="Back",
+#                 on_click=self.go_back,
+#                 width=300,
+#                 style=ButtonStyle(
+#                     bgcolor={"": colors.BLUE_ACCENT_700},
+#                     color={"": colors.WHITE},
+#                     shape=RoundedRectangleBorder(radius=10),
+#                     padding=Padding(15, 10, 15, 10)
+#                 )
+#             )
+#         ]
+#         self.comment_column.update()
+
+#     def go_back(self, e):
+#         show_task_details = ShowTaskDetailsWindow(self.db, self.task_id , self.page)
+#         self.page.go(f"/show_task_details/{self.task_id}")
+#         self.page.update()
+
 class ShowCommentWindow(UserControl):
     def __init__(self, db, task_id, page):
         super().__init__()
@@ -1302,44 +1437,50 @@ class ShowCommentWindow(UserControl):
         self.task_id = task_id
         self.page = page
         self.add_comment_field = ft.TextField(label="Add Comment:")
+        self.username = db.get_current_user_username(page)
 
     def build(self):
+        return self._build_comment_view()
+
+    def _build_comment_view(self):
         comments = self.db.get_task_comments(self.task_id)
         comment_boxes = self._build_comment_boxes(comments)
 
-        return ft.Container(
-            content=ft.Column(
-                controls=[
-                    ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
-                    *comment_boxes,
-                    self.add_comment_field,
-                    ElevatedButton(
-                        text="Add Comment",
-                        on_click=self.add_comment,
-                        width=300,
-                        style=ButtonStyle(
-                            bgcolor={"": colors.GREEN_ACCENT_700},
-                            color={"": colors.WHITE},
-                            shape=RoundedRectangleBorder(radius=10),
-                            padding=Padding(15, 10, 15, 10)
-                        )
-                    ),
-                    ElevatedButton(
-                        text="Back",
-                        on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
-                        width=300,
-                        style=ButtonStyle(
-                            bgcolor={"": colors.BLUE_ACCENT_700},
-                            color={"": colors.WHITE},
-                            shape=RoundedRectangleBorder(radius=10),
-                            padding=Padding(15, 10, 15, 10)
-                        )
+        self.comment_column = ft.Column(
+            controls=[
+                ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
+                *comment_boxes,
+                self.add_comment_field,
+                ElevatedButton(
+                    text="Add Comment",
+                    on_click=self.add_comment,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.GREEN_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
                     )
-                ],
-                alignment=MainAxisAlignment.CENTER,
-                horizontal_alignment=CrossAxisAlignment.CENTER,
-                spacing=20
-            ),
+                ),
+                ElevatedButton(
+                    text="Back",
+                    on_click=self.go_back,
+                    width=300,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.BLUE_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(15, 10, 15, 10)
+                    )
+                )
+            ],
+            alignment=MainAxisAlignment.CENTER,
+            horizontal_alignment=CrossAxisAlignment.CENTER,
+            spacing=20
+        )
+
+        return ft.Container(
+            content=self.comment_column,
             alignment=ft.alignment.center,
             padding=20,
             bgcolor=self.page.theme.color_scheme.background,
@@ -1355,11 +1496,26 @@ class ShowCommentWindow(UserControl):
             author = comment.get_username()
             timestamp = comment.get_timestamp()
             content = comment.get_content()
+            delete_button = None
+            if author == self.username:
+                delete_button = ElevatedButton(
+                    text="Delete",
+                    on_click=lambda e, comment_content=content: self.delete_comment(e, comment_content),
+                    width=100,
+                    style=ButtonStyle(
+                        bgcolor={"": colors.RED_ACCENT_700},
+                        color={"": colors.WHITE},
+                        shape=RoundedRectangleBorder(radius=10),
+                        padding=Padding(5, 5, 5, 5)
+                    )
+                )
+
             comment_box = ft.Container(
                 content=ft.Column([
                     ft.Text(f"{author} commented:", size=16, weight=ft.FontWeight.BOLD),
                     ft.Text(content, size=16),
-                    ft.Text(f"at {timestamp}", size=14, italic=True)
+                    ft.Text(f"at {timestamp}", size=14, italic=True),
+                    delete_button
                 ]),
                 padding=10,
                 border=ft.border.all(1),
@@ -1373,18 +1529,26 @@ class ShowCommentWindow(UserControl):
     def add_comment(self, e):
         comment_content = self.add_comment_field.value
         if comment_content:
-            username = self.db.get_current_user_username(self.page)
+            username = self.username
             self.db.add_comment(self.task_id, username, comment_content)
             self.db.add_task_history(self.task_id, f"Added comment: '{comment_content}'", username)
             self.add_comment_field.value = ""
             self.refresh_comments()
             logger.info(f"User '{username}' added the comment '{comment_content}' to task ID '{self.task_id}'.")
 
+    def delete_comment(self, e, comment_content):
+        comment = self.db.get_comment(self.task_id, self.username, comment_content)
+        if comment:
+            self.db.delete_comment(self.task_id, self.username, comment_content)
+            self.db.add_task_history(self.task_id, f"Deleted comment: '{comment_content}'", self.username)
+            self.refresh_comments()
+            logger.info(f"User '{self.username}' deleted the comment '{comment_content}' from task ID '{self.task_id}'.")
+
     def refresh_comments(self):
         comments = self.db.get_task_comments(self.task_id)
         comment_boxes = self._build_comment_boxes(comments)
-        self.page.views[-1].controls = [
-            ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD,  color=self.page.theme.color_scheme.on_secondary),
+        self.comment_column.controls = [
+            ft.Text("Comments", size=30, weight=ft.FontWeight.BOLD, color=self.page.theme.color_scheme.on_secondary),
             *comment_boxes,
             self.add_comment_field,
             ElevatedButton(
@@ -1400,7 +1564,7 @@ class ShowCommentWindow(UserControl):
             ),
             ElevatedButton(
                 text="Back",
-                on_click=lambda e: self.page.go(f"/show_task_details/{self.task_id}"),
+                on_click=self.go_back,
                 width=300,
                 style=ButtonStyle(
                     bgcolor={"": colors.BLUE_ACCENT_700},
@@ -1410,11 +1574,13 @@ class ShowCommentWindow(UserControl):
                 )
             )
         ]
-        self.page.update()
+        self.comment_column.update()
 
-    def go_back(self):
+    def go_back(self, e):
+        show_task_details = ShowTaskDetailsWindow(self.db, self.task_id , self.page)
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
+
 
 class ChangePriorityWindow(UserControl):
     def __init__(self, db, task_id, page):
@@ -2501,15 +2667,15 @@ def main(page: ft.Page):
                         ft.Container(
                             content=ft.Column(
                                 [ShowTasksWindow(db, project_id, page)],
-                                 expand=True  # Ensure the column takes all available space
+                                #  expand=True  
                             ),
                             bgcolor=page.theme.color_scheme.background,
-                            expand=True  # Ensure the container takes all available space
+                            # expand=True  
                         ),
                     ],
                     scroll=ft.ScrollMode.ALWAYS,
                     bgcolor=page.theme.color_scheme.background,
-                  expand=True  # Ensure the view takes all available space
+                #   expand=True  # Ensure the view takes all available space
                 )
         )
 

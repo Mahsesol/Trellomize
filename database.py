@@ -404,6 +404,17 @@ class Database:
         self.conn.commit()
         cursor.close()
 
+    def delete_comment(self, task_id, username, content):
+        self.conn.execute("DELETE FROM comments WHERE task_id = ? AND username = ? AND content = ?",
+                          (task_id, username, content))
+        self.conn.commit()
 
+    def get_comment(self, task_id, username, content):
+        cursor = self.conn.execute("SELECT username, content, timestamp FROM comments WHERE task_id = ? AND username = ? AND content = ?",
+                                   (task_id, username, content))
+        row = cursor.fetchone()
+        if row:
+           return Comment(username=row[0], content=row[1], timestamp=row[2]) 
+        return None
 
 
