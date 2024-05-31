@@ -49,20 +49,20 @@ class LoginPage(UserControl):
         self.username = TextField(
             label="Username",
             width=300,
-            border_color=self.page.theme.color_scheme.on_secondary,
+            border_color=self.page.theme.color_scheme.on_primary,
             border_width=2,
             border_radius=10,
-            bgcolor=colors.WHITE,
+            bgcolor=self.page.theme.color_scheme.on_surface,
         )
         self.password = TextField(
             label="Password",
             password=True,
             can_reveal_password=True,
             width=300,
-            border_color=self.page.theme.color_scheme.on_secondary,
+            border_color=self.page.theme.color_scheme.on_primary,
             border_width=2,
             border_radius=10,
-            bgcolor=colors.WHITE,
+            bgcolor=self.page.theme.color_scheme.on_surface,
         )
         self.error_message = Text(value="", color=self.page.theme.color_scheme.error, size=14)
         
@@ -71,7 +71,7 @@ class LoginPage(UserControl):
             on_click=self.login,
             width=150,
             style=ButtonStyle(
-                bgcolor=self.page.theme.color_scheme.primary,
+                bgcolor=self.page.theme.color_scheme.on_primary,
                 # {"": colors.TEAL_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
@@ -160,18 +160,18 @@ class SignupPage(UserControl):
         self.username = TextField(
             label="Username",
             width=300,
-            border_color=colors.TEAL_ACCENT_700,
+            border_color=self.page.theme.color_scheme.on_secondary,
             border_width=2,
             border_radius=10,
-            bgcolor=self.page.theme.color_scheme.on_secondary,
+            bgcolor=self.page.theme.color_scheme.on_surface,
         )
         self.email = TextField(
             label="Email",
             width=300,
-            border_color=colors.TEAL_ACCENT_700,
+            border_color=self.page.theme.color_scheme.on_secondary,
             border_width=2,
             border_radius=10,
-            bgcolor= self.page.theme.color_scheme.on_secondary,
+            bgcolor= self.page.theme.color_scheme.on_surface,
         )
         self.password = TextField(
             label="Password",
@@ -181,7 +181,7 @@ class SignupPage(UserControl):
             border_color=self.page.theme.color_scheme.on_secondary,
             border_width=2,
             border_radius=10,
-            bgcolor=colors.WHITE,
+            bgcolor=self.page.theme.color_scheme.on_surface,
         )
         self.confirm_password = TextField(
             label="Confirm Password",
@@ -191,7 +191,7 @@ class SignupPage(UserControl):
             border_color= self.page.theme.color_scheme.on_secondary,
             border_width=2,
             border_radius=10,
-            bgcolor=colors.WHITE,
+            bgcolor=self.page.theme.color_scheme.on_surface,
         )
         self.error_message = Text(value="", color=colors.RED, size=14)
 
@@ -200,7 +200,8 @@ class SignupPage(UserControl):
             on_click=self.signup,
             width=150,
             style=ButtonStyle(
-                bgcolor={"": colors.TEAL_ACCENT_700},
+                bgcolor=self.page.theme.color_scheme.on_primary,
+                #{"": colors.TEAL_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -212,7 +213,8 @@ class SignupPage(UserControl):
             on_click=self.show_login,
             width=150,
             style=ButtonStyle(
-                bgcolor={"": colors.BLUE_ACCENT_700},
+                bgcolor=self.page.theme.color_scheme.primary,
+                #{"": colors.BLUE_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -2327,6 +2329,7 @@ def main(page: ft.Page):
             secondary=ft.colors.PINK,
             on_background=ft.colors.BLACK,
             on_secondary=ft.colors.BLACK,
+            on_surface=ft.colors.TEAL_100,
         ),
         text_theme=ft.TextTheme(
             body_medium=ft.TextStyle(color=ft.colors.BLACK),
@@ -2359,6 +2362,7 @@ def main(page: ft.Page):
             secondary=ft.colors.PURPLE,
             on_background=ft.colors.WHITE,
             on_secondary=ft.colors.WHITE,
+            on_surface=ft.colors.DEEP_PURPLE_100,
         ),
         text_theme=ft.TextTheme(
             body_medium=ft.TextStyle(color=ft.colors.WHITE),
