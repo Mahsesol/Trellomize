@@ -72,7 +72,6 @@ class LoginPage(UserControl):
             width=150,
             style=ButtonStyle(
                 bgcolor=self.page.theme.color_scheme.on_primary,
-                # {"": colors.TEAL_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -85,7 +84,6 @@ class LoginPage(UserControl):
             width=150,
             style=ButtonStyle(
                 bgcolor=self.page.theme.color_scheme.primary,
-                #{"": colors.BLUE_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -201,7 +199,6 @@ class SignupPage(UserControl):
             width=150,
             style=ButtonStyle(
                 bgcolor=self.page.theme.color_scheme.on_primary,
-                #{"": colors.TEAL_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -214,7 +211,6 @@ class SignupPage(UserControl):
             width=150,
             style=ButtonStyle(
                 bgcolor=self.page.theme.color_scheme.primary,
-                #{"": colors.BLUE_ACCENT_700},
                 color={"": colors.WHITE},
                 shape=RoundedRectangleBorder(radius=10),
                 padding=Padding(15, 10, 15, 10)
@@ -306,7 +302,6 @@ class MainPage(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.on_primary_container,
-                    #{"": colors.TEAL_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -318,7 +313,6 @@ class MainPage(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.secondary,
-                    #{"": colors.BLUE_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -391,16 +385,6 @@ class MainPage(UserControl):
     def manage_users(self, e):
         self.page.go("/manage_users")
 
-    # def project_management(self, project_id):
-    #     project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
-    #     self.page.views.append(
-    #         ft.View(
-    #             "/project_management",
-    #             [project_management_page],
-    #         )
-    #     )
-    #     self.page.update()
-
 class ProjectListPage(UserControl):
     def __init__(self, db, page):
         super().__init__()
@@ -425,7 +409,6 @@ class ProjectListPage(UserControl):
                     width=button_width,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.primary,
-                        #{"": colors.TEAL_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -446,7 +429,6 @@ class ProjectListPage(UserControl):
                     width=button_width,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_primary_container,
-                        #{"": colors.BLUE_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -482,30 +464,20 @@ class ProjectListPage(UserControl):
             padding=20
         )
 
-    # def manage_project(self, project_id):
-    #     project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
-    #     self.page.views.append(
-    #         ft.View(
-    #             "/project_management",
-    #             [project_management_page],
-    #         )
-    #     )
-    #     self.page.update()
     def manage_project(self, project_id):
          project_management_page = ProjectManagementPage(self.db, self.username, project_id, self.page)
     
-         # Create the view with the content of the ProjectManagementPage
          self.page.views.append(
              ft.View(
                  "/project_management",
                  [
                      ft.Container(
-                         content=project_management_page.build(),  # Call build to get the content
-                         bgcolor=self.page.theme.color_scheme.background,  # Ensure container background color is set
+                         content=project_management_page.build(),  
+                         bgcolor=self.page.theme.color_scheme.background, 
                          expand=True
                      )
                  ],
-                 bgcolor=self.page.theme.color_scheme.background,  # Ensure view background color is set
+                 bgcolor=self.page.theme.color_scheme.background,
                  scroll=ft.ScrollMode.ALWAYS,
             )
          )
@@ -531,7 +503,6 @@ class ManageUsersPage(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.on_primary_container,
-                            #{"": colors.BLUE_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -584,7 +555,6 @@ class ActiveUsersPage(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.on_primary_container,
-                            #{"": colors.BLUE_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -652,7 +622,6 @@ class InactiveUsersPage(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.on_primary_container, 
-                            #{"": colors.BLUE_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -835,7 +804,7 @@ class CreateProjectPage(UserControl):
                     )
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,  # Center buttons
-                spacing=20,  # Add spacing between buttons
+                spacing=20,  
             )
         ]
         self.update()
@@ -969,7 +938,6 @@ class ProjectManagementPage(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.primary,
-                        #{"": colors.TEAL_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -981,7 +949,6 @@ class ProjectManagementPage(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.primary_container,
-                        #{"": colors.BLUE_ACCENT_700},
                          color={"": colors.WHITE},
                          shape=RoundedRectangleBorder(radius=10),
                          padding=Padding(15, 10, 15, 10)
@@ -993,7 +960,6 @@ class ProjectManagementPage(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_primary,
-                        #{"": colors.RED_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1008,7 +974,6 @@ class ProjectManagementPage(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_primary_container,
-                        #{"": colors.PURPLE_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1096,7 +1061,6 @@ class ShowTasksWindow(UserControl):
                             on_click=lambda e, task_id=task.get_task_id(): self.show_task_details(task_id),
                             style=ButtonStyle(
                                 bgcolor=self.page.theme.color_scheme.primary,
-                                #{"": colors.GREEN_ACCENT_700},
                                 color={"": colors.WHITE},
                                 shape=RoundedRectangleBorder(radius=10),
                                 padding=Padding(15, 10, 15, 10)
@@ -1133,7 +1097,6 @@ class ShowTasksWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.on_primary,
-                            #{"": colors.BLUE_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -1190,7 +1153,6 @@ class ShowTaskDetailsWindow(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.on_primary_container,
-                    #bgcolor={"": colors.GREEN_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -1202,7 +1164,6 @@ class ShowTaskDetailsWindow(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.secondary,
-                    #bgcolor={"": colors.BLUE_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -1219,7 +1180,6 @@ class ShowTaskDetailsWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.secondary,
-                        #bgcolor={"": colors.PURPLE_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1235,7 +1195,6 @@ class ShowTaskDetailsWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_surface,
-                        #bgcolor={"": colors.ORANGE_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1249,7 +1208,6 @@ class ShowTaskDetailsWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.primary,
-                        #{"": colors.GREEN_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1263,7 +1221,6 @@ class ShowTaskDetailsWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_primary,
-                        #bgcolor={"": colors.RED_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1363,7 +1320,6 @@ class ShowCommentWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_primary,
-                        # bgcolor={"": colors.GREEN_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1375,7 +1331,6 @@ class ShowCommentWindow(UserControl):
                     width=300,
                     style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.primary,
-                        # bgcolor={"": colors.BLUE_ACCENT_700},
                         color={"": colors.WHITE},
                         shape=RoundedRectangleBorder(radius=10),
                         padding=Padding(15, 10, 15, 10)
@@ -1412,7 +1367,6 @@ class ShowCommentWindow(UserControl):
                         width=100,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.secondary,
-                            #{"": colors.RED_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(5, 5, 5, 5)
@@ -1469,7 +1423,6 @@ class ShowCommentWindow(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.on_primary,
-                        # bgcolor={"": colors.GREEN_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -1481,7 +1434,6 @@ class ShowCommentWindow(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.primary,
-                    #{"": colors.BLUE_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -1526,7 +1478,6 @@ class ChangePriorityWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.primary,
-                            #bgcolor={"": colors.GREEN_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -1669,7 +1620,6 @@ class ShowHistoryWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.primary,
-                            #{"": colors.BLUE_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -1718,7 +1668,6 @@ class AddAssigneesWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.primary,
-                            #{"": colors.GREEN_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -1795,7 +1744,6 @@ class RemoveAssigneesWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.primary,
-                            #{"": colors.GREEN_ACCENT_700},
                             color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
@@ -1908,7 +1856,6 @@ class ProjectMembersWindow(UserControl):
                 width=300,
                 style=ButtonStyle(
                     bgcolor=self.page.theme.color_scheme.on_primary,
-                    #{"": colors.BLUE_ACCENT_700},
                     color={"": colors.WHITE},
                     shape=RoundedRectangleBorder(radius=10),
                     padding=Padding(15, 10, 15, 10)
@@ -2136,9 +2083,6 @@ class AddTaskWindow(UserControl):
                         width=300,
                         style=ButtonStyle(
                         bgcolor=self.page.theme.color_scheme.on_background,
-                        #    bgcolor=self.page.theme.color_scheme.,
-                        #     {"": colors.GREEN_ACCENT_700},
-                        #     color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
                         )
@@ -2149,8 +2093,6 @@ class AddTaskWindow(UserControl):
                         width=300,
                          style=ButtonStyle(
                          bgcolor=self.page.theme.color_scheme.on_background,
-                        #     bgcolor={"": colors.RED_ACCENT_700},
-                        #     color={"": colors.WHITE},
                             shape=RoundedRectangleBorder(radius=10),
                             padding=Padding(15, 10, 15, 10)
                          )
@@ -2237,7 +2179,8 @@ class AddTaskWindow(UserControl):
 def main(page: ft.Page):
     db = Database()
 
-    
+
+#light theme
     light_theme = ft.Theme(
         font_family="Roboto",
         color_scheme=ft.ColorScheme(
@@ -2354,8 +2297,6 @@ def main(page: ft.Page):
                                         on_click=lambda e: page.go("/login"),
                                         width=300,
                                         style=ButtonStyle(
-                                            # bgcolor={"": colors.GREEN_ACCENT_700},
-                                            # color={"": colors.WHITE},
                                             shape=RoundedRectangleBorder(radius=10),
                                             padding=Padding(15, 10, 15, 10)
                                         )
@@ -2365,8 +2306,6 @@ def main(page: ft.Page):
                                         on_click=lambda e: page.go("/signup"),
                                         width=300,
                                          style=ButtonStyle(
-                                        #     bgcolor={"": colors.BLUE_ACCENT_700},
-                                        #     color={"": colors.WHITE},
                                              shape=RoundedRectangleBorder(radius=10),
                                              padding=Padding(15, 10, 15, 10)
                                          )
@@ -2387,8 +2326,6 @@ def main(page: ft.Page):
                                         on_click=lambda e: page.window_destroy(),
                                         width=300,
                                          style=ButtonStyle(
-                                        #     bgcolor={"": colors.RED_ACCENT_700},
-                                        #     color={"": colors.WHITE},
                                              shape=RoundedRectangleBorder(radius=10),
                                              padding=Padding(15, 10, 15, 10)
                                          )
@@ -2601,15 +2538,13 @@ def main(page: ft.Page):
                         ft.Container(
                             content=ft.Column(
                                 [ShowTasksWindow(db, project_id, page)],
-                                #  expand=True  
                             ),
                             bgcolor=page.theme.color_scheme.background,
-                            # expand=True  
                         ),
                     ],
                     scroll=ft.ScrollMode.ALWAYS,
                     bgcolor=page.theme.color_scheme.background,
-                #   expand=True  # Ensure the view takes all available space
+
                 )
         )
 
