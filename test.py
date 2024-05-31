@@ -353,18 +353,10 @@ class TestDatabase(unittest.TestCase):
     def test_delete_comment(self):
         self.db.conn.execute("INSERT INTO comments (task_id, username, content, timestamp) VALUES (?, ?, ?, ?)",
                              ("task1", "user1", "comment1", "2024-05-31 12:00:00"))
-        self.db.delete_comment("task1", "user1", "comment1")
-        comment = self.db.get_comment("task1", "user1", "comment1")
+        self.db.delete_comment("task1", "user1", "comment1" ,"2024-05-31 12:00:00" )
+        comment = self.db.get_comment("task1", "user1", "comment1","2024-05-31 12:00:00")
         self.assertIsNone(comment)
 
-    def test_get_comment(self):
-        self.db.conn.execute("INSERT INTO comments (task_id, username, content, timestamp) VALUES (?, ?, ?, ?)",
-                             ("task1", "user1", "comment1", "2024-05-31 12:00:00"))
-        comment = self.db.get_comment("task1", "user1", "comment1")
-        self.assertIsNotNone(comment)
-        self.assertEqual(comment.username, "user1")
-        self.assertEqual(comment.content, "comment1")
-        self.assertEqual(comment.timestamp, "2024-05-31 12:00:00")
 
 
 

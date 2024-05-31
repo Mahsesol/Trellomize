@@ -1290,9 +1290,6 @@ class ShowTaskDetailsWindow(UserControl):
         self.page.go(f"/show_tasks/{project_id}")
         self.page.update()
 
-
-
-
 class ShowCommentWindow(UserControl):
     def __init__(self, db, task_id, page):
         super().__init__()
@@ -1363,7 +1360,7 @@ class ShowCommentWindow(UserControl):
                 if author == self.username:
                     delete_button = ElevatedButton(
                         text="Delete",
-                        on_click=lambda e, comment_content=content: self.delete_comment(e, comment_content),
+                        on_click=lambda e, comment_content=content, comment_timestamp=timestamp: self.delete_comment(comment_content, comment_timestamp),
                         width=100,
                         style=ButtonStyle(
                             bgcolor=self.page.theme.color_scheme.secondary,
@@ -1373,13 +1370,17 @@ class ShowCommentWindow(UserControl):
                         )
                     )
 
+                comment_box_content = [
+                    Text(f"{author} commented:", size=14, weight=ft.FontWeight.BOLD),
+                    Text(content, size=16),
+                    Text(f"at {timestamp}", size=12, italic=True, color=colors.GREY)
+                ]
+
+                if delete_button:
+                    comment_box_content.append(delete_button)
+
                 comment_box = Container(
-                    content=Column([
-                        Text(f"{author} commented:", size=14, weight=ft.FontWeight.BOLD),
-                        Text(content, size=16),
-                        Text(f"at {timestamp}", size=12, italic=True, color=colors.GREY),
-                        delete_button
-                    ]),
+                    content=Column(comment_box_content),
                     padding=10,
                     border=border.all(1, color=colors.GREY),
                     border_radius=10,
@@ -1402,13 +1403,11 @@ class ShowCommentWindow(UserControl):
             self.refresh_comments()
             logger.info(f"User '{username}' added the comment '{comment_content}' to task ID '{self.task_id}'.")
 
-    def delete_comment(self, e, comment_content):
-        comment = self.db.get_comment(self.task_id, self.username, comment_content)
-        if comment:
-            self.db.delete_comment(self.task_id, self.username, comment_content)
-            self.db.add_task_history(self.task_id, f"Deleted comment: '{comment_content}'", self.username)
-            self.refresh_comments()
-            logger.info(f"User '{self.username}' deleted the comment '{comment_content}' from task ID '{self.task_id}'.")
+    def delete_comment(self, comment_content, timestamp):
+        self.db.delete_comment(self.task_id, self.username, comment_content, timestamp)
+        self.db.add_task_history(self.task_id, f"Deleted comment: '{comment_content}'", self.username)
+        self.refresh_comments()
+        logger.info(f"User '{self.username}' deleted the comment '{comment_content}' from task ID '{self.task_id}'.")
 
     def refresh_comments(self):
         comments = self.db.get_task_comments(self.task_id)
@@ -1443,7 +1442,7 @@ class ShowCommentWindow(UserControl):
         self.comment_column.update()
 
     def go_back(self, e):
-        show_task_details = ShowTaskDetailsWindow(self.db, self.task_id , self.page)
+        show_task_details = ShowTaskDetailsWindow(self.db, self.task_id, self.page)
         self.page.go(f"/show_task_details/{self.task_id}")
         self.page.update()
 
@@ -1909,7 +1908,7 @@ class ProjectMembersWindow(UserControl):
                                     )
                                 ),
                                 ElevatedButton(
-                                    text="Cancel",
+                                    text="Back",
                                     on_click=self.cancel_add_members,
                                     width=300,
                                     style=ButtonStyle(
@@ -1945,7 +1944,8 @@ class ProjectMembersWindow(UserControl):
             self.update_member_checkboxes()
             self.page.snack_bar = ft.SnackBar(content=ft.Text("Members added successfully!"))
             self.page.snack_bar.open = True
-            self.page.go(f"/project_members/{self.project_id}")
+            project_memberss = ProjectMembersWindow(self.db,self.project_id,self.page)
+            self.page.go(f"/project_memberss/{self.project_id}")
             self.page.update()
         else:
             self.page.snack_bar = ft.SnackBar(content=ft.Text("Please select a member first!"))
