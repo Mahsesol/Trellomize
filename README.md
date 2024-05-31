@@ -47,7 +47,7 @@ Welcome to Trellomize, a comprehensive project management application designed t
     ```
 4. **Run the application:**
     ```bash
-    python app.py
+    python main.py
     ```
 
 ## Usage
