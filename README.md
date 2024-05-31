@@ -1,5 +1,7 @@
+[![AGPL License](https://img.shields.io/badge/IUST-Mathematic:-purple.svg)](http://www.gnu.org/licenses/agpl-3.0)
 # Trellomize
 ## Project Management App
+
 ![image](https://github.com/Mahsesol/Trellomize/assets/154425249/97bf4f71-b371-4576-bc77-fa10bd8bf013)
 
 Welcome to Trellomize, a comprehensive project management application designed to streamline your workflow and enhance team collaboration. This app is built with the Flet framework, providing a modern and intuitive user interface.
